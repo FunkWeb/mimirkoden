@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlwcqfkotaj4m"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_bf3rj"]
+[ext_resource type="Texture2D" uid="uid://b4usif1gshvr7" path="res://player_asset/red-round-clip-art-download-12.png" id="2_31fnd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fcv5b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6ktnt"]
+font_color = Color(1, 0, 0, 1)
+outline_size = 5
+shadow_size = 0
+
+[node name="Player" type="AnimatableBody2D"]
+z_index = 100
+z_as_relative = false
+script = ExtResource("1_bf3rj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fcv5b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0202172, 0.0202172)
+texture = ExtResource("2_31fnd")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+custom_minimum_size = Vector2(20, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "P"
+label_settings = SubResource("LabelSettings_6ktnt")
+horizontal_alignment = 1
+vertical_alignment = 1
