@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvp45gs8abvkb"]
+
+[ext_resource type="PackedScene" uid="uid://bv3gd5i8irs4v" path="res://board.tscn" id="1_2ebvj"]
+[ext_resource type="Script" path="res://main.gd" id="1_mcyre"]
+[ext_resource type="PackedScene" uid="uid://dlwcqfkotaj4m" path="res://player.tscn" id="2_q560g"]
+
+[sub_resource type="Gradient" id="Gradient_mpsx1"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.134021, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ubdst"]
+gradient = SubResource("Gradient_mpsx1")
+fill_to = Vector2(1, 0.865809)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_mcyre")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ubdst")
+
+[node name="Board" parent="." instance=ExtResource("1_2ebvj")]
+position = Vector2(595, 335)
+
+[node name="Player" parent="." instance=ExtResource("2_q560g")]
+scale = Vector2(1.64, 1.64)
+active_player = true
+
+[connection signal="clicked" from="Board" to="Player" method="_on_board_clicked"]

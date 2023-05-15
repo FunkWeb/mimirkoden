@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://7skuuwqriks2"]
+
+[ext_resource type="Texture2D" uid="uid://cjepjtyvscwnl" path="res://tile_assets/tile_atlas.png" id="1_2rkcl"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_efixp"]
+resource_name = "tiles"
+texture = ExtResource("1_2rkcl")
+texture_region_size = Vector2i(110, 128)
+0:0/0 = 0
+0:0/0/custom_data_0 = "ground"
+0:0/0/custom_data_1 = true
+0:0/0/custom_data_2 = true
+1:0/0 = 0
+1:0/0/custom_data_0 = "wall"
+2:0/0 = 0
+2:0/0/custom_data_0 = "border"
+
+[resource]
+tile_shape = 3
+tile_size = Vector2i(110, 128)
+custom_data_layer_0/name = "tile_type"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "available"
+custom_data_layer_1/type = 1
+custom_data_layer_2/name = "selectable"
+custom_data_layer_2/type = 1
+sources/0 = SubResource("TileSetAtlasSource_efixp")
+tile_proxies/coords_level = [[0, Vector2i(0, 0)], [5, Vector2i(0, 0)], [1, Vector2i(0, 0)], [5, Vector2i(1, 0)], [2, Vector2i(0, 0)], [5, Vector2i(2, 0)]]
