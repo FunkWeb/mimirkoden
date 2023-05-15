@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://gnsctgrj2ahw"]
+
+[ext_resource type="Script" path="res://NumPlayersButton.gd" id="2_gspcm"]
+
+[sub_resource type="GDScript" id="GDScript_ekj0h"]
+script/source = "extends CanvasLayer
+
+signal start_game
+signal players
+
+var msg = \"Players: \"
+#var popup = $NumPlayersButton.get_popup()
+#var popup = $NumPlayersButton.get_popup()
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	#popup.connect(\"id_pressed\",self,\"_on_num_players_pressed\")
+
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+func update_player_count(num):
+	$NumPlayersButton.text = msg + str(num)
+	
+func _on_num_players_button_pressed(id: int):
+	#print(id,\" pressed\")
+	update_player_count(id)
+	players.emit(id)
+	pass # Replace with function body.
+
+
+func _on_start_button_pressed():
+	start_game.emit()
+	pass # Replace with function body.
+
+
+"
+
+[node name="StartUI" type="CanvasLayer"]
+script = SubResource("GDScript_ekj0h")
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 139.0
+offset_top = 222.0
+offset_right = 185.0
+offset_bottom = 253.0
+text = "Start!"
+
+[node name="NumPlayersButton" type="MenuButton" parent="."]
+offset_left = 130.0
+offset_top = 132.0
+offset_right = 195.0
+offset_bottom = 163.0
+text = "Players"
+script = ExtResource("2_gspcm")
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="NumPlayersButton" to="." method="_on_num_players_button_pressed"]

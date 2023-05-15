@@ -9,9 +9,21 @@ var num_selected_players = 6 # Will be set by start menu
 
 func _ready():
 #	pass
+	$StartUI.update_player_count(num_selected_players)
+	
+	
+
+
+func _on_start_ui_start_game():
 	for player in num_selected_players:
 		players.push_back(Player.duplicate())
 	
 	for player in players:
 		player.set_position(Vector2(200,200))
 		print(player.position)
+	$StartUI.hide()
+
+
+func _on_start_ui_players(num: int):
+	num_selected_players = num
+	
