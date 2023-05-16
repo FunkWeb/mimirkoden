@@ -1,0 +1,15 @@
+Node
+Sprite2D
+Label
+CollisionShape2D
+AnimatableBody2D
+StaticBody2D
+CharacterBody2D
+CollisionPolygon2D
+Polygon2D
+Node2D
+Area2D
+TextureRect
+CanvasModulate
+CanvasLayer
+TileMap
