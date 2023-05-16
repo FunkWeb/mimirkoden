@@ -22,14 +22,11 @@ func _ready():
 	moves = 6
 	keys = 10
 	walk_walls = true
-	
-	current_cell = Vector2i(-1,-1)
+	# start positions: (-4, 6), (3, 6), (6, -1), (3, -8), (-4, -8), (-8, -1)
+	current_cell = Vector2i(-4,6)
 	start_pos = board.get_map_pos(current_cell)
 	set_position(start_pos)
-	
-	used_tiles = [current_cell]
-	cell_index = board.get_index_from_coor(current_cell)
-	board.tile_list[cell_index].occupied = true
+	used_tiles = []
 	
 func new_tile_effect(tile):
 	if tile.type == "ground":
