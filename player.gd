@@ -1,6 +1,7 @@
 extends AnimatableBody2D
 
 var board
+var start_pos
 var current_cell
 @export var active_player:bool
 var moves
@@ -16,14 +17,14 @@ var move_sound
 func _ready():
 	board = $"../Board"
 	move_sound = $"../AudioStreamPlayer"
-	# edited values for testing:
-	battery = 10
-	moves = 4
-	keys = 20
+	# temp values for testing:
+	battery = 20
+	moves = 6
+	keys = 10
 	walk_walls = true
 	
 	current_cell = Vector2i(-1,-1)
-	var start_pos = board.get_map_pos(current_cell)
+	start_pos = board.get_map_pos(current_cell)
 	set_position(start_pos)
 	
 	used_tiles = [current_cell]
@@ -39,20 +40,27 @@ func new_tile_effect(tile):
 		battery = min(battery, 20)
 	elif tile.type == "negative":
 		battery -= 1
-		if battery == 0:
-			# move player to start position
-			pass
+		if battery < 0: # less than 0
+			out_of_battery()
 	elif tile.type == "lock":
-		keys -= 10
+		keys -= 5
 	elif tile.type == "special_card":
 		pass
 		# draw random special card
 	elif tile.type == "shop":
 		pass
-		# show random cards to buy
+		# show shop menu
+		# 3 random cards to buy
+		# keys to buy
+		# one time refresh shop button
 	elif tile.type == "card":
 		pass
 		# draw random card
+		
+func out_of_battery():
+		set_position(start_pos) # move to start position
+		keys = max(0, keys-1) # lose a key
+
 
 func move_player(clicked_cell):
 	set_position(board.map_coords)
@@ -80,6 +88,9 @@ func _on_board_clicked():
 		end_turn(used_tiles)
 
 func end_turn(used_tile_list):
+	if battery == 0:
+		out_of_battery()
+	print("ending turn, next player:")
 	used_tile_list.pop_back() # remove last tile so it stays occupied for next player
 	for tile in used_tile_list:
 		var index = board.get_index_from_coor(tile)

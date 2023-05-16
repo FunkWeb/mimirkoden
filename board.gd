@@ -16,7 +16,6 @@ func _unhandled_input(event):
 	if !(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
 		return
 	clicked_cell = local_to_map(get_local_mouse_position())
-	print(clicked_cell)
 	if clicked_cell not in all_cells:
 		return # forhindrer crash ved trykk utenfor grid
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
@@ -46,17 +45,17 @@ func check_valid(cell):
 		return false
 	var tile = tile_list[tile_index]
 	if tile.occupied or (tile.type == "wall" and not player.walk_walls) or\
-		(tile.type == "lock" or tile.type == "win") and player.keys < 10:
+		(tile.type == "lock" or tile.type == "win") and player.keys < 5:
 		return false
 	return true
 
 class Tile:
 	var type #ground, start, wall, shop, card, win, negative, lock, special_card
-	var group #grey, red, purple, blue, teal, green, yellow
+	var group # not implemented yet, zones for card effects
 	var walkable
 	var occupied
 	func _init():
-		group = []
+		group = []  #grey, red, purple, blue, teal, green, yellow
 		walkable = true
 		occupied = false
 

@@ -1,2 +1,4 @@
 res://main.tscn
 res://player.gd
+res://board.gd
+res://board.tscn
