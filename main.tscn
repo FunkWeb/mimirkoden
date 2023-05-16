@@ -37,6 +37,7 @@ active_player = true
 [node name="StartUI" parent="." instance=ExtResource("4_fvbfl")]
 
 [node name="QuitUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("5_p7xs8")
 
 [node name="Message" type="Label" parent="QuitUI"]
