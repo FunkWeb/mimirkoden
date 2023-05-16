@@ -42,18 +42,30 @@ func new_tile_effect(tile):
 	elif tile.type == "lock":
 		keys -= 5
 	elif tile.type == "special_card":
-		pass
-		# draw random special card
+		draw_special_card()
 	elif tile.type == "shop":
-		pass
-		# show shop menu
-		# 3 random cards to buy
-		# keys to buy
-		# one time refresh shop button
+		item_shop()
 	elif tile.type == "card":
-		pass
-		# draw random card
-		
+		draw_card()
+
+func item_shop():
+	# show shop menu
+	# 3 randomly picked cards to buy (can't buy same card twice!)
+	# one time buy to refresh the cards
+	# keys (can buy multiple)
+	pass
+
+func draw_card():
+	# draws a random card
+	# if it's a card you keep the card should be removed from the deck
+	# store and display the kept card for the player
+	pass
+
+func draw_special_card():
+	# 1/3 chance to draw: no effect, lose 3 keys, move to start
+	pass
+	
+
 func out_of_battery():
 		set_position(start_pos) # move to start position
 		keys = max(0, keys-1) # lose a key
