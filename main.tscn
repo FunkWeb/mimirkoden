@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvp45gs8abvkb"]
+[gd_scene load_steps=8 format=3 uid="uid://cvp45gs8abvkb"]
 
 [ext_resource type="PackedScene" uid="uid://bv3gd5i8irs4v" path="res://board.tscn" id="1_2ebvj"]
 [ext_resource type="Script" path="res://main.gd" id="1_mcyre"]
 [ext_resource type="PackedScene" uid="uid://dlwcqfkotaj4m" path="res://player.tscn" id="2_q560g"]
 [ext_resource type="PackedScene" uid="uid://gnsctgrj2ahw" path="res://start_ui.tscn" id="4_fvbfl"]
+[ext_resource type="Script" path="res://quitui.gd" id="5_p7xs8"]
 
 [sub_resource type="Gradient" id="Gradient_mpsx1"]
 interpolation_mode = 2
@@ -35,6 +36,32 @@ active_player = true
 
 [node name="StartUI" parent="." instance=ExtResource("4_fvbfl")]
 
+[node name="QuitUI" type="CanvasLayer" parent="."]
+script = ExtResource("5_p7xs8")
+
+[node name="Message" type="Label" parent="QuitUI"]
+offset_left = 113.0
+offset_top = 135.0
+offset_right = 202.0
+offset_bottom = 161.0
+text = "Really quit?"
+
+[node name="Cancel" type="Button" parent="QuitUI"]
+offset_left = 90.0
+offset_top = 183.0
+offset_right = 150.0
+offset_bottom = 214.0
+text = "Cancel"
+
+[node name="Quit" type="Button" parent="QuitUI"]
+offset_left = 185.0
+offset_top = 184.0
+offset_right = 227.0
+offset_bottom = 215.0
+text = "Quit"
+
 [connection signal="clicked" from="Board" to="Player" method="_on_board_clicked"]
 [connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
 [connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]
+[connection signal="pressed" from="QuitUI/Cancel" to="QuitUI" method="_on_cancel_pressed"]
+[connection signal="pressed" from="QuitUI/Quit" to="QuitUI" method="_on_quit_pressed"]

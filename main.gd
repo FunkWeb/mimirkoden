@@ -9,10 +9,15 @@ var num_selected_players = 6 # Will be set by start menu
 
 func _ready():
 #	pass
+	$QuitUI.hide()
 	$StartUI.update_player_count(num_selected_players)
 	
 	
 
+func _process(delta):
+	if Input.is_action_pressed("ui_cancel"):
+		$QuitUI.show()
+		$StartUI.hide()
 
 func _on_start_ui_start_game():
 	for player in num_selected_players:
