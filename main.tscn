@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvp45gs8abvkb"]
+[gd_scene load_steps=7 format=3 uid="uid://cvp45gs8abvkb"]
 
 [ext_resource type="PackedScene" uid="uid://bv3gd5i8irs4v" path="res://board.tscn" id="1_2ebvj"]
 [ext_resource type="Script" path="res://main.gd" id="1_mcyre"]
 [ext_resource type="PackedScene" uid="uid://dlwcqfkotaj4m" path="res://player.tscn" id="2_q560g"]
+[ext_resource type="AudioStream" uid="uid://3r4mekjsdjej" path="res://sound_assets/Move.wav" id="4_4vru6"]
 
 [sub_resource type="Gradient" id="Gradient_mpsx1"]
 interpolation_mode = 2
@@ -32,5 +33,8 @@ layer_0/tile_data = PackedInt32Array(-1, 0, 0, -65538, 0, 0, -3, 0, 0, 65534, 0,
 [node name="Player" parent="." instance=ExtResource("2_q560g")]
 scale = Vector2(1.64, 1.64)
 active_player = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4vru6")
 
 [connection signal="clicked" from="Board" to="Player" method="_on_board_clicked"]
