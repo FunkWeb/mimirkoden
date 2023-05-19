@@ -1,8 +1,4 @@
-
 *.cfg
 *.tmp
-.godot/editor/script_editor_cache.cfg
-.godot/editor/project_metadata.cfg
 .godot/editor/filesystem_update4
 .godot/editor/filesystem_cache8
-.godot/editor/board.tscn-editstate-a83cf8f48b1cf9ea574e7f03773d7d43.cfg

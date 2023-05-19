@@ -19,9 +19,10 @@ func _ready():
 	move_sound = $"../AudioStreamPlayer"
 	# temp values for testing:
 	battery = 20
-	moves = 6
+	moves = 3
 	keys = 10
 	walk_walls = true
+	
 	# start positions: (-4, 6), (3, 6), (6, -1), (3, -8), (-4, -8), (-8, -1)
 	current_cell = Vector2i(-4,6)
 	start_pos = board.get_map_pos(current_cell)
@@ -40,12 +41,16 @@ func new_tile_effect(tile):
 		if battery < 0: # less than 0
 			out_of_battery()
 	elif tile.type == "lock":
+		moves = 0
 		keys -= 5
 	elif tile.type == "special_card":
+		moves = 0
 		draw_special_card()
 	elif tile.type == "shop":
+		moves = 0
 		item_shop()
 	elif tile.type == "card":
+		moves = 0
 		draw_card()
 
 func item_shop():
@@ -67,6 +72,7 @@ func draw_special_card():
 
 func out_of_battery():
 		set_position(start_pos) # move to start position
+		moves = 0
 		keys = max(0, keys-1) # lose a key
 
 func move_player(clicked_cell):
@@ -106,4 +112,4 @@ func end_turn(used_tile_list):
 	used_tiles.clear()
 	# switch player, make sure current tile is added to used_tiles at start of turn
 	used_tiles = [current_cell]
-	moves = 4
+	moves = 3
