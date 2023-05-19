@@ -64,12 +64,10 @@ func draw_card():
 func draw_special_card():
 	# 1/3 chance to draw: no effect, lose 3 keys, move to start
 	pass
-	
 
 func out_of_battery():
 		set_position(start_pos) # move to start position
 		keys = max(0, keys-1) # lose a key
-
 
 func move_player(clicked_cell):
 	set_position(board.map_coords)

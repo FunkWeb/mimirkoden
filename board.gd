@@ -17,11 +17,9 @@ func _unhandled_input(event):
 		return
 	clicked_cell = local_to_map(get_local_mouse_position())
 	if clicked_cell not in all_cells:
-		return # forhindrer crash ved trykk utenfor grid
+		return # click outside of board
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
-	
-
 
 func get_map_pos(pos):
 	return to_global(map_to_local(pos))
