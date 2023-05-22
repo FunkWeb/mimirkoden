@@ -24,6 +24,9 @@ func _unhandled_input(event):
 func get_map_pos(pos):
 	return to_global(map_to_local(pos))
 
+func get_local_pos(pos):
+	return local_to_map(to_local(pos))
+
 func get_valid_neighbors(cell):
 	var neighbors = get_surrounding_cells(cell)
 	var valid = []

@@ -18,10 +18,10 @@ func _ready():
 	board = $"../Board"
 	move_sound = $"../AudioStreamPlayer"
 	# temp values for testing:
-	battery = 20
+	battery = 0
 	moves = 3
-	keys = 10
-	walk_walls = true
+	keys = 0
+	walk_walls = false
 	
 	# start positions: (-4, 6), (3, 6), (6, -1), (3, -8), (-4, -8), (-8, -1)
 	current_cell = Vector2i(-4,6)
@@ -71,13 +71,15 @@ func draw_special_card():
 	pass
 
 func out_of_battery():
+		current_cell = board.get_local_pos(start_pos)
 		set_position(start_pos) # move to start position
+		battery = 0
 		moves = 0
 		keys = max(0, keys-1) # lose a key
 
 func move_player(clicked_cell):
-	set_position(board.map_coords)
 	moves -= 1
+	set_position(board.map_coords)
 	current_cell = clicked_cell
 	cell_index = board.get_index_from_coor(current_cell)
 	new_tile = board.tile_list[cell_index]
@@ -96,20 +98,26 @@ func _on_board_clicked():
 	move_player(clicked_cell)
 	move_sound.play()
 	new_tile_effect(new_tile)
+	print("batteri: ",battery, " keys: ", keys, " moves: ", moves)
 	if moves == 0:
 		# Maybe have an end turn button so the player can use cards after their last move
 		end_turn(used_tiles)
 
-func end_turn(used_tile_list):
-	if battery == 0:
-		out_of_battery()
-	print("ending turn, next player:")
-	used_tile_list.pop_back() # remove last tile so it stays occupied for next player
-	for tile in used_tile_list:
+
+func unset_occupied(tiles):
+	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
 		board.tile_list[index].occupied = false
 
-	used_tiles.clear()
-	# switch player, make sure current tile is added to used_tiles at start of turn
-	used_tiles = [current_cell]
+func end_turn(used_tile_list):
+	used_tile_list.pop_back() # last tile stays occupied
+	if battery == 0:
+		out_of_battery()
+		unset_occupied(used_tiles)
+		used_tiles = []
+	else:
+		unset_occupied(used_tile_list)
+		used_tiles = [current_cell]
+	# switch player here
 	moves = 3
+	
