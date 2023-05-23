@@ -13,6 +13,8 @@ var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
 var move_sound
 
+signal update_ui
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = $"../Board"
@@ -67,6 +69,7 @@ func move_player(clicked_cell):
 	new_tile = board.tile_list[cell_index]
 	new_tile.occupied = true
 	used_tiles.append(current_cell)
+	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
 	if !active_player or moves == 0:
