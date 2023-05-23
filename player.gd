@@ -28,6 +28,7 @@ func _ready():
 	start_pos = board.get_map_pos(current_cell)
 	set_position(start_pos)
 	used_tiles = []
+	print(get_availible_tiles(current_cell, moves))
 	
 func new_tile_effect(tile):
 	if tile.type == "ground":
@@ -92,6 +93,7 @@ func _on_board_clicked():
 	
 	var neighbors = board.get_valid_neighbors(current_cell)
 	var clicked_cell = board.clicked_cell
+	print(clicked_cell)
 	
 	if clicked_cell not in neighbors:
 		return
@@ -99,25 +101,38 @@ func _on_board_clicked():
 	move_sound.play()
 	new_tile_effect(new_tile)
 	print("batteri: ",battery, " keys: ", keys, " moves: ", moves)
-	if moves == 0:
-		# Maybe have an end turn button so the player can use cards after their last move
-		end_turn(used_tiles)
+	if moves == 0: # temp end turn. replace with button
+		end_turn()
 
+func get_availible_tiles(current_pos, moves_left, list=[]):
+	# finds all tiles a player can move to with their remaining moves
+	# can be used for simple tile highlighting
+	if moves_left == 0:
+		return list
+	var neighbours = board.get_valid_neighbors(current_pos)
+	for cell in neighbours:
+		if list.has(cell):
+			continue
+		list.append(cell)
+		list = get_availible_tiles(cell, moves_left-1, list)
+	return list
 
 func unset_occupied(tiles):
 	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
 		board.tile_list[index].occupied = false
 
-func end_turn(used_tile_list):
-	used_tile_list.pop_back() # last tile stays occupied
+func end_turn():
+	var last_tile = used_tiles.pop_back() # last tile stays occupied
 	if battery == 0:
 		out_of_battery()
-		unset_occupied(used_tiles)
+		# if moved to start, last tile is not occupied
+		unset_occupied(used_tiles+[last_tile])
 		used_tiles = []
 	else:
-		unset_occupied(used_tile_list)
+		unset_occupied(used_tiles)
 		used_tiles = [current_cell]
 	# switch player here
 	moves = 3
+	print(get_availible_tiles(current_cell, moves))
 	
