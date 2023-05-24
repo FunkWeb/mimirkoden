@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://5pxrlf7ebbl3"]
+
+[ext_resource type="Script" path="res://quitui.gd" id="1_npgfg"]
+
+[node name="QuitUI" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_npgfg")
+
+[node name="Message" type="Label" parent="."]
+offset_left = 113.0
+offset_top = 135.0
+offset_right = 202.0
+offset_bottom = 161.0
+text = "Really quit?"
+
+[node name="Cancel" type="Button" parent="."]
+offset_left = 90.0
+offset_top = 183.0
+offset_right = 150.0
+offset_bottom = 214.0
+text = "Cancel"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 185.0
+offset_top = 184.0
+offset_right = 227.0
+offset_bottom = 215.0
+text = "Quit"
+
+[connection signal="pressed" from="Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

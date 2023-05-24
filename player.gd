@@ -12,6 +12,8 @@ var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
 var move_sound
+signal update_ui
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,7 +31,7 @@ func _ready():
 	set_position(start_pos)
 	used_tiles = []
 	print(get_availible_tiles(current_cell, moves))
-	
+
 func new_tile_effect(tile):
 	if tile.type == "ground":
 		battery += 1
@@ -68,15 +70,28 @@ func draw_card():
 	pass
 
 func draw_special_card():
-	# 1/3 chance to draw: no effect, lose 3 keys, move to start
-	pass
+	# TODO display card for player
+	var random = randi_range(0,2)
+	if random == 0:
+		print("ingenting skjer")
+		return
+	elif random == 1:
+		print("3 nøkkler mister funksjonalitet")
+		keys = max(0, keys-3)
+		return
+	else:
+		print("Du blir kastet ut")
+		move_to_start()
+
+func move_to_start():
+	current_cell = board.get_local_pos(start_pos)
+	set_position(start_pos) # move to start position
+	moves = 0
 
 func out_of_battery():
-		current_cell = board.get_local_pos(start_pos)
-		set_position(start_pos) # move to start position
-		battery = 0
-		moves = 0
-		keys = max(0, keys-1) # lose a key
+	move_to_start()
+	battery = 0
+	keys = max(0, keys-1) # lose a key
 
 func move_player(clicked_cell):
 	moves -= 1
@@ -86,6 +101,9 @@ func move_player(clicked_cell):
 	new_tile = board.tile_list[cell_index]
 	new_tile.occupied = true
 	used_tiles.append(current_cell)
+	move_sound.play()
+	new_tile_effect(new_tile)
+	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
 	if !active_player or moves == 0:
@@ -98,8 +116,6 @@ func _on_board_clicked():
 	if clicked_cell not in neighbors:
 		return
 	move_player(clicked_cell)
-	move_sound.play()
-	new_tile_effect(new_tile)
 	print("batteri: ",battery, " keys: ", keys, " moves: ", moves)
 	if moves == 0: # temp end turn. replace with button
 		end_turn()

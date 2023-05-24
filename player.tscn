@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dlwcqfkotaj4m"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_bf3rj"]
-[ext_resource type="Texture2D" uid="uid://i1kihwkx8jh5" path="res://player_asset/red-round-clip-art-download-12.png" id="2_31fnd"]
+[ext_resource type="Texture2D" uid="uid://i1kihwkx8jh5" path="res://player_assets/red-round-clip-art-download-12.png" id="2_31fnd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fcv5b"]
 

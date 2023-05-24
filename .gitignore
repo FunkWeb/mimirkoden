@@ -1,6 +1,2 @@
-*.cfg
-*.tmp
-.godot/editor/filesystem_update4
-.godot/editor/filesystem_cache8
 # Godot 4+ specific ignores
 .godot/
