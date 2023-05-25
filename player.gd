@@ -6,8 +6,8 @@ var current_cell
 @export var active_player:bool
 var moves
 var cell_index
-var keys
-var battery
+var keys # max 10
+var battery # max 20
 var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
@@ -94,7 +94,7 @@ func move_to_start():
 
 func out_of_battery():
 	move_to_start()
-	battery = 0
+	battery = 0 # in case of negative value
 	keys = max(0, keys-1) # lose a key
 
 func move_player(clicked_cell):
@@ -150,8 +150,8 @@ func end_turn():
 	print("Slutt på runden, ny spiller sin tur")
 	var last_tile = used_tiles.pop_back() # last tile stays occupied
 	if battery < 1:
-		if !moved_to_start:
-			out_of_battery()
+		out_of_battery()
+	if moved_to_start:
 		unset_occupied(used_tiles+[last_tile])
 		used_tiles = []
 	else:
