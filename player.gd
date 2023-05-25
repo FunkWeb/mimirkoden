@@ -1,5 +1,5 @@
 extends AnimatableBody2D
-
+# ny kmmentar
 var board
 var start_pos
 var current_cell
