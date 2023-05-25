@@ -6,7 +6,7 @@ var map_coords
 var grid_data : Dictionary = {}
 signal clicked
 var tile_list = []
-var player
+var player # player
 
 func _ready():
 	player = $"../Player"

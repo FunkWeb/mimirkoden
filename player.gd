@@ -4,7 +4,7 @@ var board
 var start_pos
 var current_cell
 @export var active_player:bool
-var moves
+var moves # comment
 var cell_index
 var keys
 var battery
@@ -12,7 +12,7 @@ var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
 var move_sound
-signal update_ui
+signal update_ui # emit whenever the ui needs to update values (moves, charges, etc...)
 
 
 # Called when the node enters the scene tree for the first time.

@@ -1,5 +1,6 @@
 res://main.tscn
-res://playerui.gd
 res://start_ui.tscn
 res://player.tscn
+res://movecounterui.gd
 res://player.gd
+res://board.gd
