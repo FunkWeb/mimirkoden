@@ -6,10 +6,8 @@ var map_coords
 var grid_data : Dictionary = {}
 signal clicked
 var tile_list = []
-var player # player
 
 func _ready():
-	player = $"../Player"
 	make_tile_list()
 
 func _unhandled_input(event):
@@ -17,15 +15,17 @@ func _unhandled_input(event):
 		return
 	clicked_cell = local_to_map(get_local_mouse_position())
 	if clicked_cell not in all_cells:
-		return # click outside of board
+		return
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
+	
+
+	var tile_index = get_index_from_coor(clicked_cell) 	
+	print("tile info: ",tile_list[tile_index].type)
+	print("tile coordinate: ", all_cells[tile_index])
 
 func get_map_pos(pos):
 	return to_global(map_to_local(pos))
-
-func get_local_pos(pos):
-	return local_to_map(to_local(pos))
 
 func get_valid_neighbors(cell):
 	var neighbors = get_surrounding_cells(cell)
@@ -35,31 +35,39 @@ func get_valid_neighbors(cell):
 			valid.push_back(n)
 	return valid
 
+func check_valid(cell):
+	var tile_index = get_index_from_coor(cell)
+	if tile_index == null:
+		return false
+	if tile_list[tile_index].has_moved_to_in_current_turn == true:
+		return false 
+	if tile_list[tile_index].type == "wall":
+		# walk through walls card check
+		return false
+	if tile_list[tile_index].type == "lock" or tile_list[tile_index].type == "win":
+		# key check
+		return false
+	return true
+
 func get_index_from_coor(coor):
 	for i in range(127):
 		if all_cells[i] == coor:
 			return i
 
-func check_valid(cell):
-	var tile_index = get_index_from_coor(cell)
-	if tile_index == null:
-		return false
-	var tile = tile_list[tile_index]
-	if tile.occupied or (tile.type == "wall" and not player.walk_walls) or\
-		(tile.type == "lock" or tile.type == "win") and player.keys < 5:
-		return false
-	return true
-
 class Tile:
 	var type #ground, start, wall, shop, card, win, negative, lock, special_card
-	var group # not implemented yet, zones for card effects
+	var group #grey, red, purple, blue, teal, green, yellow
 	var walkable
 	var occupied
+	var has_moved_to_in_current_turn
 	func _init():
-		group = []  #grey, red, purple, blue, teal, green, yellow
+		type = "ground"
+		group = []
 		walkable = true
 		occupied = false
+		has_moved_to_in_current_turn = false
 
+		
 func make_tile_list():
 	for tile in range(127): # iterate over all tiles
 		var object = Tile.new()
@@ -80,6 +88,5 @@ func make_tile_list():
 			object.type = "special_card"
 		elif tile == 2:
 			object.type = "win"
-		else:
-			object.type = "ground"
-		
+		# else object.type = "ground"
+
