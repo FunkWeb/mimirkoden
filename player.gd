@@ -141,6 +141,9 @@ func get_availible_tiles(current_pos, moves_left, list=[]):
 func unset_occupied(tiles):
 	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
+		if index == null:
+			print("unset_occupied didn't find index for ", tile)
+			continue
 		board.tile_list[index].occupied = false
 
 func end_turn():
