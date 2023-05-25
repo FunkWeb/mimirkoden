@@ -150,5 +150,6 @@ func end_turn():
 		used_tiles = [current_cell]
 	# switch player here
 	moves = 3
+	update_ui.emit()
 	print(get_availible_tiles(current_cell, moves))
 	
