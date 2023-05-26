@@ -6,8 +6,8 @@ var current_cell
 @export var active_player:bool
 var moves
 var cell_index
-var keys
-var battery
+var keys # max 10
+var battery # max 20
 var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
@@ -35,7 +35,6 @@ func _ready():
 	print(get_availible_tiles(current_cell, moves))
 
 func new_tile_effect(tile):
-	print("stepped on a ", tile.type, " tile")
 	if tile.type == "ground":
 		battery += 1
 		battery = min(battery, 20) # max 20 battery
@@ -94,7 +93,7 @@ func move_to_start():
 
 func out_of_battery():
 	move_to_start()
-	battery = 0
+	battery = 0 # in case of negative value
 	keys = max(0, keys-1) # lose a key
 
 func move_player(clicked_cell):
@@ -116,7 +115,13 @@ func _on_board_clicked():
 	
 	var neighbors = board.get_valid_neighbors(current_cell)
 	var clicked_cell = board.clicked_cell
+	
+	# debug info:
+	var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
 	print("trykk på felt med koordinater: ", clicked_cell)
+	print("feltet er et ", cell_info.type, " felt")
+	print("feltet er i disse sonene: ", cell_info.zone)
+	print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
 	
 	if clicked_cell not in neighbors:
 		return
@@ -142,7 +147,7 @@ func unset_occupied(tiles):
 	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
 		if index == null:
-			print("unset_occupied didn't find index for ", tile)
+			print("Error, unset_occupied didn't find index for ", tile)
 			continue
 		board.tile_list[index].occupied = false
 
@@ -150,8 +155,8 @@ func end_turn():
 	print("Slutt på runden, ny spiller sin tur")
 	var last_tile = used_tiles.pop_back() # last tile stays occupied
 	if battery < 1:
-		if !moved_to_start:
-			out_of_battery()
+		out_of_battery()
+	if moved_to_start:
 		unset_occupied(used_tiles+[last_tile])
 		used_tiles = []
 	else:
