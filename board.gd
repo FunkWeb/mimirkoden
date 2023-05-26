@@ -11,20 +11,20 @@ func _ready():
 	make_tile_list()
 
 func _unhandled_input(event):
+	# Check for mouse left click
 	if !(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
 		return
 	clicked_cell = local_to_map(get_local_mouse_position())
-	if clicked_cell not in all_cells:
-		return
+	if clicked_cell not in all_cells: # Check if clicked cell is on the board
+		return 
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
 	
-
-	var tile_index = get_index_from_coor(clicked_cell) 	
-	print("tile info: ",tile_list[tile_index].type)
-	print("tile coordinate: ", all_cells[tile_index])
+	var tile_index = get_index_from_coor(clicked_cell)
+	print("Clicked on ",all_cells[tile_index] , " Type: ",tile_list[tile_index].type)
 
 func get_map_pos(pos):
+	# Gets global pixel position of center of a tile
 	return to_global(map_to_local(pos))
 
 func get_valid_neighbors(cell):
