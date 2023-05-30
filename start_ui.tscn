@@ -9,11 +9,8 @@ signal start_game
 signal players
 
 var msg = \"Players: \"
-#var popup = $NumPlayersButton.get_popup()
-#var popup = $NumPlayersButton.get_popup()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#popup.connect(\"id_pressed\",self,\"_on_num_players_pressed\")
 
 	pass # Replace with function body.
 
@@ -26,15 +23,12 @@ func update_player_count(num):
 	$NumPlayersButton.text = msg + str(num)
 	
 func _on_num_players_button_pressed(id: int):
-	#print(id,\" pressed\")
 	update_player_count(id)
 	players.emit(id)
-	pass # Replace with function body.
 
 
 func _on_start_button_pressed():
 	start_game.emit()
-	pass # Replace with function body.
 
 
 "

@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://du3cwj0q6lnql"]
+
+[ext_resource type="Script" path="res://playerui.gd" id="1_1yowr"]
+
+[node name="PlayerUI" type="CanvasLayer"]
+script = ExtResource("1_1yowr")
+
+[node name="KeyCounter" type="Label" parent="."]
+offset_left = 39.0
+offset_top = 84.0
+offset_right = 93.0
+offset_bottom = 110.0
+text = "Keys: 0"
+
+[node name="ChargeCounter" type="Label" parent="."]
+offset_left = 27.0
+offset_top = 52.0
+offset_right = 100.0
+offset_bottom = 78.0
+text = "Charge: 0"
+
+[node name="Name" type="Label" parent="."]
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 95.0
+offset_bottom = 48.0
+text = "Player 1"

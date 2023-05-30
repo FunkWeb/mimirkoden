@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://3r4mekjsdjej" path="res://sound_assets/Move.wav" id="4_4vru6"]
 [ext_resource type="PackedScene" uid="uid://5pxrlf7ebbl3" path="res://quit_ui.tscn" id="5_v4wlc"]
 [ext_resource type="PackedScene" uid="uid://dtox1ugs1ywyk" path="res://start_ui.tscn" id="6_pbho7"]
-[ext_resource type="Script" path="res://playerui.gd" id="7_vq55t"]
+[ext_resource type="PackedScene" uid="uid://du3cwj0q6lnql" path="res://player_ui.tscn" id="7_0r2xg"]
 [ext_resource type="Script" path="res://movecounterui.gd" id="8_i11si"]
 
 [sub_resource type="Gradient" id="Gradient_mpsx1"]
@@ -46,29 +46,7 @@ visible = true
 
 [node name="StartUI" parent="." instance=ExtResource("6_pbho7")]
 
-[node name="PlayerUI" type="CanvasLayer" parent="."]
-script = ExtResource("7_vq55t")
-
-[node name="KeyCounter" type="Label" parent="PlayerUI"]
-offset_left = 26.0
-offset_top = 93.0
-offset_right = 80.0
-offset_bottom = 119.0
-text = "Keys: 0"
-
-[node name="ChargeCounter" type="Label" parent="PlayerUI"]
-offset_left = 14.0
-offset_top = 61.0
-offset_right = 87.0
-offset_bottom = 87.0
-text = "Charge: 0"
-
-[node name="Name" type="Label" parent="PlayerUI"]
-offset_left = 20.0
-offset_top = 31.0
-offset_right = 82.0
-offset_bottom = 57.0
-text = "Player 1"
+[node name="PlayerUI" parent="." instance=ExtResource("7_0r2xg")]
 
 [node name="MoveCounterUI" type="CanvasLayer" parent="."]
 script = ExtResource("8_i11si")
@@ -82,7 +60,6 @@ text = "Moves
 0"
 
 [connection signal="clicked" from="Board" to="Player" method="_on_board_clicked"]
-[connection signal="update_ui" from="Player" to="PlayerUI" method="_on_player_update_ui"]
 [connection signal="update_ui" from="Player" to="MoveCounterUI" method="_on_player_update_ui"]
 [connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
 [connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]
