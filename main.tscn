@@ -47,6 +47,7 @@ visible = true
 [node name="StartUI" parent="." instance=ExtResource("6_pbho7")]
 
 [node name="PlayerUI" parent="." instance=ExtResource("7_0r2xg")]
+visible = false
 
 [node name="MoveCounterUI" type="CanvasLayer" parent="."]
 script = ExtResource("8_i11si")

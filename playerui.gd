@@ -10,7 +10,10 @@ var element_offset = Vector2(0,20)
 func _ready():
 	_on_player_update_ui()
 	
-func place():
+func init(player,pos,name):
+	self.player = player
+	self.pos = pos
+	$Name.text = name
 	$Name.position = pos
 	$ChargeCounter.position = pos + element_offset
 	$KeyCounter.position = pos + (element_offset * 2)
@@ -24,7 +27,3 @@ func _process(delta):
 func _on_player_update_ui():
 	$KeyCounter.text = "Keys: "+str(player.keys)
 	$ChargeCounter.text = "Charges: "+str(player.battery)
-	print("players "+str(len($"..".players)))
-	for player in $"..".players:
-		print("pos "+str(player.position))
-	print("basicpos "+str($"../Player".position))

@@ -43,13 +43,14 @@ func _on_start_ui_players(num: int):
 	
 
 func set_player_ui():
-	var index = 0
+	var i = 0
 	for player in players:
 		var ui = $PlayerUI.duplicate()
-		ui.pos = player_ui_positions[index]
-		ui.player = player
+		add_child(ui)
+		ui.init(player,player_ui_positions[i],"Player "+str(i+1))
+
 		ui.show()
 		player_uis.push_back(ui)
-		index += 1
+		i += 1
 		
 	$PlayerUI.hide()
