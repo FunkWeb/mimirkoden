@@ -6,7 +6,7 @@ var current_cell
 @export var active_player : bool
 var start_pos
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	print("PLAYER READY")
 	board = $"../Board"
