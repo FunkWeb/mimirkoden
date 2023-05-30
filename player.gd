@@ -35,11 +35,10 @@ func _ready():
 	print(get_availible_tiles(current_cell, moves))
 
 func new_tile_effect(tile):
-	print("stepped on a ", tile.type, " tile")
 	if tile.type == "ground":
 		battery += 1
 		battery = min(battery, 20) # max 20 battery
-	elif tile.type == "start":
+	elif tile.type == "double":
 		battery += 2
 		battery = min(battery, 20)
 	elif tile.type == "negative":
@@ -58,13 +57,19 @@ func new_tile_effect(tile):
 	elif tile.type == "card":
 		moves = 0
 		draw_card()
+	elif tile.type == "win":
+		moves = 0
+		keys -= 5
+		print("Du fant Mimirkoden!")
 
 func item_shop():
 	# show shop menu
 	# 3 randomly picked cards to buy (can't buy same card twice!)
 	# one time buy to refresh the cards
 	# keys (can buy multiple)
-	pass
+	while battery > 3 and keys < 10: # temp buy all keys
+		battery -= 3
+		keys += 1
 
 func draw_card():
 	# draws a random card
@@ -116,7 +121,13 @@ func _on_board_clicked():
 	
 	var neighbors = board.get_valid_neighbors(current_cell)
 	var clicked_cell = board.clicked_cell
+	
+	# debug info:
+	var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
 	print("trykk på felt med koordinater: ", clicked_cell)
+	print("feltet er et ", cell_info.type, " felt")
+	print("feltet er i disse sonene: ", cell_info.zone)
+	print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
 	
 	if clicked_cell not in neighbors:
 		return
@@ -142,7 +153,7 @@ func unset_occupied(tiles):
 	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
 		if index == null:
-			print("unset_occupied didn't find index for ", tile)
+			print("Error, unset_occupied didn't find index for ", tile)
 			continue
 		board.tile_list[index].occupied = false
 
