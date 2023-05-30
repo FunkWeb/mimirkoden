@@ -4,7 +4,7 @@ extends Node
 @onready var Player = preload("res://player.tscn")
 
 var players = [] 
-var num_selected_players = 3 # Will be set by start menu
+var num_selected_players = 6 # Will be set by start menu
 var current_active_player = 0
 
 func _ready():
