@@ -52,7 +52,7 @@ func check_valid(cell):
 	return true
 
 class Tile:
-	var type #ground, start, wall, shop, card, win, negative, lock, special_card
+	var type #start, ground, double, wall, shop, card, win, negative, lock, special_card
 	var zone #zones for card effects
 	var walkable
 	var occupied
@@ -89,7 +89,7 @@ func make_tile_list():
 		elif tile in [4, 6, 8, 10, 12, 14, 49, 57, 65, 76, 89, 102]:
 			object.type = "card"
 		elif tile in [51, 55, 59, 63, 67, 71]:
-			object.type = "start"
+			object.type = "double"
 		elif tile in [53, 61, 69]:
 			object.type = "shop"
 		elif tile in [16, 17, 18]:
@@ -99,6 +99,7 @@ func make_tile_list():
 		elif tile == 2:
 			object.type = "win"
 		elif tile > 126: # starting tiles
+			object.type = "start"
 			object.occupied = true
 			object.walkable = false
 		else:

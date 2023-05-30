@@ -38,7 +38,7 @@ func new_tile_effect(tile):
 	if tile.type == "ground":
 		battery += 1
 		battery = min(battery, 20) # max 20 battery
-	elif tile.type == "start":
+	elif tile.type == "double":
 		battery += 2
 		battery = min(battery, 20)
 	elif tile.type == "negative":
