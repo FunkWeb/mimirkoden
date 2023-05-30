@@ -57,13 +57,19 @@ func new_tile_effect(tile):
 	elif tile.type == "card":
 		moves = 0
 		draw_card()
+	elif tile.type == "win":
+		moves = 0
+		keys -= 5
+		print("Du fant Mimirkoden!")
 
 func item_shop():
 	# show shop menu
 	# 3 randomly picked cards to buy (can't buy same card twice!)
 	# one time buy to refresh the cards
 	# keys (can buy multiple)
-	pass
+	while battery > 3 and keys < 10: # temp buy all keys
+		battery -= 3
+		keys += 1
 
 func draw_card():
 	# draws a random card

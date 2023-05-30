@@ -16,9 +16,9 @@ func _ready():
 func _unhandled_input(event):
 	if !(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
 		return
+	clicked_cell = local_to_map(get_local_mouse_position())
 	if clicked_cell not in all_cells: # Check if clicked cell is on the board
 		return
-	clicked_cell = local_to_map(get_local_mouse_position())
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
 
