@@ -6,6 +6,9 @@ extends Node
 var players = []
 var num_selected_players = 6 # Will be set by start menu
 
+var player_uis = []
+var player_ui_positions = [Vector2(20,20),Vector2(20,580),Vector2(20,280),
+	Vector2(1000,20),Vector2(1000,580),Vector2(1000,280)]
 
 func _ready():
 #	pass
@@ -25,10 +28,29 @@ func _on_start_ui_start_game():
 	
 	for player in players:
 		player.set_position(Vector2(200,200))
+		player.show()
 		print(player.position)
+	
+	set_player_ui()
+	
+	Player.hide()
+	
 	$StartUI.hide()
 
 
 func _on_start_ui_players(num: int):
 	num_selected_players = num
 	
+
+func set_player_ui():
+	var i = 0
+	for player in players:
+		var ui = $PlayerUI.duplicate()
+		add_child(ui)
+		ui.init(player,player_ui_positions[i],"Player "+str(i+1))
+
+		ui.show()
+		player_uis.push_back(ui)
+		i += 1
+		
+	$PlayerUI.hide()
