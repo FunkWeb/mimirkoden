@@ -1,9 +1,10 @@
 extends AnimatableBody2D
-# ny kmmentar
+
 var board
 var start_pos
 var current_cell
 @export var active_player:bool
+var max_moves = 3
 var moves
 var cell_index
 var keys # max 10
@@ -20,19 +21,16 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 func _ready():
 	board = $"../Board"
 	move_sound = $"../MoveSound"
+	
 	# temp values for testing:
 	battery = 0
 	moves = 3
 	keys = 0
-	walk_walls = false
 	
+	
+	walk_walls = false
 	moved_to_start = false # set false at start of player turn
-	# start positions: (-4, 6), (3, 6), (6, -1), (3, -8), (-4, -8), (-8, -1)
-	#	current_cell = Vector2i(-4,6)
-	#	start_pos = board.get_map_pos(current_cell)
-	#	set_position(start_pos)
 	used_tiles = []
-	#	print(get_availible_tiles(current_cell, moves))
 
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
@@ -143,19 +141,6 @@ func _on_board_clicked():
 	if moves == 0: # temp end turn. replace with button
 		end_turn()
 
-func get_availible_tiles(current_pos, moves_left, list=[]):
-	# finds all tiles a player can move to with their remaining moves
-	# can be used for simple tile highlighting
-	if moves_left == 0:
-		return list
-	var neighbours = board.get_valid_neighbors(current_pos)
-	for cell in neighbours:
-		if list.has(cell):
-			continue
-		list.append(cell)
-		list = get_availible_tiles(cell, moves_left-1, list)
-	return list
-
 func unset_occupied(tiles):
 	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
@@ -180,5 +165,3 @@ func end_turn():
 	moves = 3
 	update_ui.emit()
 	moved_to_start = false
-	# print(get_availible_tiles(current_cell, moves))
-	

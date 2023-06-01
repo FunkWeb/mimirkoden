@@ -45,7 +45,7 @@ func start():
 		players.push_back(Player.instantiate())
 	
 	# Initialize players
-	var start_positions = [Vector2i(-7,-1),Vector2i(-4,-7),Vector2i(2,-7),Vector2i(5,-1),Vector2i(2,5),Vector2i(-4,5)]
+	var start_positions = [Vector2i(-8,-1),Vector2i(-4,-8),Vector2i(3,-8),Vector2i(6,-1),Vector2i(3,6),Vector2i(-4,6)]
 	for i in num_selected_players:
 		var p = players[i]
 		add_child(p)

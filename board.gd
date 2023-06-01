@@ -13,7 +13,6 @@ var active_player
 func _ready():
 	make_tile_list()
 	add_tile_zones()
-	print(main)
 
 func _unhandled_input(event):
 	if !(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
@@ -24,7 +23,6 @@ func _unhandled_input(event):
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
 	var tile_index = get_index_from_coor(clicked_cell)
-	print("Clicked on ",all_cells[tile_index] , " Type: ",tile_list[tile_index].type)
 
 func get_map_pos(pos):
 	return to_global(map_to_local(pos))
