@@ -98,8 +98,8 @@ func draw_special_card():
 
 func move_to_start():
 	moved_to_start = true
-	current_cell = board.get_local_pos(start_pos)
-	set_position(start_pos) # move to start position
+	current_cell = start_pos
+	set_position(board.get_map_pos(current_cell)) # move to start position
 	moves = 0
 
 func out_of_battery():
