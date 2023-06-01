@@ -6,12 +6,14 @@ var map_coords
 var grid_data : Dictionary = {}
 signal clicked
 var tile_list = []
-var player # player
+@onready var main = $".."
+var active_player
+
 
 func _ready():
-	player = $"../Player"
 	make_tile_list()
 	add_tile_zones()
+	print(main)
 
 func _unhandled_input(event):
 	if !(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
@@ -21,6 +23,8 @@ func _unhandled_input(event):
 		return
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
+	var tile_index = get_index_from_coor(clicked_cell)
+	print("Clicked on ",all_cells[tile_index] , " Type: ",tile_list[tile_index].type)
 
 func get_map_pos(pos):
 	return to_global(map_to_local(pos))
@@ -42,12 +46,13 @@ func get_index_from_coor(coor):
 			return i
 
 func check_valid(cell):
+	active_player = main.players[main.current_active_player]
 	var tile_index = get_index_from_coor(cell)
 	if tile_index == null:
 		return false
 	var tile = tile_list[tile_index]
-	if tile.occupied or (tile.type == "wall" and not player.walk_walls) or\
-		(tile.type == "lock" or tile.type == "win") and player.keys < 5:
+	if tile.occupied or (tile.type == "wall" and not active_player.walk_walls) or\
+		(tile.type == "lock" or tile.type == "win") and active_player.keys < 5:
 		return false
 	return true
 

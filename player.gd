@@ -19,7 +19,7 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = $"../Board"
-	move_sound = $"../AudioStreamPlayer"
+	move_sound = $"../MoveSound"
 	# temp values for testing:
 	battery = 0
 	moves = 3
@@ -28,11 +28,18 @@ func _ready():
 	
 	moved_to_start = false # set false at start of player turn
 	# start positions: (-4, 6), (3, 6), (6, -1), (3, -8), (-4, -8), (-8, -1)
-	current_cell = Vector2i(-4,6)
-	start_pos = board.get_map_pos(current_cell)
-	set_position(start_pos)
+	#	current_cell = Vector2i(-4,6)
+	#	start_pos = board.get_map_pos(current_cell)
+	#	set_position(start_pos)
 	used_tiles = []
-	print(get_availible_tiles(current_cell, moves))
+	#	print(get_availible_tiles(current_cell, moves))
+
+	# Connect click signal from board to player
+	board.clicked.connect(_on_board_clicked)
+
+func init():
+	current_cell = start_pos
+	set_position(board.get_map_pos(current_cell))
 
 func new_tile_effect(tile):
 	if tile.type == "ground":
