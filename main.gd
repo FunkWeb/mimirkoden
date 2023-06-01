@@ -5,6 +5,7 @@ extends Node
 @onready var PlayerUI = preload("res://player_ui.tscn")
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
+@onready var MoveCounterUI = $MoveCounterUI
 
 var players = []
 var num_selected_players = 2  # Default value
@@ -66,6 +67,8 @@ func start():
 		add_child(p_ui) 
 		p_ui.init(p,player_ui_positions[i],"Player "+str(i+1))
 		
+		# Connect signals to UI elements
+		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
 		p.update_ui.connect(p_ui._on_player_update_ui)
 	
 	
