@@ -12,7 +12,6 @@ var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
 var move_sound
-var moved_to_start
 signal update_ui # emit whenever the ui needs to update values (moves, charges, etc...)
 
 
@@ -26,7 +25,6 @@ func _ready():
 	keys = 0
 	walk_walls = false
 	
-	moved_to_start = false # set false at start of player turn
 	# start positions: (-4, 6), (3, 6), (6, -1), (3, -8), (-4, -8), (-8, -1)
 	current_cell = Vector2i(-4,6)
 	start_pos = board.get_map_pos(current_cell)
@@ -92,7 +90,7 @@ func draw_special_card():
 		move_to_start()
 
 func move_to_start():
-	moved_to_start = true
+	unset_occupied([current_cell])
 	current_cell = board.get_local_pos(start_pos)
 	set_position(start_pos) # move to start position
 	moves = 0
@@ -162,16 +160,11 @@ func end_turn():
 	var last_tile = used_tiles.pop_back() # last tile stays occupied
 	if battery < 1:
 		out_of_battery()
-	if moved_to_start:
-		unset_occupied(used_tiles+[last_tile])
-		used_tiles = []
-	else:
-		unset_occupied(used_tiles)
-		used_tiles = [current_cell]
+	unset_occupied(used_tiles)
+	used_tiles = [current_cell]
 	update_ui.emit()
 	# switch player here
 	moves = 3
 	update_ui.emit()
-	moved_to_start = false
 	# print(get_availible_tiles(current_cell, moves))
 	
