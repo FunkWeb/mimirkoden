@@ -22,7 +22,6 @@ func _unhandled_input(event):
 		return
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
-	var tile_index = get_index_from_coor(clicked_cell)
 
 func get_map_pos(pos):
 	return to_global(map_to_local(pos))

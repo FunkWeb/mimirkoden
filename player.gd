@@ -15,7 +15,7 @@ var walk_walls # if card used to walk through walls
 var move_sound
 var moved_to_start
 signal update_ui # emit whenever the ui needs to update values (moves, charges, etc...)
-
+@onready var main = $".."
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -137,8 +137,7 @@ func _on_board_clicked():
 	if clicked_cell not in neighbors:
 		return
 	move_player(clicked_cell)
-	# print("batteri: ",battery, " keys: ", keys, " moves: ", moves)
-	if moves == 0: # temp end turn. replace with button
+	if moves == 0: # TEMP end turn. replace with button
 		end_turn()
 
 func unset_occupied(tiles):
@@ -162,6 +161,7 @@ func end_turn():
 		used_tiles = [current_cell]
 	update_ui.emit()
 	# switch player here
-	moves = 3
+	main.next_player()
+	moves = max_moves
 	update_ui.emit()
 	moved_to_start = false
