@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://5pxrlf7ebbl3"]
+[gd_scene load_steps=4 format=3 uid="uid://5pxrlf7ebbl3"]
 
 [ext_resource type="Script" path="res://quitui.gd" id="1_npgfg"]
+[ext_resource type="SystemFont" uid="uid://c1ndkgvxyytj1" path="res://UI settings/Button Font Settings.tres" id="2_43ecb"]
+[ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="3_fwfta"]
 
 [node name="QuitUI" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_npgfg")
 
 [node name="Message" type="Label" parent="."]
@@ -11,20 +12,24 @@ offset_left = 113.0
 offset_top = 135.0
 offset_right = 202.0
 offset_bottom = 161.0
+theme_override_fonts/font = ExtResource("2_43ecb")
 text = "Really quit?"
+label_settings = ExtResource("3_fwfta")
 
 [node name="Cancel" type="Button" parent="."]
-offset_left = 90.0
+offset_left = 139.0
 offset_top = 183.0
-offset_right = 150.0
+offset_right = 199.0
 offset_bottom = 214.0
+theme_override_fonts/font = ExtResource("2_43ecb")
 text = "Cancel"
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 185.0
+offset_left = 250.0
 offset_top = 184.0
-offset_right = 227.0
+offset_right = 292.0
 offset_bottom = 215.0
+theme_override_fonts/font = ExtResource("2_43ecb")
 text = "Quit"
 
 [connection signal="pressed" from="Cancel" to="." method="_on_cancel_pressed"]
