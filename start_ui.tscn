@@ -9,11 +9,9 @@ signal start_game
 signal players
 
 var msg = \"Players: \"
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -28,9 +26,10 @@ func _on_num_players_button_pressed(id: int):
 
 
 func _on_start_button_pressed():
+	$\"..\".game_started = true
 	start_game.emit()
-
-
+	$\"../MoveCounterUI\".show()
+	
 "
 
 [node name="StartUI" type="CanvasLayer"]

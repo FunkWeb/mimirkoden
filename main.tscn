@@ -38,6 +38,7 @@ stream = ExtResource("4_4vru6")
 [node name="StartUI" parent="." instance=ExtResource("6_pbho7")]
 
 [node name="MoveCounterUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("8_i11si")
 
 [node name="Counter" type="Label" parent="MoveCounterUI"]
@@ -46,7 +47,7 @@ offset_top = 45.0
 offset_right = 277.0
 offset_bottom = 71.0
 text = "Moves
-0"
+3"
 
 [connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
 [connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]

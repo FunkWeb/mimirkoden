@@ -6,7 +6,7 @@ extends Node
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
-
+var game_started = false
 var players = []
 var num_selected_players = 2  # Default value
 var current_active_player = 0
