@@ -10,17 +10,17 @@ var element_offset = Vector2(0,20)
 func _ready():
 	_on_player_update_ui()
 	
-func init(player,pos,name):
-	self.player = player
-	self.pos = pos
-	$Name.text = name
-	$Name.position = pos
-	$ChargeCounter.position = pos + element_offset
-	$KeyCounter.position = pos + (element_offset * 2)
+func init(playerP,posP,nameP):
+	self.player = playerP
+	self.pos = posP
+	$Name.text = nameP
+	$Name.position = posP
+	$ChargeCounter.position = posP + element_offset
+	$KeyCounter.position = posP + (element_offset * 2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 

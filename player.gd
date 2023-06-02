@@ -1,9 +1,10 @@
 extends AnimatableBody2D
-# ny kmmentar
+
 var board
 var start_pos
 var current_cell
 @export var active_player:bool
+var max_moves = 3
 var moves
 var cell_index
 var keys # max 10
@@ -14,25 +15,29 @@ var walk_walls # if card used to walk through walls
 var move_sound
 var moved_to_start
 signal update_ui # emit whenever the ui needs to update values (moves, charges, etc...)
-
+@onready var main = $".."
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = $"../Board"
-	move_sound = $"../AudioStreamPlayer"
+	move_sound = $"../MoveSound"
+	
 	# temp values for testing:
 	battery = 0
 	moves = 3
 	keys = 0
-	walk_walls = false
 	
+	
+	walk_walls = false
 	moved_to_start = false # set false at start of player turn
-	# start positions: (-4, 6), (3, 6), (6, -1), (3, -8), (-4, -8), (-8, -1)
-	current_cell = Vector2i(-4,6)
-	start_pos = board.get_map_pos(current_cell)
-	set_position(start_pos)
 	used_tiles = []
-	print(get_availible_tiles(current_cell, moves))
+
+	# Connect click signal from board to player
+	board.clicked.connect(_on_board_clicked)
+
+func init():
+	current_cell = start_pos
+	set_position(board.get_map_pos(current_cell))
 
 func new_tile_effect(tile):
 	if tile.type == "ground":
@@ -93,8 +98,8 @@ func draw_special_card():
 
 func move_to_start():
 	moved_to_start = true
-	current_cell = board.get_local_pos(start_pos)
-	set_position(start_pos) # move to start position
+	current_cell = start_pos
+	set_position(board.get_map_pos(current_cell)) # move to start position
 	moves = 0
 
 func out_of_battery():
@@ -132,22 +137,8 @@ func _on_board_clicked():
 	if clicked_cell not in neighbors:
 		return
 	move_player(clicked_cell)
-	# print("batteri: ",battery, " keys: ", keys, " moves: ", moves)
-	if moves == 0: # temp end turn. replace with button
+	if moves == 0: # TEMP end turn. replace with button
 		end_turn()
-
-func get_availible_tiles(current_pos, moves_left, list=[]):
-	# finds all tiles a player can move to with their remaining moves
-	# can be used for simple tile highlighting
-	if moves_left == 0:
-		return list
-	var neighbours = board.get_valid_neighbors(current_pos)
-	for cell in neighbours:
-		if list.has(cell):
-			continue
-		list.append(cell)
-		list = get_availible_tiles(cell, moves_left-1, list)
-	return list
 
 func unset_occupied(tiles):
 	for tile in tiles:
@@ -170,8 +161,7 @@ func end_turn():
 		used_tiles = [current_cell]
 	update_ui.emit()
 	# switch player here
-	moves = 3
+	main.next_player()
+	moves = max_moves
 	update_ui.emit()
 	moved_to_start = false
-	# print(get_availible_tiles(current_cell, moves))
-	

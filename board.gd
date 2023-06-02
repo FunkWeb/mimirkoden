@@ -6,10 +6,11 @@ var map_coords
 var grid_data : Dictionary = {}
 signal clicked
 var tile_list = []
-var player # player
+@onready var main = $".."
+var active_player
+
 
 func _ready():
-	player = $"../Player"
 	make_tile_list()
 	add_tile_zones()
 
@@ -42,12 +43,13 @@ func get_index_from_coor(coor):
 			return i
 
 func check_valid(cell):
+	active_player = main.players[main.current_active_player]
 	var tile_index = get_index_from_coor(cell)
 	if tile_index == null:
 		return false
 	var tile = tile_list[tile_index]
-	if tile.occupied or (tile.type == "wall" and not player.walk_walls) or\
-		(tile.type == "lock" or tile.type == "win") and player.keys < 5:
+	if tile.occupied or (tile.type == "wall" and not active_player.walk_walls) or\
+		(tile.type == "lock" or tile.type == "win") and active_player.keys < 5:
 		return false
 	return true
 

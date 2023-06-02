@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlwcqfkotaj4m"]
+[gd_scene load_steps=4 format=3 uid="uid://dlwcqfkotaj4m"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_bf3rj"]
-[ext_resource type="Texture2D" uid="uid://i1kihwkx8jh5" path="res://player_assets/red-round-clip-art-download-12.png" id="2_31fnd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fcv5b"]
 
@@ -20,7 +19,6 @@ shape = SubResource("CircleShape2D_fcv5b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.0202172, 0.0202172)
-texture = ExtResource("2_31fnd")
 
 [node name="Label" type="Label" parent="."]
 visible = false

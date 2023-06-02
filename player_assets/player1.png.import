@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i1kihwkx8jh5"
-path="res://.godot/imported/red-round-clip-art-download-12.png-4c0a921228b7a09948555b6ea813bb82.ctex"
+uid="uid://dqcn8onncd213"
+path="res://.godot/imported/player1.png-a03a3d0c4fd8bbbf9603225efbd3e515.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player_assets/red-round-clip-art-download-12.png"
-dest_files=["res://.godot/imported/red-round-clip-art-download-12.png-4c0a921228b7a09948555b6ea813bb82.ctex"]
+source_file="res://player_assets/player1.png"
+dest_files=["res://.godot/imported/player1.png-a03a3d0c4fd8bbbf9603225efbd3e515.ctex"]
 
 [params]
 
