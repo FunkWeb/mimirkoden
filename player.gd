@@ -1,10 +1,9 @@
 extends AnimatableBody2D
 
-var board
 var start_pos
 var current_cell
 @export var active_player:bool
-var max_moves = 3
+const max_moves = 3
 var moves
 var cell_index
 var keys # max 10
@@ -12,26 +11,20 @@ var battery # max 20
 var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
-var move_sound
-var moved_to_start
 signal update_ui # emit whenever the ui needs to update values (moves, charges, etc...)
 @onready var main = $".."
+@onready var board = $"../Board"
+@onready var move_sound = $"../MoveSound"
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	board = $"../Board"
-	move_sound = $"../MoveSound"
-	
-	# temp values for testing:
+func _ready():	
 	battery = 0
-	moves = 3
+	moves = max_moves
 	keys = 0
 	
 	
 	walk_walls = false
-	moved_to_start = false # set false at start of player turn
 	used_tiles = []
-
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
 
@@ -94,16 +87,17 @@ func draw_special_card():
 		return
 	else:
 		print("Du blir kastet ut")
-		move_to_start()
+		moves = 0
+		move_to_tile(start_pos)
 
-func move_to_start():
-	moved_to_start = true
-	current_cell = start_pos
-	set_position(board.get_map_pos(current_cell)) # move to start position
-	moves = 0
+func move_to_tile(cell):
+	unset_occupied([current_cell])
+	current_cell = board.get_local_pos(cell)
+	set_position(cell)
 
 func out_of_battery():
-	move_to_start()
+	move_to_tile(start_pos)
+	moves = 0
 	battery = 0 # in case of negative value
 	keys = max(0, keys-1) # lose a key
 
@@ -153,15 +147,12 @@ func end_turn():
 	var last_tile = used_tiles.pop_back() # last tile stays occupied
 	if battery < 1:
 		out_of_battery()
-	if moved_to_start:
-		unset_occupied(used_tiles+[last_tile])
-		used_tiles = []
-	else:
-		unset_occupied(used_tiles)
-		used_tiles = [current_cell]
+	unset_occupied(used_tiles)
+	used_tiles = [current_cell]
 	update_ui.emit()
 	# switch player here
 	main.next_player()
 	moves = max_moves
 	update_ui.emit()
-	moved_to_start = false
+	# print(get_availible_tiles(current_cell, moves))
+	
