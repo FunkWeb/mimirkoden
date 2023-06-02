@@ -14,12 +14,37 @@ var current_active_player = 0
 var player_uis = []
 var player_ui_positions = [Vector2(20,20),Vector2(20,580),Vector2(20,280),
 	Vector2(1000,20),Vector2(1000,580),Vector2(1000,280)]
+	
+const CSVparser = preload("CSVParser.gd")
+@onready var csv_parser = CSVparser.new()
+var csv_data
+var chance_cards = []
 
 func _ready():
 	QuitUI.hide()
 	StartUI.update_player_count(num_selected_players)
-	
-	
+	get_csv_data()
+	add_card_data(csv_data)
+
+func get_csv_data():
+	var csvPath = "res://sjansekort.csv.txt" # Replace with your CSV file path
+	csv_data = csv_parser.parseCSV(csvPath)
+
+class Chance_card:
+	var name
+	var description
+	var activation
+	var alignment 
+
+func add_card_data(data):
+	for line in data:
+		var card = Chance_card.new()
+		card.name = line[0]
+		card.description = line[1]
+		card.activation = line[2]
+		card.alignment = line[3]
+		chance_cards.append(card)
+	print(len(chance_cards))
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_cancel"):

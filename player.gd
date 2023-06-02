@@ -70,7 +70,9 @@ func item_shop():
 		keys += 1
 
 func draw_card():
-	# draws a random card
+	var card_index = randi_range(0,len(main.chance_cards)-1)
+	var card = main.chance_cards.pop_at(card_index)
+	print(card.name,card.description,card.activation,card.alignment)
 	# if it's a card you keep the card should be removed from the deck
 	# store and display the kept card for the player
 	pass
