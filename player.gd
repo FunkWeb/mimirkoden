@@ -5,6 +5,7 @@ var current_cell
 @export var active_player:bool
 const max_moves = 3
 var moves
+var next_turn_moves_modifier = 0
 var cell_index
 var keys # max 10
 var battery # max 20
@@ -157,6 +158,7 @@ func end_turn():
 	update_ui.emit()
 	# switch player here
 	main.next_player()
-	moves = max_moves
+	moves = max_moves + next_turn_moves_modifier
+	next_turn_moves_modifier = 0
 	update_ui.emit()
 	

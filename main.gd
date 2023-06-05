@@ -126,9 +126,9 @@ func immediate_card_effect(card):
 	elif card.name == "Resirkulering":
 		shuffle_discard_into_deck()
 	elif card.name == "Overklokket":
-		pass # endre antall moves neste runde for spiller
+		players[current_active_player].next_turn_moves_modifier = 1
 	elif card.name == "Overbelastet":
-		pass # endre antall moves neste runde for spiller
+		players[current_active_player].next_turn_moves_modifier = -1
 	elif card.name == "Virus":
 		pass # annen spiller flytter deg til sjansefelt
 	elif card.name == "Hack":
