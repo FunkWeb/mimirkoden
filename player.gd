@@ -73,9 +73,12 @@ func draw_card():
 	var card_index = randi_range(0,len(main.chance_cards)-1)
 	var card = main.chance_cards.pop_at(card_index)
 	print(card.name,card.description,card.activation,card.alignment)
-	# if it's a card you keep the card should be removed from the deck
-	# store and display the kept card for the player
-	pass
+	if card.activation == "Umiddelbar Aktivering":
+		main.discard_pile.append(card)
+		main.immediate_card_effect(card)
+	else:
+		# add card to hand
+		pass
 
 func draw_special_card():
 	# TODO display card for player
@@ -124,11 +127,11 @@ func _on_board_clicked():
 	var clicked_cell = board.clicked_cell
 	
 	# debug info:
-	var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
-	print("trykk på felt med koordinater: ", clicked_cell)
-	print("feltet er et ", cell_info.type, " felt")
-	print("feltet er i disse sonene: ", cell_info.zone)
-	print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
+	#var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
+	#print("trykk på felt med koordinater: ", clicked_cell)
+	#print("feltet er et ", cell_info.type, " felt")
+	#print("feltet er i disse sonene: ", cell_info.zone)
+	#print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
 	
 	if clicked_cell not in neighbors:
 		return
@@ -156,5 +159,4 @@ func end_turn():
 	main.next_player()
 	moves = max_moves
 	update_ui.emit()
-	# print(get_availible_tiles(current_cell, moves))
 	

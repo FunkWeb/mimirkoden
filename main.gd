@@ -10,6 +10,8 @@ var game_started = false
 var players = []
 var num_selected_players = 2  # Default value
 var current_active_player = 0
+var chance_cards = []
+var discard_pile = []
 
 var player_uis = []
 var player_ui_positions = [Vector2(20,20),Vector2(20,580),Vector2(20,280),
@@ -17,34 +19,10 @@ var player_ui_positions = [Vector2(20,20),Vector2(20,580),Vector2(20,280),
 	
 const CSVparser = preload("CSVParser.gd")
 @onready var csv_parser = CSVparser.new()
-var csv_data
-var chance_cards = []
 
 func _ready():
 	QuitUI.hide()
 	StartUI.update_player_count(num_selected_players)
-	get_csv_data()
-	add_card_data(csv_data)
-
-func get_csv_data():
-	var csvPath = "res://sjansekort.csv.txt" # Replace with your CSV file path
-	csv_data = csv_parser.parseCSV(csvPath)
-
-class Chance_card:
-	var name
-	var description
-	var activation
-	var alignment 
-
-func add_card_data(data):
-	for line in data:
-		var card = Chance_card.new()
-		card.name = line[0]
-		card.description = line[1]
-		card.activation = line[2]
-		card.alignment = line[3]
-		chance_cards.append(card)
-	print(len(chance_cards))
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_cancel"):
@@ -56,16 +34,18 @@ func _process(_delta):
 		print("SWITCH")
 		next_player()
 
-
 func _on_start_ui_players(num: int):
 	num_selected_players = num
-
 
 func _on_start_ui_start_game():
 	StartUI.hide()
 	start()
 
 func start():
+	# create cards
+	var csv_data = get_chance_card_csv_data()
+	add_chance_card_data(csv_data)
+
 	# Create X number of players and UI elements
 	for n in num_selected_players:
 		players.push_back(Player.instantiate())
@@ -105,5 +85,51 @@ func next_player():
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
 
-	
+func get_chance_card_csv_data():
+	var csvPath = "res://sjansekort.csv.txt" # Replace with your CSV file path
+	return csv_parser.parseCSV(csvPath)
 
+class Card:
+	var name
+	var description
+	var activation
+	var alignment
+	
+class Shop_card extends Card:
+	var cost
+
+func add_chance_card_data(data):
+	if !chance_cards == []:
+		return
+	for line in data:
+		var card = Card.new()
+		card.name = line[0]
+		card.description = line[1]
+		card.activation = line[2]
+		card.alignment = line[3]
+		chance_cards.append(card)
+	print(len(chance_cards))
+
+func shuffle_discard_into_deck():
+	chance_cards += discard_pile
+	discard_pile.clear()
+	
+func immediate_card_effect(card):
+	if card.name == "Nøkkel +":
+		players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
+	elif card.name == "Nøkkel -":
+		players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
+	elif card.name == "Batteri +":
+		players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
+	elif card.name == "Batteri -":
+		players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
+	elif card.name == "Resirkulering":
+		shuffle_discard_into_deck()
+	elif card.name == "Overklokket":
+		pass # endre antall moves neste runde for spiller
+	elif card.name == "Overbelastet":
+		pass # endre antall moves neste runde for spiller
+	elif card.name == "Virus":
+		pass # annen spiller flytter deg til sjansefelt
+	elif card.name == "Hack":
+		pass # du flytter annen spiller til sjansefelt

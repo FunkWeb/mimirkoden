@@ -1,4 +1,4 @@
-﻿Resirkulering;Legg alle kortene i papirkurv-feltet tilbake i sjansebunken og stokk bunken.;Umiddelbar Aktivering;Nøytralt
+Resirkulering;Legg alle kortene i papirkurv-feltet tilbake i sjansebunken og stokk bunken.;Umiddelbar Aktivering;Nøytralt
 Krypteringnøkkel;Du kan bruke dette kortet isteden for 5 nøkler for å komme deg gjennom et krypteringsfelt. Behold kortet til du velger å aktivere det, legg det deretter i feltet markert med papirkurv.;Valgfri Aktivering;Nøytralt
 Overklokket;Du kan bevege deg en ekstra rute på din neste tur (Opp til 4 ruter totalt);Umiddelbar Aktivering;Positivt
 Overbelastet;Du kan bevege deg en mindre rute på din neste tur (Opp til 2 ruter totalt);Umiddelbar Aktivering;Negativt
@@ -6,7 +6,7 @@ Virus;Spilleren til venstre flytter deg til et sjansefelt de velger. Du får ikk
 Hack;Flytt en annen spiller til et sjansefelt du velger. De får ikke trekke sjansekort på feltet de blir beveget til. Legg det deretter tilbake i bunken sammen med alle kortene i papirkurvfeltet og stokk bunken.;Umiddelbar Aktivering;Negativt
 Premium Brannmur;Du kan bruke dette kortet til å ignorere et negativt kort uansett kilde. Behold kortet til du velger å aktivere det, legg det deretter i feltet markert med papirkurv.;Valgfri Aktivering;Positivt
 Forsikring;Beskytter mot tyveri av Batteri og Nøkler. Behold kortet til du velger å aktivere det, legg det deretter i feltet markert med papirkurv.;Valgfri Aktivering;Positivt
-Anti-Virus;Du kan sende en negativ e�ekt som påvirker deg på en motspiller i steden. Om e�ekten kommer fra en spiller, kan du ikke sende den til den spilleren. Behold kortet til du velger å aktivere det, legg det deretter i feltet markert med papirkurv.;Valgfri Aktivering;Positivt
+Anti-Virus;Du kan sende en negativ effekt som påvirker deg på en motspiller i steden. Om effekten kommer fra en spiller, kan du ikke sende den til den spilleren. Behold kortet til du velger å aktivere det, legg det deretter i feltet markert med papirkurv.;Valgfri Aktivering;Positivt
 Bakdør;Kan gå gjennom et brannmur-felt. (Teller ikke som er skritt). Behold kortet til du velger å aktivere det, legg det deretter tilbake i bunken sammen med alle kortene i papirkurvfeltet og stokk bunken.;Valgfri Aktivering;Positivt
 Nøkkel +;Øk antall nøkler du har med 1;Umiddelbar Aktivering;Positivt
 Nøkkel +;Øk antall nøkler du har med 2;Umiddelbar Aktivering;Positivt
