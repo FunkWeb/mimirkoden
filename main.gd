@@ -34,6 +34,7 @@ func _process(_delta):
 	if Input.is_action_pressed("ui_cancel"):
 		StartUI.hide()
 		QuitUI.show()
+		$SelectSound.play()
 	
 	# TESTING PLAYER SWITCHING
 	if Input.is_action_just_pressed("ui_accept"):
