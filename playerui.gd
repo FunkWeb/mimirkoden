@@ -3,7 +3,7 @@ extends CanvasLayer
 @onready var player = $".."/Player
 
 var pos = Vector2(0,0)
-var element_offset = Vector2(0,20)
+var element_offset = Vector2(0,40)
 
 
 # Called when the node enters the scene tree for the first time.

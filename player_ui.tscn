@@ -1,27 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://du3cwj0q6lnql"]
+[gd_scene load_steps=3 format=3 uid="uid://du3cwj0q6lnql"]
 
 [ext_resource type="Script" path="res://playerui.gd" id="1_1yowr"]
+[ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="2_504fk"]
 
 [node name="PlayerUI" type="CanvasLayer"]
 script = ExtResource("1_1yowr")
 
 [node name="KeyCounter" type="Label" parent="."]
-offset_left = 39.0
-offset_top = 84.0
-offset_right = 93.0
-offset_bottom = 110.0
+offset_right = 130.0
+offset_bottom = 57.0
 text = "Keys: 0"
+label_settings = ExtResource("2_504fk")
 
 [node name="ChargeCounter" type="Label" parent="."]
-offset_left = 27.0
-offset_top = 52.0
-offset_right = 100.0
-offset_bottom = 78.0
+offset_right = 177.0
+offset_bottom = 57.0
 text = "Charge: 0"
+label_settings = ExtResource("2_504fk")
 
 [node name="Name" type="Label" parent="."]
-offset_left = 33.0
-offset_top = 22.0
-offset_right = 95.0
-offset_bottom = 48.0
+offset_right = 150.0
+offset_bottom = 57.0
 text = "Player 1"
+label_settings = ExtResource("2_504fk")

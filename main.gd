@@ -6,7 +6,16 @@ extends Node
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
-var game_started = false
+@onready var screen_size = get_viewport().get_visible_rect().size
+@onready var player_ui_positions = [
+	Vector2(20,screen_size[1]/2 - 60), 
+	Vector2(20,20),
+	Vector2(screen_size[0] - 220,20), 
+	Vector2(screen_size[0] - 220,screen_size[1]/2 - 60),
+	Vector2(screen_size[0] - 220,screen_size[1] - 140),
+	Vector2(20,screen_size[1] - 140), 
+	]
+
 var players = []
 var num_selected_players = 2  # Default value
 var current_active_player = 0
@@ -14,9 +23,8 @@ var chance_cards = []
 var discard_pile = []
 
 var player_uis = []
-var player_ui_positions = [Vector2(20,20),Vector2(20,580),Vector2(20,280),
-	Vector2(1000,20),Vector2(1000,580),Vector2(1000,280)]
 	
+var game_started = false
 const CSVparser = preload("CSVParser.gd")
 @onready var csv_parser = CSVparser.new()
 
@@ -25,9 +33,16 @@ func _ready():
 	StartUI.update_player_count(num_selected_players)
 
 func _process(_delta):
-	if Input.is_action_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and not QuitUI.visible:
 		StartUI.hide()
 		QuitUI.show()
+		$SelectSound.play()
+		
+	elif Input.is_action_just_pressed("ui_cancel") and QuitUI.visible:
+		$SelectSound.play()
+		QuitUI.hide()
+		if not game_started:
+			StartUI.show()
 	
 	# TESTING PLAYER SWITCHING
 	if Input.is_action_just_pressed("ui_accept"):
@@ -40,6 +55,8 @@ func _on_start_ui_players(num: int):
 func _on_start_ui_start_game():
 	StartUI.hide()
 	start()
+	
+	print(screen_size)
 
 func start():
 	# create cards
@@ -76,6 +93,7 @@ func start():
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
 		p.update_ui.connect(p_ui._on_player_update_ui)
 	
+	game_started = true
 	
 	# Set first player active
 	players[0].active_player = true
