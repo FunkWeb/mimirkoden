@@ -9,10 +9,11 @@ script/source = "extends CanvasLayer
 signal start_game
 signal players
 
+@onready var select_sound = $\"../SelectSound\"
+
 var msg = \"Players: \"
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
 	pass # Replace with function body.
 
 
@@ -26,12 +27,19 @@ func update_player_count(num):
 func _on_num_players_button_pressed(id: int):
 	update_player_count(id)
 	players.emit(id)
+	select_sound.play()
 
 
 func _on_start_button_pressed():
 	start_game.emit()
+	select_sound.play()
 
 
+
+
+func _on_num_players_button_about_to_popup():
+	select_sound.play()
+	pass # Replace with function body.
 "
 
 [node name="StartUI" type="CanvasLayer"]

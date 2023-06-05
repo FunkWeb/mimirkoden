@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvp45gs8abvkb"]
+[gd_scene load_steps=11 format=3 uid="uid://cvp45gs8abvkb"]
 
 [ext_resource type="PackedScene" uid="uid://bv3gd5i8irs4v" path="res://board.tscn" id="1_2ebvj"]
 [ext_resource type="Script" path="res://main.gd" id="1_mcyre"]
 [ext_resource type="AudioStream" uid="uid://3r4mekjsdjej" path="res://sound_assets/Move.wav" id="4_4vru6"]
+[ext_resource type="AudioStream" uid="uid://biostpyt4j27p" path="res://sound_assets/Select.wav" id="4_c5q6y"]
 [ext_resource type="PackedScene" uid="uid://5pxrlf7ebbl3" path="res://quit_ui.tscn" id="5_v4wlc"]
 [ext_resource type="PackedScene" uid="uid://dtox1ugs1ywyk" path="res://start_ui.tscn" id="6_pbho7"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="7_h3uwt"]
@@ -34,6 +35,9 @@ scale = Vector2(0.169485, 0.169485)
 [node name="MoveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4vru6")
 
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_c5q6y")
+
 [node name="QuitUI" parent="." instance=ExtResource("5_v4wlc")]
 visible = false
 
@@ -63,5 +67,6 @@ horizontal_alignment = 1
 
 [connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
 [connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]
+[connection signal="about_to_popup" from="StartUI/NumPlayersButton" to="StartUI" method="_on_num_players_button_about_to_popup"]
 
 [editable path="StartUI"]
