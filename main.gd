@@ -31,12 +31,12 @@ func _ready():
 	
 
 func _process(_delta):
-	if Input.is_action_pressed("ui_cancel") and not QuitUI.visible:
+	if Input.is_action_just_pressed("ui_cancel") and not QuitUI.visible:
 		StartUI.hide()
 		QuitUI.show()
 		$SelectSound.play()
 		
-	elif Input.is_action_pressed("ui_cancel") and QuitUI.visible:
+	elif Input.is_action_just_pressed("ui_cancel") and QuitUI.visible:
 		$SelectSound.play()
 		QuitUI.hide()
 		if not game_started:
