@@ -6,14 +6,21 @@ extends Node
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
+@onready var screen_size = get_viewport().get_visible_rect().size
+@onready var player_ui_positions = [
+	Vector2(20,screen_size[1]/2 - 60), 
+	Vector2(20,20),
+	Vector2(screen_size[0] - 220,20), 
+	Vector2(screen_size[0] - 220,screen_size[1]/2 - 60),
+	Vector2(screen_size[0] - 220,screen_size[1] - 140),
+	Vector2(20,screen_size[1] - 140), 
+	]
 
 var players = []
 var num_selected_players = 2  # Default value
 var current_active_player = 0
 
 var player_uis = []
-var player_ui_positions = [Vector2(20,20),Vector2(20,580),Vector2(20,280),
-	Vector2(1000,20),Vector2(1000,580),Vector2(1000,280)]
 	
 var game_started = false
 
@@ -41,6 +48,8 @@ func _on_start_ui_players(num: int):
 func _on_start_ui_start_game():
 	StartUI.hide()
 	start()
+	
+	print(screen_size)
 
 func start():
 	# Create X number of players and UI elements
