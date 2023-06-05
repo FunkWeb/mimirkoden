@@ -90,7 +90,7 @@ func draw_special_card():
 	else:
 		print("Du blir kastet ut")
 		moves = 0
-		move_to_tile(start_pos)
+		move_to_tile(board.get_map_pos(start_pos))
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
@@ -98,7 +98,7 @@ func move_to_tile(cell):
 	set_position(cell)
 
 func out_of_battery():
-	move_to_tile(start_pos)
+	move_to_tile(board.get_map_pos(start_pos))
 	moves = 0
 	battery = 0 # in case of negative value
 	keys = max(0, keys-1) # lose a key
