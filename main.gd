@@ -14,6 +14,8 @@ var current_active_player = 0
 var player_uis = []
 var player_ui_positions = [Vector2(20,20),Vector2(20,580),Vector2(20,280),
 	Vector2(1000,20),Vector2(1000,580),Vector2(1000,280)]
+	
+var game_started = false
 
 func _ready():
 	QuitUI.hide()
@@ -71,6 +73,7 @@ func start():
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
 		p.update_ui.connect(p_ui._on_player_update_ui)
 	
+	game_started = true
 	
 	# Set first player active
 	players[0].active_player = true

@@ -17,4 +17,7 @@ func _on_quit_pressed():
 
 func _on_cancel_pressed():
 	hide()
+	
+	if not $"..".game_started:
+		$".."/StartUI.show()
 
