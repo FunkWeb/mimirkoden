@@ -94,6 +94,7 @@ func start():
 	
 	# Set first player active
 	players[0].active_player = true
+	players[0].update_ui.emit()
 
 func next_player():
 	players[current_active_player].active_player = false
