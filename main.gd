@@ -103,6 +103,8 @@ func start():
 	players[0].update_ui.emit()
 
 func next_player():
+	if !game_started:
+		return
 	players[current_active_player].active_player = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true

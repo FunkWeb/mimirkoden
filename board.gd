@@ -15,7 +15,7 @@ func _ready():
 	add_tile_zones()
 
 func _unhandled_input(event):
-	if !(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+	if !(main.game_started and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
 		return
 	clicked_cell = local_to_map(get_local_mouse_position())
 	if clicked_cell not in all_cells: # Check if clicked cell is on the board

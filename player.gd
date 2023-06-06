@@ -117,7 +117,7 @@ func move_player(clicked_cell):
 	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
-	if !active_player or moves == 0:
+	if !main.game_started or !active_player or moves == 0:
 		return
 	
 	var neighbors = board.get_valid_neighbors(current_cell)
