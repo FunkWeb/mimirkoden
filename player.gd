@@ -5,6 +5,7 @@ var current_cell
 @export var active_player:bool
 const max_moves = 3
 var moves
+var key_card
 var next_turn_moves_modifier = 0
 var cell_index
 var inventory = []
@@ -45,7 +46,10 @@ func new_tile_effect(tile):
 				out_of_battery()
 		"lock":
 			moves = 0
-			keys -= 5
+			if key_card:
+				key_card = false
+			else:
+				keys -= 5
 		"special_card":
 			moves = 0
 			draw_special_card()
@@ -95,6 +99,24 @@ func draw_special_card():
 		moves = 0
 		move_to_tile(board.get_map_pos(start_pos))
 
+func use_card(inv_index):
+	# use a card from inventory
+	var card = inventory.pop_at(inv_index)
+	main.discard_pile.append(card)
+	match card.name:
+		"Bakdør":
+			walk_walls = true
+			main.shuffle_discard_into_deck()
+		"Krypteringnøkkel":
+			key_card = true
+		"Premium Brannmur":
+			pass
+		"Forsikring":
+			pass
+		"Anti-Virus":
+			pass
+		
+	
 func move_to_tile(cell):
 	unset_occupied([current_cell])
 	current_cell = board.get_local_pos(cell)

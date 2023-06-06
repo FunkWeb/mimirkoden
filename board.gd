@@ -49,8 +49,10 @@ func check_valid(cell):
 	if tile_index == null:
 		return false
 	var tile = tile_list[tile_index]
-	if tile.occupied or (tile.type == "wall" and not active_player.walk_walls) or\
-		(tile.type == "lock" or tile.type == "win") and active_player.keys < 5:
+	if tile.occupied or \
+	(tile.type == "wall" and !active_player.walk_walls) or\
+	tile.type == "lock" and (!active_player.key_card and active_player.keys < 5) or\
+	tile.type == "win" and active_player.keys < 5:
 		return false
 	return true
 
