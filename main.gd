@@ -61,7 +61,7 @@ func _on_start_ui_start_game():
 	print(screen_size)
 
 func start():
-	# create cards
+	# create chance card deck
 	var csv_data = get_chance_card_csv_data()
 	add_chance_card_data(csv_data)
 	
@@ -70,7 +70,8 @@ func start():
 	# MAKING A TEST CARD
 	var cc = ChanceCardBase.instantiate()
 	add_child(cc)
-	cc.init(chance_cards[0])
+	var random_card = chance_cards.pick_random()
+	cc.init(random_card)
 
 	# Create X number of players and UI elements
 	for n in num_selected_players:

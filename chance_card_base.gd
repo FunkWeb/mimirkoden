@@ -3,10 +3,6 @@ extends MarginContainer
 @onready var card_title = $Contents/Title
 @onready var card_desc = $Contents/Description
 @onready var card_activation = $Activation
-#@onready var title_color = card_title.label_settings.outline_color
-#@onready var desc_color = card_desc.label_settings.outline_color
-#@onready var label_settings = card_title.get_label_settings()
-
 
 func init(CardData):
 	print(CardData.polarity)
