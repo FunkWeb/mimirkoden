@@ -14,4 +14,4 @@ func _process(_delta):
 
 func _on_player_update_ui():
 	current_player = main.players[main.current_active_player]
-	$Counter.text = "Moves\n"+str(current_player.moves)
+	$Counter.text = "Player "+str(main.current_active_player+1)+"\nMoves\n"+str(current_player.moves)
