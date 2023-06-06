@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dtox1ugs1ywyk" path="res://start_ui.tscn" id="6_pbho7"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="7_h3uwt"]
 [ext_resource type="Script" path="res://movecounterui.gd" id="8_i11si"]
-[ext_resource type="PackedScene" uid="uid://bk0bm0808ba0k" path="res://end_turn_ui.tscn" id="9_scw21"]
+[ext_resource type="PackedScene" path="res://end_turn_ui.tscn" id="9_scw21"]
 
 [sub_resource type="Gradient" id="Gradient_mpsx1"]
 interpolation_mode = 2
