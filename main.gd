@@ -90,6 +90,7 @@ func start():
 		p.update_ui.connect(p_ui._on_player_update_ui)
 	
 	game_started = true
+	$EndTurnUI.show()
 	
 	# Set first player active
 	players[0].active_player = true
@@ -101,3 +102,9 @@ func next_player():
 
 	
 
+
+
+func _on_end_turn_ui_end_turn():
+	players[current_active_player].end_turn()
+	print("player "+str(current_active_player+1)+"'s turn")
+	pass # Replace with function body.
