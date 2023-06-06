@@ -7,6 +7,7 @@ const max_moves = 3
 var moves
 var next_turn_moves_modifier = 0
 var cell_index
+var inventory = []
 var keys # max 10
 var battery # max 20
 var new_tile # new tile just moved to
@@ -31,32 +32,33 @@ func init():
 	set_position(board.get_map_pos(current_cell))
 
 func new_tile_effect(tile):
-	if tile.type == "ground":
-		battery += 1
-		battery = min(battery, 20) # max 20 battery
-	elif tile.type == "double":
-		battery += 2
-		battery = min(battery, 20)
-	elif tile.type == "negative":
-		battery -= 1
-		if battery < 0: # less than 0
-			out_of_battery()
-	elif tile.type == "lock":
-		moves = 0
-		keys -= 5
-	elif tile.type == "special_card":
-		moves = 0
-		draw_special_card()
-	elif tile.type == "shop":
-		moves = 0
-		item_shop()
-	elif tile.type == "card":
-		moves = 0
-		draw_card()
-	elif tile.type == "win":
-		moves = 0
-		keys -= 5
-		print("Du fant Mimirkoden!")
+	match tile.type:
+		"ground":
+			battery += 1
+			battery = min(battery, 20) # max 20 battery
+		"double":
+			battery += 2
+			battery = min(battery, 20)
+		"negative":
+			battery -= 1
+			if battery < 0: # less than 0
+				out_of_battery()
+		"lock":
+			moves = 0
+			keys -= 5
+		"special_card":
+			moves = 0
+			draw_special_card()
+		"shop":
+			moves = 0
+			item_shop()
+		"card":
+			moves = 0
+			draw_card()
+		"win":
+			moves = 0
+			keys -= 5
+			print("Du fant Mimirkoden!")
 
 func item_shop():
 	# show shop menu
@@ -75,7 +77,7 @@ func draw_card():
 		main.discard_pile.append(card)
 		main.immediate_card_effect(card)
 	else:
-		# TODO add card to hand
+		inventory += [card]
 		pass
 
 func draw_special_card():
