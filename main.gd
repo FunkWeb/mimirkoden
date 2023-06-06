@@ -3,6 +3,7 @@ extends Node
 @onready var board = $Board
 @onready var Player = preload("res://player.tscn")
 @onready var PlayerUI = preload("res://player_ui.tscn")
+@onready var ChanceCardBase = preload("res://chance_card_base.tscn")
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
@@ -63,6 +64,13 @@ func start():
 	# create cards
 	var csv_data = get_chance_card_csv_data()
 	add_chance_card_data(csv_data)
+	
+	
+	
+	# MAKING A TEST CARD
+	var cc = ChanceCardBase.instantiate()
+	add_child(cc)
+	cc.init(chance_cards[0])
 
 	# Create X number of players and UI elements
 	for n in num_selected_players:
@@ -117,7 +125,7 @@ func get_chance_card_csv_data():
 	return csv_parser.parseCSV(chance_card_csv)
 
 class Card:
-	var name
+	var title
 	var description
 	var activation # umiddelbar eller valgfri
 	var polarity # positiv, negativ, neutral
@@ -128,7 +136,7 @@ class Shop_card extends Card:
 func add_chance_card_data(data):
 	for line in data:
 		var card = Card.new()
-		card.name = line[0]
+		card.title = line[0]
 		card.description = line[1]
 		card.activation = line[2]
 		card.polarity = line[3]
@@ -139,7 +147,7 @@ func shuffle_discard_into_deck():
 	discard_pile.clear()
 
 func immediate_card_effect(card):
-	match card.name:
+	match card.title:
 		"Nøkkel +":
 			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
 		"Nøkkel -":
