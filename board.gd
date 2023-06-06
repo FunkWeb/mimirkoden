@@ -103,7 +103,6 @@ func make_tile_list():
 			object.type = "win"
 		elif tile > 126: # starting tiles
 			object.type = "start"
-			object.occupied = true
 			object.walkable = false
 		else:
 			object.type = "ground"

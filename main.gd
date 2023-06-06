@@ -22,6 +22,7 @@ var current_active_player = 0
 var chance_cards = []
 var discard_pile = []
 var card_effect
+signal card_effect_done
 var player_uis = []
 	
 var game_started = false
@@ -92,6 +93,7 @@ func start():
 		# Connect signals to UI elements
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
 		p.update_ui.connect(p_ui._on_player_update_ui)
+		
 	
 	game_started = true
 	
@@ -130,40 +132,42 @@ func shuffle_discard_into_deck():
 	discard_pile.clear()
 
 func immediate_card_effect(card):
-	if card.name == "Nøkkel +":
-		players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
-	elif card.name == "Nøkkel -":
-		players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
-	elif card.name == "Batteri +":
-		players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
-	elif card.name == "Batteri -":
-		players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
-	elif card.name == "Resirkulering":
-		shuffle_discard_into_deck()
-	elif card.name == "Overklokket":
-		players[current_active_player].next_turn_moves_modifier = 1
-	elif card.name == "Overbelastet":
-		players[current_active_player].next_turn_moves_modifier = -1
-	elif card.name == "Virus":
-			card_effect = true
-			# display which player is in control
+	match card.name:
+		"Nøkkel +":
+			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
+		"Nøkkel -":
+			players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
+		"Batteri +":
+			players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
+		"Batteri -":
+			players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
+		"Resirkulering":
+			shuffle_discard_into_deck()
+		"Overklokket":
+			players[current_active_player].next_turn_moves_modifier = 1
+		"Overbelastet":
+			players[current_active_player].next_turn_moves_modifier = -1
+		"Virus":
+			# TODO display which player is in control
 			move_to_chance(current_active_player)
-			card_effect = false
-	elif card.name == "Hack":
-		card_effect = true
-		var player
-		var clicked_cell # get clicked cell somehow
-		for player_index in len(players):
-			if players[player_index].active_player:
-				continue # don't pick yourself
-			if players[player_index].current_pos == clicked_cell:
-				player = player_index
-		move_to_chance(player)
-		card_effect = false
+			shuffle_discard_into_deck()
+		"Hack":
+			move_to_chance()
+			shuffle_discard_into_deck()
 
-func move_to_chance(player): # index or current_active_player
-	var clicked_cell # get clicked cell somehow
-	if board.tile_list[board.get_index_from_coor(clicked_cell)].occupied == true:
-	# if occupied, a player is on it
-	# problem, starting tiles are set as occupied
+func pick_a_player():
+	print("velg en spiller du vil flytte")
+	var clicked_cell # TODO find clicked cell
+	for player_index in len(players):
+		if player_index == current_active_player:
+			continue # don't pick yourself
+		if players[player_index].current_pos == clicked_cell:
+			return player_index
+
+func move_to_chance(player = -1):
+	if player == -1:
+		player = pick_a_player()
+	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
+	var clicked_cell # TODO find clicked cell
+	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "chance":
 		players[player].move_to_tile(clicked_cell)
