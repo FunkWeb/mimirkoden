@@ -16,14 +16,11 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 @onready var main = $".."
 @onready var board = $"../Board"
 @onready var move_sound = $"../MoveSound"
-
 # Called when the node enters the scene tree for the first time.
-func _ready():	
+func _ready():
 	battery = 0
 	moves = max_moves
 	keys = 0
-	
-	
 	walk_walls = false
 	used_tiles = []
 	# Connect click signal from board to player
@@ -78,7 +75,7 @@ func draw_card():
 		main.discard_pile.append(card)
 		main.immediate_card_effect(card)
 	else:
-		# add card to hand
+		# TODO add card to hand
 		pass
 
 func draw_special_card():
@@ -117,7 +114,6 @@ func move_player(clicked_cell):
 	used_tiles.append(current_cell)
 	move_sound.play()
 	new_tile_effect(new_tile)
-	print("felt brukt denne runden: ", used_tiles)
 	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
@@ -137,8 +133,6 @@ func _on_board_clicked():
 	if clicked_cell not in neighbors:
 		return
 	move_player(clicked_cell)
-	if moves == 0: # TEMP end turn. replace with button
-		end_turn()
 
 func unset_occupied(tiles):
 	for tile in tiles:
@@ -150,7 +144,7 @@ func unset_occupied(tiles):
 
 func end_turn():
 	print("Slutt på runden, ny spiller sin tur")
-	var last_tile = used_tiles.pop_back() # last tile stays occupied
+	used_tiles.pop_back() # last tile stays occupied
 	if battery < 1:
 		out_of_battery()
 	unset_occupied(used_tiles)
