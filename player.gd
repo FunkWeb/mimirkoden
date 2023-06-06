@@ -73,7 +73,7 @@ func item_shop():
 func draw_card():
 	var card_index = randi_range(0,len(main.chance_cards)-1)
 	var card = main.chance_cards.pop_at(card_index)
-	print(card.name,card.description,card.activation,card.alignment)
+	print(card.name,card.description,card.activation,card.polarity)
 	if card.activation == "Umiddelbar Aktivering":
 		main.discard_pile.append(card)
 		main.immediate_card_effect(card)

@@ -21,7 +21,7 @@ var num_selected_players = 2  # Default value
 var current_active_player = 0
 var chance_cards = []
 var discard_pile = []
-
+var card_effect
 var player_uis = []
 	
 var game_started = false
@@ -104,34 +104,31 @@ func next_player():
 	players[current_active_player].active_player = true
 
 func get_chance_card_csv_data():
-	var csvPath = "res://sjansekort.csv.txt" # Replace with your CSV file path
-	return csv_parser.parseCSV(csvPath)
+	var chance_card_csv = "res://sjansekort.csv.txt"
+	return csv_parser.parseCSV(chance_card_csv)
 
 class Card:
 	var name
 	var description
-	var activation
-	var alignment
+	var activation # umiddelbar eller valgfri
+	var polarity # positiv, negativ, neutral
 	
 class Shop_card extends Card:
 	var cost
 
 func add_chance_card_data(data):
-	if !chance_cards == []:
-		return
 	for line in data:
 		var card = Card.new()
 		card.name = line[0]
 		card.description = line[1]
 		card.activation = line[2]
-		card.alignment = line[3]
+		card.polarity = line[3]
 		chance_cards.append(card)
-	print(len(chance_cards))
 
 func shuffle_discard_into_deck():
 	chance_cards += discard_pile
 	discard_pile.clear()
-	
+
 func immediate_card_effect(card):
 	if card.name == "Nøkkel +":
 		players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
@@ -148,6 +145,25 @@ func immediate_card_effect(card):
 	elif card.name == "Overbelastet":
 		players[current_active_player].next_turn_moves_modifier = -1
 	elif card.name == "Virus":
-		pass # annen spiller flytter deg til sjansefelt
+			card_effect = true
+			# display which player is in control
+			move_to_chance(current_active_player)
+			card_effect = false
 	elif card.name == "Hack":
-		pass # du flytter annen spiller til sjansefelt
+		card_effect = true
+		var player
+		var clicked_cell # get clicked cell somehow
+		for player_index in len(players):
+			if players[player_index].active_player:
+				continue # don't pick yourself
+			if players[player_index].current_pos == clicked_cell:
+				player = player_index
+		move_to_chance(player)
+		card_effect = false
+
+func move_to_chance(player): # index or current_active_player
+	var clicked_cell # get clicked cell somehow
+	if board.tile_list[board.get_index_from_coor(clicked_cell)].occupied == true:
+	# if occupied, a player is on it
+	# problem, starting tiles are set as occupied
+		players[player].move_to_tile(clicked_cell)
