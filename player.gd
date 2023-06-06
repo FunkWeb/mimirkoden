@@ -131,8 +131,8 @@ func _on_board_clicked():
 	if clicked_cell not in neighbors:
 		return
 	move_player(clicked_cell)
-	if moves == 0: # TEMP end turn. replace with button
-		end_turn()
+	#if moves == 0: # TEMP end turn. replace with button # replaced with button
+	#	end_turn()
 
 func unset_occupied(tiles):
 	for tile in tiles:
