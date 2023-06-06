@@ -3,6 +3,7 @@ extends Node
 @onready var board = $Board
 @onready var Player = preload("res://player.tscn")
 @onready var PlayerUI = preload("res://player_ui.tscn")
+@onready var ChanceCardBase = preload("res://chance_card_base.tscn")
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
@@ -62,6 +63,13 @@ func start():
 	# create cards
 	var csv_data = get_chance_card_csv_data()
 	add_chance_card_data(csv_data)
+	
+	
+	
+	# MAKING A TEST CARD
+	var cc = ChanceCardBase.instantiate()
+	add_child(cc)
+	cc.init(chance_cards[0])
 
 	# Create X number of players and UI elements
 	for n in num_selected_players:
@@ -108,7 +116,7 @@ func get_chance_card_csv_data():
 	return csv_parser.parseCSV(chance_card_csv)
 
 class Card:
-	var name
+	var title
 	var description
 	var activation # umiddelbar eller valgfri
 	var polarity # positiv, negativ, neutral
@@ -119,7 +127,7 @@ class Shop_card extends Card:
 func add_chance_card_data(data):
 	for line in data:
 		var card = Card.new()
-		card.name = line[0]
+		card.title = line[0]
 		card.description = line[1]
 		card.activation = line[2]
 		card.polarity = line[3]
@@ -130,26 +138,26 @@ func shuffle_discard_into_deck():
 	discard_pile.clear()
 
 func immediate_card_effect(card):
-	if card.name == "Nøkkel +":
+	if card.title == "Nøkkel +":
 		players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
-	elif card.name == "Nøkkel -":
+	elif card.title == "Nøkkel -":
 		players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
-	elif card.name == "Batteri +":
+	elif card.title == "Batteri +":
 		players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
-	elif card.name == "Batteri -":
+	elif card.title == "Batteri -":
 		players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
-	elif card.name == "Resirkulering":
+	elif card.title == "Resirkulering":
 		shuffle_discard_into_deck()
-	elif card.name == "Overklokket":
+	elif card.title == "Overklokket":
 		players[current_active_player].next_turn_moves_modifier = 1
-	elif card.name == "Overbelastet":
+	elif card.title == "Overbelastet":
 		players[current_active_player].next_turn_moves_modifier = -1
-	elif card.name == "Virus":
+	elif card.title == "Virus":
 			card_effect = true
 			# display which player is in control
 			move_to_chance(current_active_player)
 			card_effect = false
-	elif card.name == "Hack":
+	elif card.title == "Hack":
 		card_effect = true
 		var player
 		var clicked_cell # get clicked cell somehow
