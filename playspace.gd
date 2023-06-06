@@ -1,11 +1,13 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
+const CardBase = preload("res://cards/chance_card_base.tscn")
+const PlayerHand = preload("res://cards/player_hand.gd")
+var CardSelected = []
+@onready var DeckSize = PlayerHand.CardList.size()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _input(event):
+	if Input.is_action_just_released("middleclick"):
+		var new_card = CardBase.instantiate()
+		
