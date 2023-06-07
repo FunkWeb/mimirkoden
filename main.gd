@@ -116,6 +116,7 @@ func next_player():
 	players[current_active_player].active_player = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
+	players[current_active_player].start_turn()
 
 func _on_end_turn_ui_end_turn():
 	players[current_active_player].end_turn()

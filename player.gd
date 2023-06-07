@@ -32,6 +32,12 @@ func init():
 	current_cell = start_pos
 	set_position(board.get_map_pos(current_cell))
 
+func start_turn():
+	moves = max_moves + next_turn_moves_modifier
+	next_turn_moves_modifier = 0
+	update_ui.emit()
+	
+
 func new_tile_effect(tile):
 	match tile.type:
 		"ground":
@@ -179,7 +185,4 @@ func end_turn():
 	update_ui.emit()
 	# switch player here
 	main.next_player()
-	moves = max_moves + next_turn_moves_modifier
-	next_turn_moves_modifier = 0
-	update_ui.emit()
-	
+
