@@ -23,7 +23,7 @@ func _ready():
 	battery = 0
 	moves = max_moves
 	keys = 0
-	walk_walls = false
+	walk_walls = true # set true for testing
 	used_tiles = []
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
@@ -59,6 +59,9 @@ func new_tile_effect(tile):
 		"card":
 			moves = 0
 			draw_card()
+		"wall":
+			moves += 1 # don't use a move
+			walk_walls = false
 		"win":
 			moves = 0
 			keys -= 5
