@@ -68,7 +68,11 @@ size = Vector2i(300, 150)
 dialog_text = "You have moves remaining.
 Really end turn?"
 
+[node name="Window" type="Window" parent="."]
+visible = false
+
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="ConfirmationDialog/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="ConfirmationDialog/NoButton" to="." method="_on_no_button_pressed"]
 [connection signal="canceled" from="ConfirmationWindow" to="." method="_on_confirmation_window_canceled"]
+[connection signal="confirmed" from="ConfirmationWindow" to="." method="_on_confirmation_window_confirmed"]

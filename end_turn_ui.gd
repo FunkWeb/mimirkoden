@@ -45,7 +45,7 @@ func _on_no_button_pressed():
 
 func _on_confirmation_window_canceled():
 	select_sound.play()
-	$ConfirmationDialog.hide()
+	$ConfirmationWindow.hide()
 	$EndTurnButton.show()
 	$EndTurnLabel.show()
 	pass # Replace with function body.
@@ -53,7 +53,7 @@ func _on_confirmation_window_canceled():
 
 func _on_confirmation_window_confirmed():
 	select_sound.play()
-	$ConfirmationDialog.hide()
+	$ConfirmationWindow.hide()
 	$EndTurnButton.show()
 	$EndTurnLabel.show()
 	end_turn.emit()
