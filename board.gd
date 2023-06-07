@@ -7,8 +7,6 @@ var grid_data : Dictionary = {}
 signal clicked
 var tile_list = []
 @onready var main = $".."
-var active_player
-
 
 func _ready():
 	make_tile_list()
@@ -44,16 +42,21 @@ func get_index_from_coor(coor):
 			return i
 
 func check_valid(cell):
-	active_player = main.players[main.current_active_player]
+	var player = main.players[main.current_active_player]
 	var tile_index = get_index_from_coor(cell)
-	if tile_index == null:
+	if tile_index == null or tile_index > 126:
 		return false
 	var tile = tile_list[tile_index]
-	if tile.occupied or \
-	(tile.type == "wall" and !active_player.walk_walls and active_player.moves < 1) or\
-	tile.type == "lock" and (!active_player.key_card and active_player.keys < 5) or\
-	tile.type == "win" and active_player.keys < 5:
+	if tile.occupied or\
+	(tile.type == "lock" and !player.key_card and player.keys < 5) or\
+	(tile.type == "win" and player.keys < 5):
 		return false
+	if tile.type == "wall":
+		var valid_moves_out = get_valid_neighbors(cell)
+		if !player.walk_walls or\
+		player.moves < 1 or\
+		valid_moves_out == []:
+			return false
 	return true
 
 class Tile:

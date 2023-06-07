@@ -3,7 +3,7 @@ extends AnimatableBody2D
 var start_pos
 var current_cell
 @export var active_player:bool
-const max_moves = 3
+const max_moves = 10 # testing wall_walk
 var moves
 var key_card
 var next_turn_moves_modifier = 0
