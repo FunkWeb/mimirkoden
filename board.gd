@@ -28,11 +28,11 @@ func get_map_pos(pos):
 func get_local_pos(pos):
 	return local_to_map(to_local(pos))
 
-func get_valid_neighbors(cell):
+func get_valid_neighbors(cell, check_walls):
 	var neighbors = get_surrounding_cells(cell)
 	var valid = []
 	for n in neighbors:
-		if check_valid(n):
+		if check_valid(n, check_walls):
 			valid.push_back(n)
 	return valid
 
@@ -41,7 +41,7 @@ func get_index_from_coor(coor):
 		if all_cells[i] == coor:
 			return i
 
-func check_valid(cell):
+func check_valid(cell, check_walls):
 	var player = main.players[main.current_active_player]
 	var tile_index = get_index_from_coor(cell)
 	if tile_index == null or tile_index > 126:
@@ -51,8 +51,8 @@ func check_valid(cell):
 	(tile.type == "lock" and !player.key_card and player.keys < 5) or\
 	(tile.type == "win" and player.keys < 5):
 		return false
-	if tile.type == "wall":
-		var valid_moves_out = get_valid_neighbors(cell)
+	if (check_walls and tile.type == "wall"):
+		var valid_moves_out = get_valid_neighbors(cell, false)
 		if !player.walk_walls or\
 		player.moves < 1 or\
 		valid_moves_out == []:

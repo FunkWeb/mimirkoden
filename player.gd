@@ -147,7 +147,7 @@ func _on_board_clicked():
 	if !main.game_started or !active_player or moves == 0:
 		return
 	
-	var neighbors = board.get_valid_neighbors(current_cell)
+	var neighbors = board.get_valid_neighbors(current_cell, true)
 	var clicked_cell = board.clicked_cell
 	
 	# debug info:
