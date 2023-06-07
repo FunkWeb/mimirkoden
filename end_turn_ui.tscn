@@ -63,13 +63,9 @@ text = "No"
 label_settings = ExtResource("1_wot8r")
 
 [node name="ConfirmationWindow" type="ConfirmationDialog" parent="."]
-initial_position = 2
 size = Vector2i(300, 150)
 dialog_text = "You have moves remaining.
 Really end turn?"
-
-[node name="Window" type="Window" parent="."]
-visible = false
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="ConfirmationDialog/YesButton" to="." method="_on_yes_button_pressed"]
