@@ -26,7 +26,7 @@ var game_started = false
 
 func _ready():
 	QuitUI.hide()
-	StartUI.update_player_count(num_selected_players)
+	#StartUI.update_player_count(num_selected_players)
 	
 	
 
@@ -103,6 +103,8 @@ func next_player():
 
 	
 
+func get_active_player():
+	return players[current_active_player]
 
 
 func _on_end_turn_ui_end_turn():
