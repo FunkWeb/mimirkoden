@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dde6gp8icnc5" path="res://card_assets/chance_card.png" id="5_rk2ss"]
 
 [node name="ChanceCardBase" type="MarginContainer"]
+custom_minimum_size = Vector2(250, 350)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,28 +36,30 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="Title" type="Label" parent="Contents"]
+custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("3_q5ko3")
 theme_override_font_sizes/font_size = 56
-text = "Batteri+"
+text = "Krypteringnøkkel"
 horizontal_alignment = 1
 vertical_alignment = 1
+clip_text = true
 
 [node name="DescGap" type="MarginContainer" parent="Contents"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="Description" type="Label" parent="Contents"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
 theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("4_f8dpc")
-theme_override_font_sizes/font_size = 16
-text = "Øk antall Batterier du har med 4"
+theme_override_font_sizes/font_size = 14
+text = "Du kan sende en negativ effekt som påvirker deg på en motspiller i steden. Om effekten kommer fra en spiller, kan du ikke sende den til den spilleren. Behold kortet til du velger å aktivere det, legg det deretter i feltet markert med papirkurv."
 horizontal_alignment = 1
 autowrap_mode = 2
 

@@ -25,7 +25,7 @@ var discard_pile = []
 var card_effect
 signal card_effect_done
 var player_uis = []
-	
+
 var game_started = false
 const CSVparser = preload("CSVParser.gd")
 @onready var csv_parser = CSVparser.new()
@@ -65,7 +65,7 @@ func start():
 	var csv_data = get_chance_card_csv_data()
 	add_chance_card_data(csv_data)
 	
-	
+	$Playspace.init(chance_cards)
 	
 	# MAKING A TEST CARD
 	var cc = ChanceCardBase.instantiate()
