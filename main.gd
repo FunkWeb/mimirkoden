@@ -4,6 +4,7 @@ extends Node
 @onready var Player = preload("res://player.tscn")
 @onready var PlayerUI = preload("res://player_ui.tscn")
 @onready var ChanceCardBase = preload("res://chance_card_base.tscn")
+@onready var PlayerHand = preload("res://cards/player_hand.gd")
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
@@ -67,8 +68,6 @@ func start():
 	var csv_data = get_chance_card_csv_data()
 	add_chance_card_data(csv_data)
 	
-	$Playspace.init(chance_cards)
-	
 	# MAKING A TEST CARD
 	#	var cc = ChanceCardBase.instantiate()
 	#	add_child(cc)
@@ -87,11 +86,14 @@ func start():
 		p.start_pos = start_positions[i]
 		p.init()
 		
+		p.hand = PlayerHand.new()
+		
 		# Set sprites
 		var p_sprite = p.get_node("Sprite2D")
 		
 		# Texture path
 		p_sprite.set_texture(load("res://player_assets/player{num}.png".format({"num":i})))
+		p_sprite.scale *= 0.15
 	
 	# Initialize UI's
 	for i in num_selected_players:
@@ -178,6 +180,8 @@ func immediate_card_effect(card):
 			shuffle_discard_into_deck()
 
 func pick_a_player():
+	# TEMP PICK A PLAYER
+	return current_active_player+1
 	print("velg en spiller du vil flytte")
 	var clicked_cell # TODO find clicked cell
 	for player_index in len(players):
@@ -191,5 +195,7 @@ func move_to_chance(player = -1):
 		player = pick_a_player()
 	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
 	var clicked_cell # TODO find clicked cell
+	# TEMP FOR TESTING
+	clicked_cell = board.tile_list.filter(func(tile): tile.type == "chance").pick_random()
 	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "chance":
 		players[player].move_to_tile(clicked_cell)
