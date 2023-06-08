@@ -1,8 +1,8 @@
 extends Node2D
 
 const CardBase = preload("res://chance_card_base.tscn")
-var chance_cards: Array
 const PlayerHand = preload("res://cards/player_hand.gd")
+var chance_cards: Array
 var CardSelected = []
 var initialized = false
 @onready var DeckSize = PlayerHand.CardList.size()

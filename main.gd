@@ -68,10 +68,10 @@ func start():
 	$Playspace.init(chance_cards)
 	
 	# MAKING A TEST CARD
-	var cc = ChanceCardBase.instantiate()
-	add_child(cc)
-	var random_card = chance_cards.pick_random()
-	cc.init(random_card)
+	#	var cc = ChanceCardBase.instantiate()
+	#	add_child(cc)
+	#	var random_card = chance_cards.pick_random()
+	#	cc.init(random_card)
 
 	# Create X number of players and UI elements
 	for n in num_selected_players:
