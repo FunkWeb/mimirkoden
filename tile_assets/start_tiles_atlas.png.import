@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daxadbscwepha"
-path="res://.godot/imported/magentaBlue_neutral.png-579fd3c1f927dd5a463247e97b7346d5.ctex"
+uid="uid://croyn8hwfl303"
+path="res://.godot/imported/start_tiles_atlas.png-8f0fd6e9375862f15fb0108b3af41037.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tile_assets/magentaBlue_neutral.png"
-dest_files=["res://.godot/imported/magentaBlue_neutral.png-579fd3c1f927dd5a463247e97b7346d5.ctex"]
+source_file="res://tile_assets/start_tiles_atlas.png"
+dest_files=["res://.godot/imported/start_tiles_atlas.png-8f0fd6e9375862f15fb0108b3af41037.ctex"]
 
 [params]
 
