@@ -5,6 +5,7 @@ var current_cell
 @export var active_player:bool
 const max_moves = 3
 var moves
+var next_turn_moves_modifier = 0
 var cell_index
 var keys # max 10
 var battery # max 20
@@ -15,14 +16,11 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 @onready var main = $".."
 @onready var board = $"../Board"
 @onready var move_sound = $"../MoveSound"
-
 # Called when the node enters the scene tree for the first time.
-func _ready():	
+func _ready():
 	battery = 0
 	moves = max_moves
 	keys = 0
-	
-	
 	walk_walls = false
 	used_tiles = []
 	# Connect click signal from board to player
@@ -70,10 +68,15 @@ func item_shop():
 		keys += 1
 
 func draw_card():
-	# draws a random card
-	# if it's a card you keep the card should be removed from the deck
-	# store and display the kept card for the player
-	pass
+	var card_index = randi_range(0,len(main.chance_cards)-1)
+	var card = main.chance_cards.pop_at(card_index)
+	print(card.title,card.description,card.activation,card.polarity)
+	if card.activation == "Umiddelbar Aktivering":
+		main.discard_pile.append(card)
+		main.immediate_card_effect(card)
+	else:
+		# TODO add card to hand
+		pass
 
 func draw_special_card():
 	# TODO display card for player
@@ -88,7 +91,7 @@ func draw_special_card():
 	else:
 		print("Du blir kastet ut")
 		moves = 0
-		move_to_tile(start_pos)
+		move_to_tile(board.get_map_pos(start_pos))
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
@@ -96,7 +99,7 @@ func move_to_tile(cell):
 	set_position(cell)
 
 func out_of_battery():
-	move_to_tile(start_pos)
+	move_to_tile(board.get_map_pos(start_pos))
 	moves = 0
 	battery = 0 # in case of negative value
 	keys = max(0, keys-1) # lose a key
@@ -111,7 +114,6 @@ func move_player(clicked_cell):
 	used_tiles.append(current_cell)
 	move_sound.play()
 	new_tile_effect(new_tile)
-	print("felt brukt denne runden: ", used_tiles)
 	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
@@ -122,17 +124,15 @@ func _on_board_clicked():
 	var clicked_cell = board.clicked_cell
 	
 	# debug info:
-	var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
-	print("trykk på felt med koordinater: ", clicked_cell)
-	print("feltet er et ", cell_info.type, " felt")
-	print("feltet er i disse sonene: ", cell_info.zone)
-	print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
+	#var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
+	#print("trykk på felt med koordinater: ", clicked_cell)
+	#print("feltet er et ", cell_info.type, " felt")
+	#print("feltet er i disse sonene: ", cell_info.zone)
+	#print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
 	
 	if clicked_cell not in neighbors:
 		return
 	move_player(clicked_cell)
-	#if moves == 0: # TEMP end turn. replace with button # replaced with button
-	#	end_turn()
 
 func unset_occupied(tiles):
 	for tile in tiles:
@@ -144,7 +144,7 @@ func unset_occupied(tiles):
 
 func end_turn():
 	print("Slutt på runden, ny spiller sin tur")
-	var last_tile = used_tiles.pop_back() # last tile stays occupied
+	used_tiles.pop_back() # last tile stays occupied
 	if battery < 1:
 		out_of_battery()
 	unset_occupied(used_tiles)
@@ -152,7 +152,7 @@ func end_turn():
 	update_ui.emit()
 	# switch player here
 	main.next_player()
-	moves = max_moves
+	moves = max_moves + next_turn_moves_modifier
+	next_turn_moves_modifier = 0
 	update_ui.emit()
-	# print(get_availible_tiles(current_cell, moves))
 	

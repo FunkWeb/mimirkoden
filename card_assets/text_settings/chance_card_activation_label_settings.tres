@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c8mjv43rleuxe"]
+
+[ext_resource type="FontFile" uid="uid://cll3oo2k3n7yn" path="res://card_assets/text_settings/fonts/Roboto-Light.ttf" id="1_bbnp1"]
+
+[resource]
+font = ExtResource("1_bbnp1")
+outline_size = 1

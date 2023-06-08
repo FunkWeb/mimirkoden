@@ -12,10 +12,9 @@ signal players
 @onready var select_sound = $\"../SelectSound\"
 
 var msg = \"Players: \"
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -31,6 +30,7 @@ func _on_num_players_button_pressed(id: int):
 
 
 func _on_start_button_pressed():
+	$\"..\".game_started = true
 	start_game.emit()
 	select_sound.play()
 
@@ -40,6 +40,8 @@ func _on_start_button_pressed():
 func _on_num_players_button_about_to_popup():
 	select_sound.play()
 	pass # Replace with function body.
+	$\"../MoveCounterUI\".show()
+	
 "
 
 [node name="StartUI" type="CanvasLayer"]

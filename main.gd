@@ -3,6 +3,7 @@ extends Node
 @onready var board = $Board
 @onready var Player = preload("res://player.tscn")
 @onready var PlayerUI = preload("res://player_ui.tscn")
+@onready var ChanceCardBase = preload("res://chance_card_base.tscn")
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
@@ -19,16 +20,21 @@ extends Node
 var players = []
 var num_selected_players = 2  # Default value
 var current_active_player = 0
-
+var chance_cards = []
+var discard_pile = []
+var card_effect
+signal card_effect_done
 var player_uis = []
-	
+
 var game_started = false
+const CSVparser = preload("CSVParser.gd")
+@onready var csv_parser = CSVparser.new()
 
 func _ready():
 	QuitUI.hide()
+
+
 	#StartUI.update_player_count(num_selected_players)
-	
-	
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") and not QuitUI.visible:
@@ -47,10 +53,8 @@ func _process(_delta):
 		print("SWITCH")
 		next_player()
 
-
 func _on_start_ui_players(num: int):
 	num_selected_players = num
-
 
 func _on_start_ui_start_game():
 	StartUI.hide()
@@ -59,6 +63,18 @@ func _on_start_ui_start_game():
 	print(screen_size)
 
 func start():
+	# create chance card deck
+	var csv_data = get_chance_card_csv_data()
+	add_chance_card_data(csv_data)
+	
+	$Playspace.init(chance_cards)
+	
+	# MAKING A TEST CARD
+	#	var cc = ChanceCardBase.instantiate()
+	#	add_child(cc)
+	#	var random_card = chance_cards.pick_random()
+	#	cc.init(random_card)
+
 	# Create X number of players and UI elements
 	for n in num_selected_players:
 		players.push_back(Player.instantiate())
@@ -88,6 +104,7 @@ func start():
 		# Connect signals to UI elements
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
 		p.update_ui.connect(p_ui._on_player_update_ui)
+		
 	
 	game_started = true
 	$EndTurnUI.show()
@@ -101,13 +118,78 @@ func next_player():
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
 
-	
 
 func get_active_player():
 	return players[current_active_player]
-
 
 func _on_end_turn_ui_end_turn():
 	players[current_active_player].end_turn()
 	print("player "+str(current_active_player+1)+"'s turn")
 	pass # Replace with function body.
+
+func get_chance_card_csv_data():
+	var chance_card_csv = "res://sjansekort.csv.txt"
+	return csv_parser.parseCSV(chance_card_csv)
+
+class Card:
+	var title
+	var description
+	var activation # umiddelbar eller valgfri
+	var polarity # positiv, negativ, neutral
+	
+class Shop_card extends Card:
+	var cost
+
+func add_chance_card_data(data):
+	for line in data:
+		var card = Card.new()
+		card.title = line[0]
+		card.description = line[1]
+		card.activation = line[2]
+		card.polarity = line[3]
+		chance_cards.append(card)
+
+func shuffle_discard_into_deck():
+	chance_cards += discard_pile
+	discard_pile.clear()
+
+func immediate_card_effect(card):
+	match card.title:
+		"Nøkkel +":
+			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
+		"Nøkkel -":
+			players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
+		"Batteri +":
+			players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
+		"Batteri -":
+			players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
+		"Resirkulering":
+			shuffle_discard_into_deck()
+		"Overklokket":
+			players[current_active_player].next_turn_moves_modifier = 1
+		"Overbelastet":
+			players[current_active_player].next_turn_moves_modifier = -1
+		"Virus":
+			# TODO display which player is in control
+			move_to_chance(current_active_player)
+			shuffle_discard_into_deck()
+		"Hack":
+			move_to_chance()
+			shuffle_discard_into_deck()
+
+func pick_a_player():
+	print("velg en spiller du vil flytte")
+	var clicked_cell # TODO find clicked cell
+	for player_index in len(players):
+		if player_index == current_active_player:
+			continue # don't pick yourself
+		if players[player_index].current_pos == clicked_cell:
+			return player_index
+
+func move_to_chance(player = -1):
+	if player == -1:
+		player = pick_a_player()
+	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
+	var clicked_cell # TODO find clicked cell
+	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "chance":
+		players[player].move_to_tile(clicked_cell)

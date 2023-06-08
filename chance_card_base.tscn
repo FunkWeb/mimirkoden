@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2ekrd75c8i36"]
+
+[ext_resource type="Script" path="res://chance_card_base.gd" id="1_7acys"]
+[ext_resource type="LabelSettings" uid="uid://c8mjv43rleuxe" path="res://card_assets/text_settings/chance_card_activation_label_settings.tres" id="2_1muxn"]
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="3_q5ko3"]
+[ext_resource type="FontFile" uid="uid://dau5bfm1esfs3" path="res://card_assets/text_settings/fonts/Roboto-Regular.ttf" id="4_f8dpc"]
+[ext_resource type="Texture2D" uid="uid://dde6gp8icnc5" path="res://card_assets/chance_card.png" id="5_rk2ss"]
+
+[node name="ChanceCardBase" type="MarginContainer"]
+custom_minimum_size = Vector2(250, 350)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1670.0
+offset_bottom = -730.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7acys")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Activation" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Umiddelbar Aktivering"
+label_settings = ExtResource("2_1muxn")
+horizontal_alignment = 1
+
+[node name="Contents" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TopGap" type="MarginContainer" parent="Contents"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Contents"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_q5ko3")
+theme_override_font_sizes/font_size = 56
+text = "Krypteringnøkkel"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="DescGap" type="MarginContainer" parent="Contents"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Description" type="Label" parent="Contents"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_f8dpc")
+theme_override_font_sizes/font_size = 14
+text = "Du kan sende en negativ effekt som påvirker deg på en motspiller i steden. Om effekten kommer fra en spiller, kan du ikke sende den til den spilleren. Behold kortet til du velger å aktivere det, legg det deretter i feltet markert med papirkurv."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="IconTop" type="Sprite2D" parent="."]
+position = Vector2(202.5, 10)
+scale = Vector2(0.15, 0.15)
+skew = 0.261799
+texture = ExtResource("5_rk2ss")
+centered = false
+
+[node name="IconBottom" type="Sprite2D" parent="."]
+position = Vector2(47.5, 340)
+rotation = 3.14159
+scale = Vector2(0.15, 0.15)
+skew = 0.261799
+texture = ExtResource("5_rk2ss")
+centered = false

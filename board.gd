@@ -23,6 +23,7 @@ func _unhandled_input(event):
 	map_coords = get_map_pos(clicked_cell) # Returns cell map coordinates
 	clicked.emit()
 
+
 func get_map_pos(pos):
 	return to_global(map_to_local(pos))
 
@@ -102,7 +103,6 @@ func make_tile_list():
 			object.type = "win"
 		elif tile > 126: # starting tiles
 			object.type = "start"
-			object.occupied = true
 			object.walkable = false
 		else:
 			object.type = "ground"
