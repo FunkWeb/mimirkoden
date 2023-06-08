@@ -32,7 +32,9 @@ const CSVparser = preload("CSVParser.gd")
 
 func _ready():
 	QuitUI.hide()
-	StartUI.update_player_count(num_selected_players)
+
+
+	#StartUI.update_player_count(num_selected_players)
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") and not QuitUI.visible:
@@ -115,6 +117,10 @@ func next_player():
 	players[current_active_player].active_player = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
+
+
+func get_active_player():
+	return players[current_active_player]
 
 func _on_end_turn_ui_end_turn():
 	players[current_active_player].end_turn()
