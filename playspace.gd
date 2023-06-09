@@ -9,4 +9,4 @@ func draw_card(card):
 	var new_card = CardBase.instantiate()
 	$Cards.add_child(new_card)
 	new_card.init(card)
-	new_card.set_global_position(Vector2(300,600))
+	new_card.set_global_position(Vector2(250,600))

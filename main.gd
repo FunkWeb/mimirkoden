@@ -118,6 +118,7 @@ func start():
 				p_name = "T0r"
 
 		p_ui.init(p,player_ui_positions[i],p_name)
+		p.player_name = p_name
 		
 		# Connect signals to UI elements
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)

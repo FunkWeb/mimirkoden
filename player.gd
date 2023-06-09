@@ -1,5 +1,6 @@
 extends AnimatableBody2D
 
+var player_name
 var start_pos
 var current_cell
 @export var active_player:bool
