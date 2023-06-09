@@ -3,15 +3,23 @@ extends MarginContainer
 @onready var card_title = $Contents/Title
 @onready var card_desc = $Contents/Description
 @onready var card_activation = $Activation
-#@onready var title_color = card_title.label_settings.outline_color
-#@onready var desc_color = card_desc.label_settings.outline_color
-#@onready var label_settings = card_title.get_label_settings()
+
+var title
+var desc
+var activation
+var polarity
+#const title_scale = 10
 
 
 func init(CardData):
-	print(CardData.polarity)
-	card_title.text = CardData.title
-	match(CardData.polarity):
+	title = CardData.title
+	desc = CardData.description
+	activation = CardData.activation
+	polarity = CardData.polarity
+	
+	print(polarity)
+	card_title.text = title
+	match(polarity):
 		"Negativt":
 			card_title.set("theme_override_colors/font_outline_color",Color("#ff0000"))
 			card_desc.set("theme_override_colors/font_outline_color",Color("#ff0000"))
@@ -22,6 +30,10 @@ func init(CardData):
 			card_title.set("theme_override_colors/font_outline_color",Color("#ffffff"))
 			card_desc.set("theme_override_colors/font_outline_color",Color("#ffffff"))
 	
-	card_desc.text = CardData.description
-	card_activation.text = CardData.activation
+	card_desc.text = desc
+	card_activation.text = activation
 	
+	# Shrink text to fit
+	var title_len = card_title.get_total_character_count()
+	var title_size = remap(title_len,4,16,56,28)
+	card_title.set("theme_override_font_sizes/font_size",title_size)

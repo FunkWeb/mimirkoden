@@ -20,6 +20,10 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 @onready var main = $".."
 @onready var board = $"../Board"
 @onready var move_sound = $"../MoveSound"
+@onready var playspace = $"../Playspace"
+
+var hand
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	battery = 0
@@ -139,12 +143,19 @@ func draw_card():
 	var card_index = randi_range(0,len(main.chance_cards)-1)
 	var card = main.chance_cards.pop_at(card_index)
 	print(card.title,card.description,card.activation,card.polarity)
+	playspace.draw_card(card)
+	
 	if card.activation == "Umiddelbar Aktivering":
 		main.discard_pile.append(card)
 		main.immediate_card_effect(card)
 	else:
-		inventory += [card]
-		pass
+		draw_card_to_hand(card)
+
+func draw_card_to_hand(card):
+	print("Trakk", card, "til hånda")
+	print(hand.CardList)
+	hand.CardList.push_back(card)
+	print(hand.CardList)
 
 func draw_special_card():
 	# TODO display card for player
@@ -175,7 +186,7 @@ func use_card(inv_index):
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
-	current_cell = board.get_local_pos(cell)
+	current_cell = cell
 	set_position(board.get_map_pos(cell))
 
 func out_of_battery():
@@ -223,6 +234,10 @@ func unset_occupied(tiles):
 		board.tile_list[index].occupied = false
 
 func end_turn():
+	# Clear immediate chance card
+	for c in $"../Playspace/Cards".get_children():
+		c.queue_free()
+	
 	print("Slutt på runden, ny spiller sin tur")
 	used_tiles.pop_back() # last tile stays occupied
 	if battery < 1:

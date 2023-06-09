@@ -4,6 +4,7 @@ extends Node
 @onready var Player = preload("res://player.tscn")
 @onready var PlayerUI = preload("res://player_ui.tscn")
 @onready var ChanceCardBase = preload("res://chance_card_base.tscn")
+@onready var PlayerHand = preload("res://cards/player_hand.gd")
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
@@ -26,14 +27,16 @@ var discard_pile = []
 var card_effect
 signal card_effect_done
 var player_uis = []
-	
+
 var game_started = false
 const CSVparser = preload("CSVParser.gd")
 @onready var csv_parser = CSVparser.new()
 
 func _ready():
 	QuitUI.hide()
-	StartUI.update_player_count(num_selected_players)
+
+
+	#StartUI.update_player_count(num_selected_players)
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") and not QuitUI.visible:
@@ -58,8 +61,6 @@ func _on_start_ui_players(num: int):
 func _on_start_ui_start_game():
 	StartUI.hide()
 	start()
-	
-	print(screen_size)
 
 func start():
 	# create cards
@@ -69,9 +70,10 @@ func start():
 	add_special_card_data(special_csv)
 
 	# MAKING A TEST CARD
-	var cc = ChanceCardBase.instantiate()
-	add_child(cc)
-	cc.init(chance_cards[0])
+	#	var cc = ChanceCardBase.instantiate()
+	#	add_child(cc)
+	#	var random_card = chance_cards.pick_random()
+	#	cc.init(random_card)
 
 	# Create X number of players and UI elements
 	for n in num_selected_players:
@@ -85,11 +87,14 @@ func start():
 		p.start_pos = start_positions[i]
 		p.init()
 		
+		p.hand = PlayerHand.new()
+		
 		# Set sprites
 		var p_sprite = p.get_node("Sprite2D")
 		
 		# Texture path
 		p_sprite.set_texture(load("res://player_assets/player{num}.png".format({"num":i})))
+		p_sprite.scale *= 0.15
 	
 	# Initialize UI's
 	for i in num_selected_players:
@@ -97,7 +102,22 @@ func start():
 		var p_ui = PlayerUI.instantiate()
 		player_uis.push_back(p_ui)
 		add_child(p_ui) 
-		p_ui.init(p,player_ui_positions[i],"Player "+str(i+1))
+		var p_name
+		match(i):
+			0:
+				p_name =  "Fr0y4"
+			1:
+				p_name = "L0k3"
+			2:
+				p_name = "H3l"
+			3:
+				p_name = "H3imd4ll"
+			4:
+				p_name = "B4ld3r"
+			5:
+				p_name = "T0r"
+
+		p_ui.init(p,player_ui_positions[i],p_name)
 		
 		# Connect signals to UI elements
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
@@ -106,6 +126,7 @@ func start():
 	
 	game_started = true
 	$EndTurnUI.show()
+	MoveCounterUI.show()
 	
 	# Set first player active
 	players[0].active_player = true
@@ -117,7 +138,10 @@ func next_player():
 	players[current_active_player].active_player = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
-	players[current_active_player].start_turn()
+
+
+func get_active_player():
+	return players[current_active_player]
 
 func _on_end_turn_ui_end_turn():
 	players[current_active_player].end_turn()
@@ -200,7 +224,10 @@ func immediate_card_effect(card):
 			players[target].negative_card_effects.append(card)
 			shuffle_discard_into_deck()
 
-func pick_other_player():
+func pick_a_player():
+	# TEMP PICK A PLAYER
+	return ((current_active_player+1) % num_selected_players)
+	
 	print("velg en spiller du vil flytte")
 	var clicked_cell # TODO find clicked cell
 	for player_index in len(players):
@@ -214,5 +241,12 @@ func move_to_chance(player = -1):
 		player = pick_other_player()
 	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
 	var clicked_cell # TODO find clicked cell
-	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "chance":
+	
+	# TEMP FOR TESTING
+	var chance_tiles = board.tile_list.filter(func(tile): return tile.type == "card")
+	var random_tile = chance_tiles.pick_random()
+	clicked_cell = board.all_cells[board.tile_list.find(random_tile)]
+	print(clicked_cell)
+	
+	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "card":
 		players[player].move_to_tile(clicked_cell)

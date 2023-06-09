@@ -4,3 +4,4 @@
 
 [resource]
 font = ExtResource("1_bbnp1")
+outline_size = 1
