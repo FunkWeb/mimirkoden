@@ -85,7 +85,9 @@ func get_defense_cards():
 func start_turn():
 	update_ui.emit()
 	if virus: # last player got a virus, you pick a chance tile for them
-		var chance_tile # TODO pick a tile
+		var chance_tiles = board.tile_list.filter(func(tile): return (tile.type == "card" and tile.occupied == false))
+		var random_tile = chance_tiles.pick_random()
+		var chance_tile = board.all_cells[board.tile_list.find(random_tile)]
 		virus.tile = chance_tile
 		main.players[virus.target].negative_card_effects.append(virus)
 		virus = null
