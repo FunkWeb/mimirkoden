@@ -110,6 +110,7 @@ func start():
 	
 	game_started = true
 	$EndTurnUI.show()
+	MoveCounterUI.show()
 	
 	# Set first player active
 	players[0].active_player = true

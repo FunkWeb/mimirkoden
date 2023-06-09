@@ -39,9 +39,6 @@ func _on_start_button_pressed():
 
 func _on_num_players_button_about_to_popup():
 	select_sound.play()
-	pass # Replace with function body.
-	$\"../MoveCounterUI\".show()
-	
 "
 
 [node name="StartUI" type="CanvasLayer"]

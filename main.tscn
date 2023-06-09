@@ -55,6 +55,7 @@ offset_right = 60.5
 offset_bottom = 117.5
 
 [node name="MoveCounterUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("8_i11si")
 
 [node name="Counter" type="Label" parent="MoveCounterUI"]
