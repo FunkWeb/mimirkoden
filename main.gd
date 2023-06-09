@@ -138,6 +138,7 @@ func next_player():
 	players[current_active_player].active_player = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
+	players[current_active_player].start_turn()
 
 
 func get_active_player():
@@ -216,37 +217,12 @@ func immediate_card_effect(card):
 			players[next_player].virus = card
 			shuffle_discard_into_deck()
 		"Hack":
-			var target # pick player
-			var chance_tile # pick chance tile
+			var target = ((current_active_player+1) % num_selected_players)
+			var chance_tiles = board.tile_list.filter(func(tile): return (tile.type == "card" and tile.occupied == false))
+			var random_tile = chance_tiles.pick_random()
+			var chance_tile = board.all_cells[board.tile_list.find(random_tile)]
 			card.target = target
 			card.user = current_active_player
 			card.tile = chance_tile
 			players[target].negative_card_effects.append(card)
 			shuffle_discard_into_deck()
-
-func pick_a_player():
-	# TEMP PICK A PLAYER
-	return ((current_active_player+1) % num_selected_players)
-	
-	print("velg en spiller du vil flytte")
-	var clicked_cell # TODO find clicked cell
-	for player_index in len(players):
-		if player_index == current_active_player:
-			continue # don't pick yourself
-		if players[player_index].current_pos == clicked_cell:
-			return player_index
-
-func move_to_chance(player = -1):
-	if player == -1:
-		player = pick_other_player()
-	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
-	var clicked_cell # TODO find clicked cell
-	
-	# TEMP FOR TESTING
-	var chance_tiles = board.tile_list.filter(func(tile): return tile.type == "card")
-	var random_tile = chance_tiles.pick_random()
-	clicked_cell = board.all_cells[board.tile_list.find(random_tile)]
-	print(clicked_cell)
-	
-	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "card":
-		players[player].move_to_tile(clicked_cell)
