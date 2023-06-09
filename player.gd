@@ -157,6 +157,7 @@ func draw_card():
 		draw_card_to_hand(card)
 
 func draw_card_to_hand(card):
+	card.in_hand = true
 	print("Trakk", card, "til hånda")
 	print(hand.CardList)
 	hand.CardList.push_back(card)
