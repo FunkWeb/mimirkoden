@@ -183,6 +183,7 @@ func immediate_card_effect(card):
 func pick_a_player():
 	# TEMP PICK A PLAYER
 	return ((current_active_player+1) % num_selected_players)
+	
 	print("velg en spiller du vil flytte")
 	var clicked_cell # TODO find clicked cell
 	for player_index in len(players):
