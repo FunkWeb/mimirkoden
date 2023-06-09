@@ -37,11 +37,10 @@ func init():
 func resolve_negative_card_effects():
 	for i in len(negative_card_effects):
 		match negative_card_effects[i].title:
-			# "Forsikring" (chance card) cancel stealing card
-			# "Forsikring" (shop card) cancel user card
-			# "Brannmur" cancel negative chance card
-			# "Premium Brannmur" cancel any negative card
-			# "Anti-Virus" change target to another player
+			# "Forsikring" (chance card) mot stjeling
+			# "Forsikring" (shop card)  mot kort brukt av en spiller
+			# "Brannmur" mot sjansekort
+			# "Premium Brannmur", "Anti-Virus" mot alt
 			"Nøkkel -":
 				# TODO option to use defense card if you have them
 				# brannmur, premium brannmur, anti-virus
@@ -65,7 +64,7 @@ func resolve_negative_card_effects():
 			"Små Feil":
 				# TODO option to use defense card if you have them
 				# premium brannmur, anti-virus
-				keys = max(0,keys-3)
+				keys = max(0, keys-3)
 			"Tvunget Avsluttning":
 				# TODO option to use defense card if you have them
 				# premium brannmur, anti-virus
@@ -149,18 +148,13 @@ func draw_card():
 
 func draw_special_card():
 	# TODO display card for player
-	var random = randi_range(0,2)
-	if random == 0:
+	var card_index = randi_range(0,2)
+	var card = main.special_cards[card_index]
+	if card.polarity == "Positivt":
 		print("ingenting skjer")
 		return
-	elif random == 1:
-		print("3 nøkkler mister funksjonalitet")
-		keys = max(0, keys-3)
-		return
-	else:
-		print("Du blir kastet ut")
-		moves = 0
-		move_to_tile(start_pos)
+	elif card.polarity == "Negativt":
+		negative_card_effects.append(card)
 
 func use_card(inv_index):
 	# use a card from inventory
