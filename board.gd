@@ -7,15 +7,13 @@ var grid_data : Dictionary = {}
 signal clicked
 var tile_list = []
 @onready var main = $".."
-var active_player
-
 
 func _ready():
 	make_tile_list()
 	add_tile_zones()
 
 func _unhandled_input(event):
-	if !(event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+	if !(main.game_started and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
 		return
 	clicked_cell = local_to_map(get_local_mouse_position())
 	if clicked_cell not in all_cells: # Check if clicked cell is on the board
@@ -30,11 +28,11 @@ func get_map_pos(pos):
 func get_local_pos(pos):
 	return local_to_map(to_local(pos))
 
-func get_valid_neighbors(cell):
+func get_valid_neighbors(cell, check_walls):
 	var neighbors = get_surrounding_cells(cell)
 	var valid = []
 	for n in neighbors:
-		if check_valid(n):
+		if check_valid(n, check_walls):
 			valid.push_back(n)
 	return valid
 
@@ -43,25 +41,30 @@ func get_index_from_coor(coor):
 		if all_cells[i] == coor:
 			return i
 
-func check_valid(cell):
-	active_player = main.players[main.current_active_player]
+func check_valid(cell, check_walls):
+	var player = main.players[main.current_active_player]
 	var tile_index = get_index_from_coor(cell)
-	if tile_index == null:
+	if tile_index == null or tile_index > 126:
 		return false
 	var tile = tile_list[tile_index]
-	if tile.occupied or (tile.type == "wall" and not active_player.walk_walls) or\
-		(tile.type == "lock" or tile.type == "win") and active_player.keys < 5:
+	if tile.occupied or\
+	(tile.type == "lock" and !player.key_card and player.keys < 5) or\
+	(tile.type == "win" and player.keys < 5):
 		return false
+	if (check_walls and tile.type == "wall"):
+		var valid_moves_out = get_valid_neighbors(cell, false)
+		if !player.walk_walls or\
+		player.moves < 1 or\
+		valid_moves_out == []:
+			return false
 	return true
 
 class Tile:
 	var type #start, ground, double, wall, shop, card, win, negative, lock, special_card
 	var zone #zones for card effects
-	var walkable
 	var occupied
 	func _init():
 		zone = []  #grey, red, purple, blue, teal, green, yellow
-		walkable = true
 		occupied = false
 
 func add_tile_zones():
@@ -103,7 +106,7 @@ func make_tile_list():
 			object.type = "win"
 		elif tile > 126: # starting tiles
 			object.type = "start"
-			object.walkable = false
+			object.occupied = true
 		else:
 			object.type = "ground"
 	

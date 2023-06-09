@@ -21,6 +21,7 @@ extends Node
 var players = []
 var num_selected_players = 2  # Default value
 var current_active_player = 0
+var special_cards = []
 var chance_cards = []
 var discard_pile = []
 var card_effect
@@ -62,10 +63,12 @@ func _on_start_ui_start_game():
 	start()
 
 func start():
-	# create chance card deck
-	var csv_data = get_chance_card_csv_data()
-	add_chance_card_data(csv_data)
-	
+	# create cards
+	var chance_csv = get_chance_card_csv_data()
+	add_chance_card_data(chance_csv)
+	var special_csv = get_special_card_csv_data()
+	add_special_card_data(special_csv)
+
 	# MAKING A TEST CARD
 	#	var cc = ChanceCardBase.instantiate()
 	#	add_child(cc)
@@ -131,9 +134,12 @@ func start():
 	players[0].update_ui.emit()
 
 func next_player():
+	if !game_started:
+		return
 	players[current_active_player].active_player = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
+	players[current_active_player].start_turn()
 
 
 func get_active_player():
@@ -148,11 +154,20 @@ func get_chance_card_csv_data():
 	var chance_card_csv = "res://sjansekort.csv.txt"
 	return csv_parser.parseCSV(chance_card_csv)
 
+func get_special_card_csv_data():
+	var special_card_csv = "res://sikkerhetsfeilkort.csv.txt"
+	return csv_parser.parseCSV(special_card_csv)
+
 class Card:
+	var type # "chance", "shop", "special"
 	var title
 	var description
 	var activation # umiddelbar eller valgfri
 	var polarity # positiv, negativ, neutral
+	# some cards will store values in these:
+	var user
+	var target
+	var tile
 	
 class Shop_card extends Card:
 	var cost
@@ -164,7 +179,18 @@ func add_chance_card_data(data):
 		card.description = line[1]
 		card.activation = line[2]
 		card.polarity = line[3]
+		card.type = "chance"
 		chance_cards.append(card)
+
+func add_special_card_data(data):
+		for line in data:
+			var card = Card.new()
+			card.title = line[0]
+			card.description = line[1]
+			card.activation = line[2]
+			card.polarity = line[3]
+			card.type = "special"
+			special_cards.append(card)
 
 func shuffle_discard_into_deck():
 	chance_cards += discard_pile
@@ -175,48 +201,29 @@ func immediate_card_effect(card):
 		"Nøkkel +":
 			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
 		"Nøkkel -":
-			players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
+			players[current_active_player].negative_card_effects.append(card)
 		"Batteri +":
 			players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
 		"Batteri -":
-			players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
+			players[current_active_player].negative_card_effects.append(card)
 		"Resirkulering":
 			shuffle_discard_into_deck()
 		"Overklokket":
-			players[current_active_player].next_turn_moves_modifier = 1
+			players[current_active_player].moves_modifier += 1
 		"Overbelastet":
-			players[current_active_player].next_turn_moves_modifier = -1
+			players[current_active_player].negative_card_effects.append(card)
 		"Virus":
-			# TODO display which player is in control
-			move_to_chance(current_active_player)
+			var next_player = (current_active_player+1)%num_selected_players
+			card.target = current_active_player
+			players[next_player].virus = card
 			shuffle_discard_into_deck()
 		"Hack":
-			move_to_chance()
+			var target = ((current_active_player+1) % num_selected_players)
+			var chance_tiles = board.tile_list.filter(func(tile): return (tile.type == "card" and tile.occupied == false))
+			var random_tile = chance_tiles.pick_random()
+			var chance_tile = board.all_cells[board.tile_list.find(random_tile)]
+			card.target = target
+			card.user = current_active_player
+			card.tile = chance_tile
+			players[target].negative_card_effects.append(card)
 			shuffle_discard_into_deck()
-
-func pick_a_player():
-	# TEMP PICK A PLAYER
-	return ((current_active_player+1) % num_selected_players)
-	
-	print("velg en spiller du vil flytte")
-	var clicked_cell # TODO find clicked cell
-	for player_index in len(players):
-		if player_index == current_active_player:
-			continue # don't pick yourself
-		if players[player_index].current_pos == clicked_cell:
-			return player_index
-
-func move_to_chance(player = -1):
-	if player == -1:
-		player = pick_a_player()
-	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
-	var clicked_cell # TODO find clicked cell
-	
-	# TEMP FOR TESTING
-	var chance_tiles = board.tile_list.filter(func(tile): return tile.type == "card")
-	var random_tile = chance_tiles.pick_random()
-	clicked_cell = board.all_cells[board.tile_list.find(random_tile)]
-	print(clicked_cell)
-	
-	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "card":
-		players[player].move_to_tile(clicked_cell)

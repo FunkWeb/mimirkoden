@@ -4,15 +4,19 @@ var player_name
 var start_pos
 var current_cell
 @export var active_player:bool
-const max_moves = 3
+const max_moves = 10 # testing wall_walk
 var moves
-var next_turn_moves_modifier = 0
+var key_card
+var virus # Virus card. Stores card value to send to the player
+var moves_modifier = 0
 var cell_index
+var inventory = []
 var keys # max 10
 var battery # max 20
 var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
+var negative_card_effects = []
 signal update_ui # emit whenever the ui needs to update values (moves, charges, etc...)
 @onready var main = $".."
 @onready var board = $"../Board"
@@ -26,7 +30,7 @@ func _ready():
 	battery = 0
 	moves = max_moves
 	keys = 0
-	walk_walls = false
+	walk_walls = true # set true for testing
 	used_tiles = []
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
@@ -35,33 +39,101 @@ func init():
 	current_cell = start_pos
 	set_position(board.get_map_pos(current_cell))
 
+func resolve_negative_card_effects():
+	for i in len(negative_card_effects):
+		match negative_card_effects[i].title:
+			# "Forsikring" (chance card) mot stjeling
+			# "Forsikring" (shop card)  mot kort brukt av en spiller
+			# "Brannmur" mot sjansekort
+			# "Premium Brannmur", "Anti-Virus" mot alt
+			"Nøkkel -":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus
+				keys = max(0,keys-int(negative_card_effects[i].description[-1]))
+			"Batteri -":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus
+				battery = max(0,battery-int(negative_card_effects[i].description[-1]))
+			"Overbelastet":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus
+				moves_modifier -= 1
+			"Hack":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus, Forsikring" (shop card)
+				move_to_tile(negative_card_effects[i].tile)
+			"Virus":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus, Forsikring" (shop card)
+				move_to_tile(negative_card_effects[i].tile)
+			"Små Feil":
+				# TODO option to use defense card if you have them
+				# premium brannmur, anti-virus
+				keys = max(0, keys-3)
+			"Tvunget Avsluttning":
+				# TODO option to use defense card if you have them
+				# premium brannmur, anti-virus
+				move_to_tile(start_pos)
+	negative_card_effects = []
+
+func get_defense_cards():
+	var cards = []
+	for card in inventory:
+		if card.title in ["Forsikring", "Brannmur", "Premium Brannmur", "Anti-Virus"]:
+			cards.append(card)
+	return cards
+
+func start_turn():
+	update_ui.emit()
+	if virus: # last player got a virus, you pick a chance tile for them
+		var chance_tiles = board.tile_list.filter(func(tile): return (tile.type == "card" and tile.occupied == false))
+		var random_tile = chance_tiles.pick_random()
+		var chance_tile = board.all_cells[board.tile_list.find(random_tile)]
+		virus.tile = chance_tile
+		main.players[virus.target].negative_card_effects.append(virus)
+		virus = null
+	if len(negative_card_effects) > 0:
+		var defense_cards = get_defense_cards()
+		resolve_negative_card_effects()
+		
+	moves = max_moves + moves_modifier
+	moves_modifier = 0
+	update_ui.emit()
+
 func new_tile_effect(tile):
-	if tile.type == "ground":
-		battery += 1
-		battery = min(battery, 20) # max 20 battery
-	elif tile.type == "double":
-		battery += 2
-		battery = min(battery, 20)
-	elif tile.type == "negative":
-		battery -= 1
-		if battery < 0: # less than 0
-			out_of_battery()
-	elif tile.type == "lock":
-		moves = 0
-		keys -= 5
-	elif tile.type == "special_card":
-		moves = 0
-		draw_special_card()
-	elif tile.type == "shop":
-		moves = 0
-		item_shop()
-	elif tile.type == "card":
-		moves = 0
-		draw_card()
-	elif tile.type == "win":
-		moves = 0
-		keys -= 5
-		print("Du fant Mimirkoden!")
+	match tile.type:
+		"ground":
+			battery += 1
+			battery = min(battery, 20) # max 20 battery
+		"double":
+			battery += 2
+			battery = min(battery, 20)
+		"negative":
+			battery -= 1
+			if battery < 0: # less than 0
+				out_of_battery()
+		"lock":
+			moves = 0
+			if key_card:
+				key_card = false
+			else:
+				keys -= 5
+		"special_card":
+			moves = 0
+			draw_special_card()
+		"shop":
+			moves = 0
+			item_shop()
+		"card":
+			moves = 0
+			draw_card()
+		"wall":
+			moves += 1 # don't use a move
+			walk_walls = false
+		"win":
+			moves = 0
+			keys -= 5
+			print("Du fant Mimirkoden!")
 
 func item_shop():
 	# show shop menu
@@ -92,18 +164,30 @@ func draw_card_to_hand(card):
 
 func draw_special_card():
 	# TODO display card for player
-	var random = randi_range(0,2)
-	if random == 0:
+	var card_index = randi_range(0,2)
+	var card = main.special_cards[card_index]
+	if card.polarity == "Positivt":
 		print("ingenting skjer")
 		return
-	elif random == 1:
-		print("3 nøkkler mister funksjonalitet")
-		keys = max(0, keys-3)
-		return
-	else:
-		print("Du blir kastet ut")
-		moves = 0
-		move_to_tile(start_pos)
+	elif card.polarity == "Negativt":
+		negative_card_effects.append(card)
+
+func use_card(inv_index):
+	# use a card from inventory
+	var card = inventory.pop_at(inv_index)
+	main.discard_pile.append(card)
+	match card.name:
+		"Bakdør":
+			walk_walls = true
+			main.shuffle_discard_into_deck()
+		"Krypteringnøkkel":
+			key_card = true
+		"Premium Brannmur":
+			pass
+		"Forsikring":
+			pass
+		"Anti-Virus":
+			pass
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
@@ -129,10 +213,10 @@ func move_player(clicked_cell):
 	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
-	if !active_player or moves == 0:
+	if !main.game_started or !active_player or moves == 0:
 		return
 	
-	var neighbors = board.get_valid_neighbors(current_cell)
+	var neighbors = board.get_valid_neighbors(current_cell, true)
 	var clicked_cell = board.clicked_cell
 	
 	# debug info:
@@ -168,7 +252,4 @@ func end_turn():
 	update_ui.emit()
 	# switch player here
 	main.next_player()
-	moves = max_moves + next_turn_moves_modifier
-	next_turn_moves_modifier = 0
-	update_ui.emit()
-	
+

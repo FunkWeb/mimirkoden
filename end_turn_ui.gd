@@ -4,6 +4,7 @@ signal end_turn
 
 @onready var main = $".."
 @onready var select_sound = $".."/SelectSound
+@onready var board = $"../Board"
 @onready var screen_size = get_viewport().get_visible_rect().size
 
 # Uncomment ConfirmationDialog or ConfirmationWindow
@@ -13,15 +14,15 @@ signal end_turn
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$ConfirmationWindow.position = Vector2(screen_size[0]/2 - 150,screen_size[1]/2)
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 
 func _on_end_turn_button_pressed():
+	var player_tile = main.players[main.current_active_player].current_cell
+	var cell_index = board.get_index_from_coor(player_tile)
+	var tile = board.tile_list[cell_index]
+	if tile.type == "wall":
+		print("can't end turn in a wall")
+		return
 	select_sound.play()
 	
 	if main.get_active_player().moves > 0:
