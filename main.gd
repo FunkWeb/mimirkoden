@@ -128,10 +128,15 @@ func get_chance_card_csv_data():
 	return csv_parser.parseCSV(chance_card_csv)
 
 class Card:
+	var type # "chance", "shop", "special"
 	var title
 	var description
 	var activation # umiddelbar eller valgfri
 	var polarity # positiv, negativ, neutral
+	# some cards will store values in these:
+	var user
+	var target
+	var tile
 	
 class Shop_card extends Card:
 	var cost
@@ -143,6 +148,7 @@ func add_chance_card_data(data):
 		card.description = line[1]
 		card.activation = line[2]
 		card.polarity = line[3]
+		card.type = "chance"
 		chance_cards.append(card)
 
 func shuffle_discard_into_deck():
@@ -154,26 +160,32 @@ func immediate_card_effect(card):
 		"Nøkkel +":
 			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
 		"Nøkkel -":
-			players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
+			players[current_active_player].negative_card_effects.append(card)
 		"Batteri +":
 			players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
 		"Batteri -":
-			players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
+			players[current_active_player].negative_card_effects.append(card)
 		"Resirkulering":
 			shuffle_discard_into_deck()
 		"Overklokket":
-			players[current_active_player].next_turn_moves_modifier = 1
+			players[current_active_player].moves_modifier += 1
 		"Overbelastet":
-			players[current_active_player].next_turn_moves_modifier = -1
+			players[current_active_player].negative_card_effects.append(card)
 		"Virus":
-			# TODO display which player is in control
-			move_to_chance(current_active_player)
+			var next_player = (current_active_player+1)%num_selected_players
+			card.target = current_active_player
+			players[next_player].virus = card
 			shuffle_discard_into_deck()
 		"Hack":
-			move_to_chance()
+			var target # pick player
+			var chance_tile # pick chance tile
+			card.target = target
+			card.user = current_active_player
+			card.tile = chance_tile
+			players[target].negative_card_effects.append(card)
 			shuffle_discard_into_deck()
 
-func pick_a_player():
+func pick_other_player():
 	print("velg en spiller du vil flytte")
 	var clicked_cell # TODO find clicked cell
 	for player_index in len(players):
@@ -184,7 +196,7 @@ func pick_a_player():
 
 func move_to_chance(player = -1):
 	if player == -1:
-		player = pick_a_player()
+		player = pick_other_player()
 	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
 	var clicked_cell # TODO find clicked cell
 	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "chance":

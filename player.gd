@@ -6,7 +6,8 @@ var current_cell
 const max_moves = 10 # testing wall_walk
 var moves
 var key_card
-var next_turn_moves_modifier = 0
+var virus # Virus card. Stores card value to send to the player
+var moves_modifier = 0
 var cell_index
 var inventory = []
 var keys # max 10
@@ -14,6 +15,7 @@ var battery # max 20
 var new_tile # new tile just moved to
 var used_tiles # track tiles moved to in current turn
 var walk_walls # if card used to walk through walls
+var negative_card_effects = []
 signal update_ui # emit whenever the ui needs to update values (moves, charges, etc...)
 @onready var main = $".."
 @onready var board = $"../Board"
@@ -32,11 +34,63 @@ func init():
 	current_cell = start_pos
 	set_position(board.get_map_pos(current_cell))
 
+func resolve_negative_card_effects():
+	for i in len(negative_card_effects):
+		match negative_card_effects[i].title:
+			# "Forsikring" (chance card) cancel stealing card
+			# "Forsikring" (shop card) cancel user card
+			# "Brannmur" cancel negative chance card
+			# "Premium Brannmur" cancel any negative card
+			# "Anti-Virus" change target to another player
+			"Nøkkel -":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus
+				keys = max(0,keys-int(negative_card_effects[i].description[-1]))
+			"Batteri -":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus
+				battery = max(0,battery-int(negative_card_effects[i].description[-1]))
+			"Overbelastet":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus
+				moves_modifier -= 1
+			"Hack":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus, Forsikring" (shop card)
+				move_to_tile(negative_card_effects[i].tile)
+			"Virus":
+				# TODO option to use defense card if you have them
+				# brannmur, premium brannmur, anti-virus, Forsikring" (shop card)
+				move_to_tile(negative_card_effects[i].tile)
+			"Små Feil":
+				# TODO option to use defense card if you have them
+				# premium brannmur, anti-virus
+				keys = max(0,keys-3)
+			"Tvunget Avsluttning":
+				# TODO option to use defense card if you have them
+				# premium brannmur, anti-virus
+				move_to_tile(start_pos)
+
+func get_defense_cards():
+	var cards = []
+	for card in inventory:
+		if card.title in ["Forsikring", "Brannmur", "Premium Brannmur", "Anti-Virus"]:
+			cards.append(card)
+	return cards
+
 func start_turn():
-	moves = max_moves + next_turn_moves_modifier
-	next_turn_moves_modifier = 0
 	update_ui.emit()
+	if virus: # last player got a virus, you pick a chance tile for them
+		var chance_tile # TODO pick a tile
+		virus.tile = chance_tile
+		main.players[virus.target].negative_card_effects.append(virus)
+		virus = null
+	if len(negative_card_effects) > 0:
+		var defense_cards = get_defense_cards()
+		resolve_negative_card_effects()
 	
+	moves = max_moves + moves_modifier
+	moves_modifier = 0
 
 func new_tile_effect(tile):
 	match tile.type:
@@ -106,7 +160,7 @@ func draw_special_card():
 	else:
 		print("Du blir kastet ut")
 		moves = 0
-		move_to_tile(board.get_map_pos(start_pos))
+		move_to_tile(start_pos)
 
 func use_card(inv_index):
 	# use a card from inventory
@@ -124,15 +178,14 @@ func use_card(inv_index):
 			pass
 		"Anti-Virus":
 			pass
-		
-	
+
 func move_to_tile(cell):
 	unset_occupied([current_cell])
 	current_cell = board.get_local_pos(cell)
-	set_position(cell)
+	set_position(board.get_map_pos(cell))
 
 func out_of_battery():
-	move_to_tile(board.get_map_pos(start_pos))
+	move_to_tile(start_pos)
 	moves = 0
 	battery = 0 # in case of negative value
 	keys = max(0, keys-1) # lose a key
