@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://one46iqn2tei"]
+[gd_scene load_steps=2 format=3 uid="uid://one46iqn2tei"]
 
 [ext_resource type="Script" path="res://playspace.gd" id="1_meutw"]
-[ext_resource type="PackedScene" uid="uid://b2ekrd75c8i36" path="res://chance_card_base.tscn" id="2_6ct2f"]
 
 [node name="Playspace" type="Node2D"]
 script = ExtResource("1_meutw")
@@ -27,19 +26,3 @@ size_flags_vertical = 4
 layout_mode = 2
 theme_override_constants/h_separation = 24
 columns = 100
-
-[node name="ChanceCardBase" parent="Hand/GridContainer" instance=ExtResource("2_6ct2f")]
-layout_mode = 2
-in_hand = true
-
-[node name="ChanceCardBase2" parent="Hand/GridContainer" instance=ExtResource("2_6ct2f")]
-layout_mode = 2
-in_hand = true
-
-[node name="ChanceCardBase3" parent="Hand/GridContainer" instance=ExtResource("2_6ct2f")]
-layout_mode = 2
-in_hand = true
-
-[node name="ChanceCardBase4" parent="Hand/GridContainer" instance=ExtResource("2_6ct2f")]
-layout_mode = 2
-in_hand = true

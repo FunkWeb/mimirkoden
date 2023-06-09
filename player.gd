@@ -22,6 +22,8 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 @onready var board = $"../Board"
 @onready var move_sound = $"../MoveSound"
 @onready var playspace = $"../Playspace"
+@onready var hand_container = $"../Playspace/Hand/GridContainer"
+var ChanceCardBase = preload("res://chance_card_base.tscn")
 
 var hand
 
@@ -84,6 +86,13 @@ func get_defense_cards():
 	return cards
 
 func start_turn():
+	# Load hand
+	for card in hand.CardList:
+		var c = ChanceCardBase.instantiate()
+		hand_container.add_child(c)
+		c.init(card)
+	
+	
 	update_ui.emit()
 	if virus: # last player got a virus, you pick a chance tile for them
 		var chance_tiles = board.tile_list.filter(func(tile): return (tile.type == "card" and tile.occupied == false))
@@ -240,6 +249,8 @@ func unset_occupied(tiles):
 		board.tile_list[index].occupied = false
 
 func end_turn():
+	# Empty hand
+	
 	# Clear immediate chance card
 	for c in $"../Playspace/Cards".get_children():
 		c.queue_free()

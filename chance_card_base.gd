@@ -49,6 +49,7 @@ func _on_mouse_entered():
 	position.y = -150
 
 func _on_mouse_exited():
+	if !in_hand: return
 	position.y = 0
 
 func _gui_input(event):

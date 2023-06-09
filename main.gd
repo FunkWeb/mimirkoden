@@ -168,6 +168,7 @@ class Card:
 	var user
 	var target
 	var tile
+	var in_hand = false
 	
 class Shop_card extends Card:
 	var cost
