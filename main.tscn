@@ -69,7 +69,7 @@ visible = false
 
 [node name="Playspace" parent="." instance=ExtResource("2_uillq")]
 z_index = 10
-position = Vector2(960, 1080)
+position = Vector2(960, 1130)
 
 [connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
 [connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]

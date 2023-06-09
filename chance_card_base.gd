@@ -39,15 +39,19 @@ func init(CardData):
 	card_title.set("theme_override_font_sizes/font_size",title_size)
 
 func _ready():
-	pass
-#	print(start_pos_y)
-#	print(position.y)
+
+	print(start_pos_y)
+	print(position.y)
 
 func _on_mouse_entered():
 	if !in_hand: return
 	set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
-	position.y -= 200
+	position.y = -150
 
 func _on_mouse_exited():
-	if !in_hand: return
-	position.y = start_pos_y
+	position.y = 0
+
+func _gui_input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			print(self)

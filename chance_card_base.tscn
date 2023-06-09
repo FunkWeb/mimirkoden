@@ -15,6 +15,7 @@ offset_right = -1670.0
 offset_bottom = -730.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(125, 175)
 script = ExtResource("1_7acys")
 
 [node name="Background" type="ColorRect" parent="."]
