@@ -77,3 +77,6 @@ scale = Vector2(0.15, 0.15)
 skew = 0.261799
 texture = ExtResource("5_rk2ss")
 centered = false
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

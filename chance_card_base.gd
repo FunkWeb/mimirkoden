@@ -8,8 +8,8 @@ var title
 var desc
 var activation
 var polarity
-#const title_scale = 10
-
+@onready var start_pos_y = position.y
+@export var in_hand = false
 
 func init(CardData):
 	title = CardData.title
@@ -37,3 +37,17 @@ func init(CardData):
 	var title_len = card_title.get_total_character_count()
 	var title_size = remap(title_len,4,16,56,28)
 	card_title.set("theme_override_font_sizes/font_size",title_size)
+
+func _ready():
+	pass
+#	print(start_pos_y)
+#	print(position.y)
+
+func _on_mouse_entered():
+	if !in_hand: return
+	set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
+	position.y -= 200
+
+func _on_mouse_exited():
+	if !in_hand: return
+	position.y = start_pos_y

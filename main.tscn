@@ -26,8 +26,8 @@ texture = ExtResource("2_mdy43")
 expand_mode = 2
 
 [node name="Board" parent="." instance=ExtResource("1_2ebvj")]
-position = Vector2(960, 564)
-scale = Vector2(0.169485, 0.169485)
+position = Vector2(960, 502)
+scale = Vector2(0.148718, 0.148718)
 
 [node name="MoveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4vru6")
@@ -69,6 +69,7 @@ visible = false
 
 [node name="Playspace" parent="." instance=ExtResource("2_uillq")]
 z_index = 10
+position = Vector2(960, 1080)
 
 [connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
 [connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]
