@@ -1,1 +1,1 @@
-const CardList = []
+var CardList = []

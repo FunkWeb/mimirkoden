@@ -75,7 +75,7 @@ func draw_card():
 	var card_index = randi_range(0,len(main.chance_cards)-1)
 	var card = main.chance_cards.pop_at(card_index)
 	print(card.title,card.description,card.activation,card.polarity)
-	playspace.draw_card(self,card)
+	playspace.draw_card(card)
 	
 	if card.activation == "Umiddelbar Aktivering":
 		main.discard_pile.append(card)
@@ -84,7 +84,10 @@ func draw_card():
 		draw_card_to_hand(card)
 
 func draw_card_to_hand(card):
-	hand.CardList.append(card)
+	print("Trakk", card, "til hånda")
+	print(hand.CardList)
+	hand.CardList.push_back(card)
+	print(hand.CardList)
 
 func draw_special_card():
 	# TODO display card for player
@@ -99,15 +102,15 @@ func draw_special_card():
 	else:
 		print("Du blir kastet ut")
 		moves = 0
-		move_to_tile(board.get_map_pos(start_pos))
+		move_to_tile(start_pos)
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
-	current_cell = board.get_local_pos(cell)
-	set_position(cell)
+	current_cell = cell
+	set_position(board.get_map_pos(cell))
 
 func out_of_battery():
-	move_to_tile(board.get_map_pos(start_pos))
+	move_to_tile(start_pos)
 	moves = 0
 	battery = 0 # in case of negative value
 	keys = max(0, keys-1) # lose a key

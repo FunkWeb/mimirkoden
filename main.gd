@@ -182,7 +182,7 @@ func immediate_card_effect(card):
 
 func pick_a_player():
 	# TEMP PICK A PLAYER
-	return current_active_player+1
+	return ((current_active_player+1) % num_selected_players)
 	print("velg en spiller du vil flytte")
 	var clicked_cell # TODO find clicked cell
 	for player_index in len(players):
@@ -196,7 +196,12 @@ func move_to_chance(player = -1):
 		player = pick_a_player()
 	print("velg et sjansefelt du vil flytte spiller ",player+1," til")
 	var clicked_cell # TODO find clicked cell
+	
 	# TEMP FOR TESTING
-	clicked_cell = board.tile_list.filter(func(tile): tile.type == "chance").pick_random()
-	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "chance":
+	var chance_tiles = board.tile_list.filter(func(tile): return tile.type == "card")
+	var random_tile = chance_tiles.pick_random()
+	clicked_cell = board.all_cells[board.tile_list.find(random_tile)]
+	print(clicked_cell)
+	
+	if board.tile_list[board.get_index_from_coor(clicked_cell)].type == "card":
 		players[player].move_to_tile(clicked_cell)
