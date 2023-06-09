@@ -73,6 +73,7 @@ func resolve_negative_card_effects():
 				# TODO option to use defense card if you have them
 				# premium brannmur, anti-virus
 				move_to_tile(start_pos)
+	negative_card_effects = []
 
 func get_defense_cards():
 	var cards = []
@@ -91,9 +92,10 @@ func start_turn():
 	if len(negative_card_effects) > 0:
 		var defense_cards = get_defense_cards()
 		resolve_negative_card_effects()
-	
+		
 	moves = max_moves + moves_modifier
 	moves_modifier = 0
+	update_ui.emit()
 
 func new_tile_effect(tile):
 	match tile.type:
