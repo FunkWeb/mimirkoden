@@ -30,7 +30,6 @@ func _ready():
 	battery = 0
 	moves = max_moves
 	keys = 0
-	walk_walls = true # set true for testing
 	used_tiles = []
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
