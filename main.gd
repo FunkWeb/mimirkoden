@@ -20,6 +20,7 @@ extends Node
 var players = []
 var num_selected_players = 2  # Default value
 var current_active_player = 0
+var special_cards = []
 var chance_cards = []
 var discard_pile = []
 var card_effect
@@ -62,11 +63,11 @@ func _on_start_ui_start_game():
 
 func start():
 	# create cards
-	var csv_data = get_chance_card_csv_data()
-	add_chance_card_data(csv_data)
-	
-	
-	
+	var chance_csv = get_chance_card_csv_data()
+	add_chance_card_data(chance_csv)
+	var special_csv = get_special_card_csv_data()
+	add_special_card_data(special_csv)
+
 	# MAKING A TEST CARD
 	var cc = ChanceCardBase.instantiate()
 	add_child(cc)
@@ -127,6 +128,10 @@ func get_chance_card_csv_data():
 	var chance_card_csv = "res://sjansekort.csv.txt"
 	return csv_parser.parseCSV(chance_card_csv)
 
+func get_special_card_csv_data():
+	var special_card_csv = "res://sikkerhetsfeilkort.csv.txt"
+	return csv_parser.parseCSV(special_card_csv)
+
 class Card:
 	var type # "chance", "shop", "special"
 	var title
@@ -150,6 +155,16 @@ func add_chance_card_data(data):
 		card.polarity = line[3]
 		card.type = "chance"
 		chance_cards.append(card)
+
+func add_special_card_data(data):
+		for line in data:
+			var card = Card.new()
+			card.title = line[0]
+			card.description = line[1]
+			card.activation = line[2]
+			card.polarity = line[3]
+			card.type = "special"
+			special_cards.append(card)
 
 func shuffle_discard_into_deck():
 	chance_cards += discard_pile
