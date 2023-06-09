@@ -101,7 +101,22 @@ func start():
 		var p_ui = PlayerUI.instantiate()
 		player_uis.push_back(p_ui)
 		add_child(p_ui) 
-		p_ui.init(p,player_ui_positions[i],"Player "+str(i+1))
+		var p_name
+		match(i):
+			0:
+				p_name =  "Frøya"
+			1:
+				p_name = "Loke"
+			2:
+				p_name = "Hel"
+			3:
+				p_name = "Heimdall"
+			4:
+				p_name = "Balder"
+			5:
+				p_name = "Tor"
+
+		p_ui.init(p,player_ui_positions[i],p_name)
 		
 		# Connect signals to UI elements
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
