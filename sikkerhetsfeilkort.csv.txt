@@ -1,0 +1,3 @@
+Ingen Problemer;Ingenting skjer, du slipper gjennom uten problemer;Umiddelbar Aktivering;Positivt
+Små Feil;3 Nøkler mister funskjonalitet.;Umiddelbar Aktivering;Negativt
+Tvunget Avsluttning;Du blir kastet ut. Flytt tilbake til startfelten ditt.;Umiddelbar Aktivering;Negativt
