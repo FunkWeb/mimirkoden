@@ -60,8 +60,6 @@ func _on_start_ui_players(num: int):
 func _on_start_ui_start_game():
 	StartUI.hide()
 	start()
-	
-	print(screen_size)
 
 func start():
 	# create chance card deck
@@ -104,17 +102,17 @@ func start():
 		var p_name
 		match(i):
 			0:
-				p_name =  "Frøya"
+				p_name =  "Fr0y4"
 			1:
-				p_name = "Loke"
+				p_name = "L0k3"
 			2:
-				p_name = "Hel"
+				p_name = "H3l"
 			3:
-				p_name = "Heimdall"
+				p_name = "H3imd4ll"
 			4:
-				p_name = "Balder"
+				p_name = "B4ld3r"
 			5:
-				p_name = "Tor"
+				p_name = "T0r"
 
 		p_ui.init(p,player_ui_positions[i],p_name)
 		
