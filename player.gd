@@ -172,7 +172,7 @@ func draw_special_card():
 func use_card(card):
 	# use a card from hand
 	main.discard_pile.append(card)
-	match card.name:
+	match card.title:
 		"Bakdør":
 			walk_walls = true
 			main.shuffle_discard_into_deck()

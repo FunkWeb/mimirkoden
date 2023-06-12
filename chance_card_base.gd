@@ -8,10 +8,12 @@ var title
 var desc
 var activation
 var polarity
+var in_hand
 @onready var start_pos_y = position.y
-@export var in_hand = false
+
 
 func init(CardData):
+	in_hand = CardData.in_hand
 	title = CardData.title
 	desc = CardData.description
 	activation = CardData.activation
@@ -56,3 +58,10 @@ func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			print(self)
+			play_self()
+
+func play_self():
+	var player = $"/root/Main".players[$"/root/Main".current_active_player]
+	player.use_card(self)
+	
+	self.queue_free()
