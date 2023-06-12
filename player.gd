@@ -4,7 +4,7 @@ var player_name
 var start_pos
 var current_cell
 @export var active_player:bool
-const max_moves = 10 # testing wall_walk
+const max_moves = 3 # testing wall_walk
 var moves
 var key_card
 var virus # Virus card. Stores card value to send to the player
@@ -20,6 +20,8 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 @onready var main = $".."
 @onready var board = $"../Board"
 @onready var move_sound = $"../MoveSound"
+@onready var error_sound = $"../ErrorSound"
+@onready var battery_empty_sound = $"../BatteryEmptySound"
 @onready var playspace = $"../Playspace"
 @onready var hand_container = $"../Playspace/Hand/GridContainer"
 var ChanceCardBase = preload("res://chance_card_base.tscn")
@@ -122,9 +124,7 @@ func new_tile_effect(tile):
 			moves += 1 # don't use a move
 			walk_walls = false
 		"win":
-			moves = 0
-			keys -= 5
-			print("Du fant Mimirkoden!")
+			main.win_game()
 
 func item_shop():
 	# show shop menu
@@ -191,6 +191,7 @@ func move_to_tile(cell):
 	set_position(board.get_map_pos(cell))
 
 func out_of_battery():
+	battery_empty_sound.play()
 	move_to_tile(start_pos)
 	moves = 0
 	battery = 0 # in case of negative value
@@ -209,7 +210,10 @@ func move_player(clicked_cell):
 	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
-	if !main.game_started or !active_player or moves == 0:
+	if !main.game_started or !active_player:
+		return
+	if moves == 0:
+		error_sound.play()
 		return
 	
 	var neighbors = board.get_valid_neighbors(current_cell, true)
@@ -243,7 +247,9 @@ func end_turn():
 	
 	print("Slutt på runden, ny spiller sin tur")
 	used_tiles.pop_back() # last tile stays occupied
-	if battery < 1:
+	print(current_cell)
+	print(start_pos)
+	if battery < 1 and current_cell != start_pos:
 		out_of_battery()
 	unset_occupied(used_tiles)
 	used_tiles = [current_cell]
