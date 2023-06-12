@@ -219,12 +219,38 @@ func immediate_card_effect(card):
 			players[next_player].virus = card
 			shuffle_discard_into_deck()
 		"Hack":
-			var target = ((current_active_player+1) % num_selected_players)
-			var chance_tiles = board.tile_list.filter(func(tile): return (tile.type == "card" and tile.occupied == false))
-			var random_tile = chance_tiles.pick_random()
-			var chance_tile = board.all_cells[board.tile_list.find(random_tile)]
+			var target = await wait_player_select()
+			var chance_tile = await wait_chance_select()
 			card.target = target
 			card.user = current_active_player
 			card.tile = chance_tile
 			players[target].negative_card_effects.append(card)
 			shuffle_discard_into_deck()
+
+func wait_player_select():
+	print("Click a cell with a player on it")
+	var clicked_player
+	while true:
+		await board.clicked
+		var clicked_cell_pos = board.clicked_cell
+		var clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
+		if (clicked_cell_pos not in get_active_player().used_tiles and clicked_cell.occupied and clicked_cell_pos != players[current_active_player].current_cell):
+			# Find the right player
+			clicked_player = players.filter(func(p): 
+				return p.current_cell == clicked_cell_pos).front()
+			break
+	print("valid player")
+	return players.find(clicked_player)
+
+func wait_chance_select():
+	print("Select a chance tile")
+	var clicked_cell
+	while true:
+		await board.clicked
+		var clicked_cell_pos = board.clicked_cell
+		clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
+		print(clicked_cell.type)
+		if (clicked_cell_pos not in get_active_player().used_tiles and !clicked_cell.occupied and clicked_cell.type == "card"):
+			break
+	print("valid cell")
+	return clicked_cell

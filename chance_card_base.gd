@@ -55,6 +55,7 @@ func _on_mouse_exited():
 	position.y = 0
 
 func _gui_input(event):
+	if !in_hand: return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			print(self)
