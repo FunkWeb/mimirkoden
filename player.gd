@@ -10,7 +10,6 @@ var key_card
 var virus # Virus card. Stores card value to send to the player
 var moves_modifier = 0
 var cell_index
-var inventory = []
 var keys # max 10
 var battery # max 20
 var new_tile # new tile just moved to
@@ -32,7 +31,6 @@ func _ready():
 	battery = 0
 	moves = max_moves
 	keys = 0
-	walk_walls = true # set true for testing
 	used_tiles = []
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
@@ -70,13 +68,6 @@ func resolve_negative_card_effects():
 				move_to_tile(negative_card_effects[i].tile)
 	negative_card_effects = []
 
-func get_defense_cards():
-	var cards = []
-	for card in inventory:
-		if card.title in ["Forsikring", "Brannmur", "Premium Brannmur", "Anti-Virus"]:
-			cards.append(card)
-	return cards
-
 func start_turn():
 	# Load hand
 	for card in hand.CardList:
@@ -94,7 +85,6 @@ func start_turn():
 		main.players[virus.target].negative_card_effects.append(virus)
 		virus = null
 	if len(negative_card_effects) > 0:
-#		var defense_cards = get_defense_cards()
 		resolve_negative_card_effects()
 		
 	moves = max_moves + moves_modifier
@@ -138,8 +128,8 @@ func new_tile_effect(tile):
 
 func item_shop():
 	# show shop menu
-	# 3 randomly picked cards to buy (can't buy same card twice!)
-	# one time buy to refresh the cards
+	# 3 randomly picked cards to buy (can't buy same card twice)
+	# one time buy to draw new cards
 	# keys (can buy multiple)
 	while battery > 3 and keys < 10: # temp buy all keys
 		battery -= 3
@@ -179,9 +169,8 @@ func draw_special_card():
 		"Tvunget Avslutning":
 			move_to_tile(start_pos)
 
-func use_card(inv_index):
-	# use a card from inventory
-	var card = inventory.pop_at(inv_index)
+func use_card(card):
+	# use a card from hand
 	main.discard_pile.append(card)
 	match card.name:
 		"Bakdør":
