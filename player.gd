@@ -66,14 +66,6 @@ func resolve_negative_card_effects():
 				# TODO option to use defense card if you have them
 				# brannmur, premium brannmur, anti-virus, Forsikring" (shop card)
 				move_to_tile(negative_card_effects[i].tile)
-			"Små Feil":
-				# TODO option to use defense card if you have them
-				# premium brannmur, anti-virus
-				keys = max(0, keys-3)
-			"Tvunget Avsluttning":
-				# TODO option to use defense card if you have them
-				# premium brannmur, anti-virus
-				move_to_tile(start_pos)
 	negative_card_effects = []
 
 func start_turn():
@@ -163,14 +155,19 @@ func draw_card_to_hand(card):
 	print(hand.CardList)
 
 func draw_special_card():
-	# TODO display card for player
+	# Draw random error card
 	var card_index = randi_range(0,2)
 	var card = main.special_cards[card_index]
-	if card.polarity == "Positivt":
-		print("ingenting skjer")
-		return
-	elif card.polarity == "Negativt":
-		negative_card_effects.append(card)
+	
+	# Render error card
+	playspace.draw_error_card(card)
+	print("RENDERING CARD", card)
+	
+	match card.title:
+		"Små Feil":
+			keys = max(0, keys-3)
+		"Tvunget Avslutning":
+			move_to_tile(start_pos)
 
 func use_card(card):
 	# use a card from hand
