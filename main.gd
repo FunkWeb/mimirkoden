@@ -214,7 +214,7 @@ func immediate_card_effect(card):
 		"Overbelastet":
 			players[current_active_player].negative_card_effects.append(card)
 		"Virus":
-			var next_player = (current_active_player+1)%num_selected_players
+			@warning_ignore("shadowed_variable") var next_player = (current_active_player+1)%num_selected_players
 			card.target = current_active_player
 			players[next_player].virus = card
 			shuffle_discard_into_deck()
