@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dde6gp8icnc5" path="res://card_assets/chance_card.png" id="5_rk2ss"]
 
 [node name="ChanceCardBase" type="MarginContainer"]
+z_index = 10
+z_as_relative = false
 custom_minimum_size = Vector2(250, 350)
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +22,7 @@ script = ExtResource("1_7acys")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.207843, 0.180392, 0.172549, 1)
 
 [node name="Activation" type="Label" parent="."]
 layout_mode = 2

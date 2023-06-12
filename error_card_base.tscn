@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://705lmqwkvdwa"]
+
+[ext_resource type="Script" path="res://error_card_base.gd" id="1_iay7s"]
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="3_e685e"]
+[ext_resource type="Texture2D" uid="uid://tqgbhs7q06cg" path="res://card_assets/error_card.png" id="4_lpol5"]
+[ext_resource type="FontFile" uid="uid://dau5bfm1esfs3" path="res://card_assets/text_settings/fonts/Roboto-Regular.ttf" id="4_mw8dj"]
+
+[node name="ErrorCardBase" type="MarginContainer"]
+z_index = 200
+custom_minimum_size = Vector2(800, 350)
+offset_right = 800.0
+offset_bottom = 350.0
+pivot_offset = Vector2(400, 175)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_iay7s")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.207843, 0.180392, 0.172549, 1)
+
+[node name="Contents" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Contents"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_e685e")
+theme_override_font_sizes/font_size = 72
+text = "Tvunget Avsluttning"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Description" type="Label" parent="Contents"]
+custom_minimum_size = Vector2(600, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 1, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("4_mw8dj")
+theme_override_font_sizes/font_size = 32
+text = "Du blir kastet ut. Flytt tilbake til startfelten ditt."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="IconLeft" type="Sprite2D" parent="."]
+position = Vector2(0, 187.5)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("4_lpol5")
+centered = false
+
+[node name="IconRight" type="Sprite2D" parent="."]
+position = Vector2(637.5, 187.5)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("4_lpol5")
+centered = false
