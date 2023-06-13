@@ -104,15 +104,15 @@ func start():
 		var p_name
 		match(i):
 			0:
-				p_name =  "Fr0y4"
+				p_name =  "Fr0ya"
 			1:
 				p_name = "L0k3"
 			2:
 				p_name = "H3l"
 			3:
-				p_name = "H3imd4ll"
+				p_name = "H3imdall"
 			4:
-				p_name = "B4ld3r"
+				p_name = "Bald3r"
 			5:
 				p_name = "T0r"
 
