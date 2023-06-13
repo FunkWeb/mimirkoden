@@ -17,6 +17,7 @@ extends Node
 	Vector2(screen_size[0] - 220,screen_size[1] - 140),
 	Vector2(20,screen_size[1] - 140), 
 	]
+@onready var EndTurnUI = $EndTurnUI
 
 var players = []
 var num_selected_players = 2  # Default value
@@ -52,7 +53,7 @@ func _process(_delta):
 	
 	# End turn on spacebar
 	if Input.is_action_just_pressed("ui_accept"):
-		get_active_player().end_turn()
+		EndTurnUI._on_end_turn_button_pressed()
 
 func _on_start_ui_players(num: int):
 	num_selected_players = num

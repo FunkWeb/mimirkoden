@@ -240,6 +240,8 @@ func unset_occupied(tiles):
 
 func end_turn():
 	# Empty hand
+	for c in $"../Playspace/Hand/GridContainer".get_children():
+		c.queue_free()
 	
 	# Clear immediate chance card
 	for c in $"../Playspace/Cards".get_children():

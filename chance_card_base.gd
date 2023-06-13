@@ -48,7 +48,7 @@ func _ready():
 func _on_mouse_entered():
 	if !in_hand: return
 	set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
-	position.y = -150
+	position.y = -200
 
 func _on_mouse_exited():
 	if !in_hand: return
