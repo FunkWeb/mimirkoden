@@ -107,32 +107,26 @@ func start():
 		player_uis.push_back(p_ui)
 		add_child(p_ui) 
 		var p_name
-		var p_texture
+		var p_texture = load("res://player_card_assets/player{num}_card.png".format({"num":i}))
 		var p_side
 		match(i):
 			0:
 				p_name =  "Fr0ya"
-				p_texture = load("res://player_card_assets/player_card_left_temp.png")
 				p_side = "left"
 			1:
 				p_name = "L0k3"
-				p_texture = load("res://player_card_assets/player_card_left_temp.png")
 				p_side = "left"
 			2:
 				p_name = "H3l"
-				p_texture = load("res://player_card_assets/player_card_right_temp.png")
 				p_side = "right"
 			3:
 				p_name = "H3imdall"
-				p_texture = load("res://player_card_assets/player_card_right_temp.png")
 				p_side = "right"
 			4:
 				p_name = "Bald3r"
-				p_texture = load("res://player_card_assets/player_card_right_temp.png")
 				p_side = "right"
 			5:
 				p_name = "T0r"
-				p_texture = load("res://player_card_assets/player_card_left_temp.png")
 				p_side = "left"
 
 		p_ui.init(p,player_ui_positions[i],p_name,p_texture,p_side)
