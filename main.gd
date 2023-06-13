@@ -50,10 +50,9 @@ func _process(_delta):
 		if not game_started:
 			StartUI.show()
 	
-	# TESTING PLAYER SWITCHING
+	# End turn on spacebar
 	if Input.is_action_just_pressed("ui_accept"):
-		print("SWITCH")
-		next_player()
+		get_active_player().end_turn()
 
 func _on_start_ui_players(num: int):
 	num_selected_players = num
@@ -94,7 +93,7 @@ func start():
 		
 		# Texture path
 		p_sprite.set_texture(load("res://player_assets/player{num}.png".format({"num":i})))
-		p_sprite.scale *= 0.15
+		p_sprite.scale *= 0.12
 	
 	# Initialize UI's
 	for i in num_selected_players:
