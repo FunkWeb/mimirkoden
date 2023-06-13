@@ -25,7 +25,7 @@ offset_bottom = 96.0
 grow_horizontal = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "End Turn"
+text = "Avslutt tur"
 label_settings = ExtResource("1_wot8r")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -76,7 +76,7 @@ unresizable = true
 borderless = true
 always_on_top = true
 ok_button_text = "Ja"
-dialog_text = "Du kan ennå fytte deg.
+dialog_text = "Du kan fortsatt flytte deg.
 Virkelig avslutt tur?"
 cancel_button_text = "Tilbake"
 
