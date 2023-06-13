@@ -1,36 +1,53 @@
-[gd_scene load_steps=4 format=3 uid="uid://5pxrlf7ebbl3"]
+[gd_scene load_steps=5 format=3 uid="uid://5pxrlf7ebbl3"]
 
 [ext_resource type="Script" path="res://quitui.gd" id="1_npgfg"]
 [ext_resource type="SystemFont" uid="uid://c1ndkgvxyytj1" path="res://UI settings/Button Font Settings.tres" id="2_43ecb"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="3_fwfta"]
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="4_53lyv"]
 
 [node name="QuitUI" type="CanvasLayer"]
 script = ExtResource("1_npgfg")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -79.5
+offset_right = 165.5
+offset_bottom = 79.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
 [node name="Message" type="Label" parent="."]
-offset_left = 113.0
-offset_top = 135.0
-offset_right = 202.0
-offset_bottom = 161.0
+offset_left = 853.0
+offset_top = 476.0
+offset_right = 1094.0
+offset_bottom = 523.0
 theme_override_fonts/font = ExtResource("2_43ecb")
-text = "Really quit?"
+text = "Avslutte?"
 label_settings = ExtResource("3_fwfta")
 
 [node name="Cancel" type="Button" parent="."]
-offset_left = 139.0
-offset_top = 183.0
-offset_right = 199.0
-offset_bottom = 214.0
-theme_override_fonts/font = ExtResource("2_43ecb")
-text = "Cancel"
+offset_left = 813.0
+offset_top = 545.0
+offset_right = 951.0
+offset_bottom = 594.0
+theme_override_fonts/font = ExtResource("4_53lyv")
+theme_override_font_sizes/font_size = 40
+text = "Tilbake"
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 250.0
-offset_top = 184.0
-offset_right = 292.0
-offset_bottom = 215.0
-theme_override_fonts/font = ExtResource("2_43ecb")
-text = "Quit"
+offset_left = 966.0
+offset_top = 543.0
+offset_right = 1114.0
+offset_bottom = 592.0
+theme_override_fonts/font = ExtResource("4_53lyv")
+theme_override_font_sizes/font_size = 40
+text = "Avslutt"
 
 [connection signal="pressed" from="Cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
