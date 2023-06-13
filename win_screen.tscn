@@ -80,6 +80,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Testing particles" type="CPUParticles2D" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_kbe0g")
 use_parent_material = true
 position = Vector2(958, 486)
