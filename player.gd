@@ -4,7 +4,7 @@ var player_name
 var start_pos
 var current_cell
 @export var active_player:bool
-const max_moves = 10 # testing wall_walk
+const max_moves = 3 # testing wall_walk
 var moves
 var key_card
 var virus # Virus card. Stores card value to send to the player
