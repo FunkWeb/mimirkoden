@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://csobupsh1ojkd"
+path="res://.godot/imported/Neon Laser Horizon.mp3-cf1f42a864dd112eab43c9e7061f1e8d.mp3str"
+
+[deps]
+
+source_file="res://sound_assets/Neon Laser Horizon.mp3"
+dest_files=["res://.godot/imported/Neon Laser Horizon.mp3-cf1f42a864dd112eab43c9e7061f1e8d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
