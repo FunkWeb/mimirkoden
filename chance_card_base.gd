@@ -9,7 +9,8 @@ var desc
 var activation
 var polarity
 var in_hand
-@onready var start_pos_y = position.y
+@onready var texture = $Texture
+
 
 
 func init(CardData):
@@ -25,12 +26,15 @@ func init(CardData):
 		"Negativt":
 			card_title.set("theme_override_colors/font_outline_color",Color("#ff0000"))
 			card_desc.set("theme_override_colors/font_outline_color",Color("#ff0000"))
+			texture.texture = load("res://card_assets/frame_card_neg.png")
 		"Positivt":
 			card_title.set("theme_override_colors/font_outline_color",Color("#00ff00"))
 			card_desc.set("theme_override_colors/font_outline_color",Color("#00ff00"))
+			texture.texture = load("res://card_assets/frame_card_pos.png")
 		"Nøytralt":
 			card_title.set("theme_override_colors/font_outline_color",Color("#ffffff"))
 			card_desc.set("theme_override_colors/font_outline_color",Color("#ffffff"))
+			texture.texture = load("res://card_assets/frame_card_neu.png")
 	
 	card_desc.text = desc
 	card_activation.text = activation
@@ -40,15 +44,10 @@ func init(CardData):
 	var title_size = remap(title_len,4,16,56,28)
 	card_title.set("theme_override_font_sizes/font_size",title_size)
 
-func _ready():
-
-	print(start_pos_y)
-	print(position.y)
-
 func _on_mouse_entered():
 	if !in_hand: return
 	set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
-	position.y = -150
+	position.y = -200
 
 func _on_mouse_exited():
 	if !in_hand: return

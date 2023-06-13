@@ -18,12 +18,6 @@ func init(playerP,posP,nameP):
 	$ChargeCounter.position = posP + element_offset
 	$KeyCounter.position = posP + (element_offset * 2)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
-
-
 func _on_player_update_ui():
-	$KeyCounter.text = "Keys: "+str(player.keys)
-	$ChargeCounter.text = "Charges: "+str(player.battery)
+	$KeyCounter.text = "N*kler: "+str(player.keys)
+	$ChargeCounter.text = "Batterier: "+str(player.battery)

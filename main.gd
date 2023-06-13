@@ -17,6 +17,7 @@ extends Node
 	Vector2(screen_size[0] - 220,screen_size[1] - 140),
 	Vector2(20,screen_size[1] - 140), 
 	]
+@onready var EndTurnUI = $EndTurnUI
 
 var players = []
 var num_selected_players = 2  # Default value
@@ -29,6 +30,7 @@ signal card_effect_done
 var player_uis = []
 
 var game_started = false
+var waiting = false
 const CSVparser = preload("CSVParser.gd")
 @onready var csv_parser = CSVparser.new()
 
@@ -51,8 +53,8 @@ func _process(_delta):
 			StartUI.show()
 	
 	# End turn on spacebar
-	if Input.is_action_just_pressed("ui_accept"):
-		get_active_player().end_turn()
+	if Input.is_action_just_pressed("ui_accept") and game_started:
+		EndTurnUI._on_end_turn_button_pressed()
 
 func _on_start_ui_players(num: int):
 	num_selected_players = num
@@ -104,15 +106,15 @@ func start():
 		var p_name
 		match(i):
 			0:
-				p_name =  "Fr0y4"
+				p_name =  "Fr0ya"
 			1:
 				p_name = "L0k3"
 			2:
 				p_name = "H3l"
 			3:
-				p_name = "H3imd4ll"
+				p_name = "H3imdall"
 			4:
-				p_name = "B4ld3r"
+				p_name = "Bald3r"
 			5:
 				p_name = "T0r"
 
@@ -198,9 +200,9 @@ func shuffle_discard_into_deck():
 
 func immediate_card_effect(card):
 	match card.title:
-		"Nøkkel +":
+		"N*kkel +":
 			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
-		"Nøkkel -":
+		"N*kkel -":
 			players[current_active_player].negative_card_effects.append(card)
 		"Batteri +":
 			players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
@@ -227,6 +229,7 @@ func immediate_card_effect(card):
 			shuffle_discard_into_deck()
 
 func wait_player_select():
+	waiting = true
 	print("Click a cell with a player on it")
 	var clicked_player
 	while true:
@@ -239,17 +242,21 @@ func wait_player_select():
 				return p.current_cell == clicked_cell_pos).front()
 			break
 	print("valid player")
+	waiting = false
 	return players.find(clicked_player)
 
 func wait_chance_select():
+	waiting = true
 	print("Select a chance tile")
 	var clicked_cell
+	var clicked_cell_pos
 	while true:
 		await board.clicked
-		var clicked_cell_pos = board.clicked_cell
+		clicked_cell_pos = board.clicked_cell
 		clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
 		print(clicked_cell.type)
 		if (clicked_cell_pos not in get_active_player().used_tiles and !clicked_cell.occupied and clicked_cell.type == "card"):
 			break
 	print("valid cell")
-	return clicked_cell
+	waiting = false
+	return clicked_cell_pos

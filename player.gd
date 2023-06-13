@@ -4,7 +4,7 @@ var player_name
 var start_pos
 var current_cell
 @export var active_player:bool
-const max_moves = 3 # testing wall_walk
+const max_moves = 10 # testing wall_walk
 var moves
 var key_card
 var virus # Virus card. Stores card value to send to the player
@@ -48,7 +48,7 @@ func resolve_negative_card_effects():
 			# "Forsikring" (shop card)  mot kort brukt av en spiller
 			# "Brannmur" mot sjansekort
 			# "Premium Brannmur", "Anti-Virus" mot alt
-			"Nøkkel -":
+			"N*kkel -":
 				# TODO option to use defense card if you have them
 				# brannmur, premium brannmur, anti-virus
 				keys = max(0,keys-int(negative_card_effects[i].description[-1]))
@@ -173,10 +173,10 @@ func use_card(card):
 	# use a card from hand
 	main.discard_pile.append(card)
 	match card.title:
-		"Bakdør":
+		"Bakd*r":
 			walk_walls = true
 			main.shuffle_discard_into_deck()
-		"Krypteringnøkkel":
+		"Krypteringn*kkel":
 			key_card = true
 		"Premium Brannmur":
 			pass
@@ -240,6 +240,8 @@ func unset_occupied(tiles):
 
 func end_turn():
 	# Empty hand
+	for c in $"../Playspace/Hand/GridContainer".get_children():
+		c.queue_free()
 	
 	# Clear immediate chance card
 	for c in $"../Playspace/Cards".get_children():

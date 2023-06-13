@@ -17,6 +17,10 @@ func _ready():
 
 
 func _on_end_turn_button_pressed():
+	if main.waiting:
+		print("Can't end turn while waiting on player input")
+		return
+	
 	var player_tile = main.players[main.current_active_player].current_cell
 	var cell_index = board.get_index_from_coor(player_tile)
 	var tile = board.tile_list[cell_index]
