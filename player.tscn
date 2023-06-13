@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlwcqfkotaj4m"]
+[gd_scene load_steps=5 format=3 uid="uid://dlwcqfkotaj4m"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_bf3rj"]
+[ext_resource type="Texture2D" uid="uid://c65q4e3xcuda0" path="res://player_assets/player0.png" id="2_50geh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fcv5b"]
 
@@ -17,7 +18,16 @@ script = ExtResource("1_bf3rj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fcv5b")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_50geh")
+
+[node name="Shadow" type="Sprite2D" parent="Texture"]
+modulate = Color(0, 0, 0, 0.392157)
+show_behind_parent = true
+position = Vector2(10, 4)
+scale = Vector2(1.07, 1.07)
+texture = ExtResource("2_50geh")
+offset = Vector2(5, 5)
 
 [node name="Label" type="Label" parent="."]
 visible = false

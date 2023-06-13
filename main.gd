@@ -12,9 +12,9 @@ extends Node
 @onready var player_ui_positions = [
 	Vector2(20,screen_size[1]/2 - 60), 
 	Vector2(20,20),
-	Vector2(screen_size[0] - 220,20), 
-	Vector2(screen_size[0] - 220,screen_size[1]/2 - 60),
-	Vector2(screen_size[0] - 220,screen_size[1] - 140),
+	Vector2(screen_size[0] - 270,20), 
+	Vector2(screen_size[0] - 270,screen_size[1]/2 - 60),
+	Vector2(screen_size[0] - 270,screen_size[1] - 140),
 	Vector2(20,screen_size[1] - 140), 
 	]
 @onready var EndTurnUI = $EndTurnUI
@@ -91,11 +91,15 @@ func start():
 		p.hand = PlayerHand.new()
 		
 		# Set sprites
-		var p_sprite = p.get_node("Sprite2D")
+		var p_sprite = p.get_node("Texture")
+		var p_shadow = p.get_node("Texture/Shadow")
+		print(p_shadow)
 		
 		# Texture path
 		p_sprite.set_texture(load("res://player_assets/player{num}.png".format({"num":i})))
 		p_sprite.scale *= 0.12
+		
+		p_shadow.set_texture(p_sprite.texture)
 	
 	# Initialize UI's
 	for i in num_selected_players:
@@ -222,6 +226,7 @@ func immediate_card_effect(card):
 			@warning_ignore("shadowed_variable") var next_player = (current_active_player+1)%num_selected_players
 			card.target = current_active_player
 			players[next_player].virus = card
+			
 			shuffle_discard_into_deck()
 		"Hack":
 			var target = await wait_player_select()
@@ -236,10 +241,11 @@ func wait_player_select():
 	waiting = true
 	print("Click a cell with a player on it")
 	var clicked_player
+	var clicked_cell
 	while true:
 		await board.clicked
 		var clicked_cell_pos = board.clicked_cell
-		var clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
+		clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
 		if (clicked_cell_pos not in get_active_player().used_tiles and clicked_cell.occupied and clicked_cell_pos != players[current_active_player].current_cell):
 			# Find the right player
 			clicked_player = players.filter(func(p): 
@@ -263,4 +269,5 @@ func wait_chance_select():
 			break
 	print("valid cell")
 	waiting = false
+	clicked_cell.occupied = true
 	return clicked_cell_pos
