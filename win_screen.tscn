@@ -65,25 +65,12 @@ theme_override_fonts/font = ExtResource("4_l30w2")
 theme_override_font_sizes/font_size = 64
 text = "Du Vant!"
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
-layout_mode = 2
-
 [node name="Testing particles" type="CPUParticles2D" parent="."]
 visible = false
 material = SubResource("CanvasItemMaterial_kbe0g")
 use_parent_material = true
 position = Vector2(958, 486)
+emitting = false
 amount = 32
 explosiveness = 1.0
 randomness = 1.0
