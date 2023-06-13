@@ -222,6 +222,7 @@ func immediate_card_effect(card):
 			@warning_ignore("shadowed_variable") var next_player = (current_active_player+1)%num_selected_players
 			card.target = current_active_player
 			players[next_player].virus = card
+			
 			shuffle_discard_into_deck()
 		"Hack":
 			var target = await wait_player_select()
@@ -236,10 +237,11 @@ func wait_player_select():
 	waiting = true
 	print("Click a cell with a player on it")
 	var clicked_player
+	var clicked_cell
 	while true:
 		await board.clicked
 		var clicked_cell_pos = board.clicked_cell
-		var clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
+		clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
 		if (clicked_cell_pos not in get_active_player().used_tiles and clicked_cell.occupied and clicked_cell_pos != players[current_active_player].current_cell):
 			# Find the right player
 			clicked_player = players.filter(func(p): 
@@ -253,13 +255,15 @@ func wait_chance_select():
 	waiting = true
 	print("Select a chance tile")
 	var clicked_cell
+	var clicked_cell_pos
 	while true:
 		await board.clicked
-		var clicked_cell_pos = board.clicked_cell
+		clicked_cell_pos = board.clicked_cell
 		clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
 		print(clicked_cell.type)
 		if (clicked_cell_pos not in get_active_player().used_tiles and !clicked_cell.occupied and clicked_cell.type == "card"):
 			break
 	print("valid cell")
 	waiting = false
-	return clicked_cell
+	clicked_cell.occupied = true
+	return clicked_cell_pos

@@ -44,29 +44,15 @@ func init():
 func resolve_negative_card_effects():
 	for i in len(negative_card_effects):
 		match negative_card_effects[i].title:
-			# "Forsikring" (chance card) mot stjeling
-			# "Forsikring" (shop card)  mot kort brukt av en spiller
-			# "Brannmur" mot sjansekort
-			# "Premium Brannmur", "Anti-Virus" mot alt
 			"N*kkel -":
-				# TODO option to use defense card if you have them
-				# brannmur, premium brannmur, anti-virus
 				keys = max(0,keys-int(negative_card_effects[i].description[-1]))
 			"Batteri -":
-				# TODO option to use defense card if you have them
-				# brannmur, premium brannmur, anti-virus
 				battery = max(0,battery-int(negative_card_effects[i].description[-1]))
 			"Overbelastet":
-				# TODO option to use defense card if you have them
-				# brannmur, premium brannmur, anti-virus
 				moves_modifier -= 1
 			"Hack":
-				# TODO option to use defense card if you have them
-				# brannmur, premium brannmur, anti-virus, Forsikring" (shop card)
 				move_to_tile(negative_card_effects[i].tile)
 			"Virus":
-				# TODO option to use defense card if you have them
-				# brannmur, premium brannmur, anti-virus, Forsikring" (shop card)
 				move_to_tile(negative_card_effects[i].tile)
 	negative_card_effects = []
 
@@ -80,9 +66,7 @@ func start_turn():
 	
 	update_ui.emit()
 	if virus: # last player got a virus, you pick a chance tile for them
-		var chance_tiles = board.tile_list.filter(func(tile): return (tile.type == "card" and tile.occupied == false))
-		var random_tile = chance_tiles.pick_random()
-		var chance_tile = board.all_cells[board.tile_list.find(random_tile)]
+		var chance_tile = await main.wait_chance_select()
 		virus.tile = chance_tile
 		main.players[virus.target].negative_card_effects.append(virus)
 		virus = null
@@ -210,10 +194,14 @@ func move_player(clicked_cell):
 	update_ui.emit() #signal playerUI to update values
 
 func _on_board_clicked():
+	if virus:
+		return
 	if !main.game_started or !active_player:
 		return
-	if moves == 0:
+	if moves == 0 and !main.waiting:
 		error_sound.play()
+		return
+	elif moves == 0:
 		return
 	
 	var neighbors = board.get_valid_neighbors(current_cell, true)
@@ -227,6 +215,7 @@ func _on_board_clicked():
 	#print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
 	
 	if clicked_cell not in neighbors:
+		error_sound.play()
 		return
 	move_player(clicked_cell)
 
