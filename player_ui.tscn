@@ -1,25 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://du3cwj0q6lnql"]
+[gd_scene load_steps=4 format=3 uid="uid://du3cwj0q6lnql"]
 
 [ext_resource type="Script" path="res://playerui.gd" id="1_1yowr"]
-[ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="2_504fk"]
+[ext_resource type="Texture2D" uid="uid://dmtivfget6qhd" path="res://player_card_assets/player_card_left_temp.png" id="2_4yt70"]
+[ext_resource type="LabelSettings" uid="uid://dihc057ql63eu" path="res://UI settings/UI Player card Settings.tres" id="3_tan46"]
 
-[node name="PlayerUI" type="CanvasLayer"]
+[node name="PlayerUI" type="Node2D"]
 script = ExtResource("1_1yowr")
 
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_4yt70")
+centered = false
+
 [node name="KeyCounter" type="Label" parent="."]
-offset_right = 130.0
-offset_bottom = 57.0
-text = "Keys: 0"
-label_settings = ExtResource("2_504fk")
+offset_left = 140.0
+offset_top = 185.0
+offset_right = 419.0
+offset_bottom = 285.0
+text = "0"
+label_settings = ExtResource("3_tan46")
 
 [node name="ChargeCounter" type="Label" parent="."]
-offset_right = 177.0
-offset_bottom = 57.0
-text = "Charge: 0"
-label_settings = ExtResource("2_504fk")
+offset_left = 140.0
+offset_top = 346.0
+offset_right = 513.0
+offset_bottom = 446.0
+text = "0"
+label_settings = ExtResource("3_tan46")
 
 [node name="Name" type="Label" parent="."]
-offset_right = 150.0
-offset_bottom = 57.0
-text = "Player 1"
-label_settings = ExtResource("2_504fk")
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 335.0
+offset_bottom = 120.0
+text = "H31mdall"
+label_settings = ExtResource("3_tan46")

@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dihc057ql63eu"]
+
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="1_wk5ud"]
+
+[resource]
+font = ExtResource("1_wk5ud")
+font_size = 92

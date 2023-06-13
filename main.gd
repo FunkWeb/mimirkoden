@@ -10,12 +10,12 @@ extends Node
 @onready var MoveCounterUI = $MoveCounterUI
 @onready var screen_size = get_viewport().get_visible_rect().size
 @onready var player_ui_positions = [
-	Vector2(20,screen_size[1]/2 - 60), 
+	Vector2(20,screen_size.y/2 - (500*0.4)/2 - 10), 
 	Vector2(20,20),
-	Vector2(screen_size[0] - 270,20), 
-	Vector2(screen_size[0] - 270,screen_size[1]/2 - 60),
-	Vector2(screen_size[0] - 270,screen_size[1] - 140),
-	Vector2(20,screen_size[1] - 140), 
+	Vector2(screen_size.x - 750*0.4 -20,20), 
+	Vector2(screen_size.x - 750*0.4 -20,screen_size.y/2 - (500*0.4)/2 -10),
+	Vector2(screen_size.x - 750*0.4 -20,screen_size.y - (500*0.4) - 20),
+	Vector2(20,screen_size.y - (500*0.4) - 20), 
 	]
 @onready var EndTurnUI = $EndTurnUI
 
@@ -86,14 +86,12 @@ func start():
 		var p = players[i]
 		add_child(p)
 		p.start_pos = start_positions[i]
-		p.init()
 		
 		p.hand = PlayerHand.new()
 		
 		# Set sprites
 		var p_sprite = p.get_node("Texture")
 		var p_shadow = p.get_node("Texture/Shadow")
-		print(p_shadow)
 		
 		# Texture path
 		p_sprite.set_texture(load("res://player_assets/player{num}.png".format({"num":i})))
@@ -108,21 +106,35 @@ func start():
 		player_uis.push_back(p_ui)
 		add_child(p_ui) 
 		var p_name
+		var p_texture
+		var p_side
 		match(i):
 			0:
 				p_name =  "Fr0ya"
+				p_texture = load("res://player_card_assets/player_card_left_temp.png")
+				p_side = "left"
 			1:
 				p_name = "L0k3"
+				p_texture = load("res://player_card_assets/player_card_left_temp.png")
+				p_side = "left"
 			2:
 				p_name = "H3l"
+				p_texture = load("res://player_card_assets/player_card_right_temp.png")
+				p_side = "right"
 			3:
 				p_name = "H3imdall"
+				p_texture = load("res://player_card_assets/player_card_right_temp.png")
+				p_side = "right"
 			4:
 				p_name = "Bald3r"
+				p_texture = load("res://player_card_assets/player_card_right_temp.png")
+				p_side = "right"
 			5:
 				p_name = "T0r"
+				p_texture = load("res://player_card_assets/player_card_left_temp.png")
+				p_side = "left"
 
-		p_ui.init(p,player_ui_positions[i],p_name)
+		p_ui.init(p,player_ui_positions[i],p_name,p_texture,p_side)
 		p.player_name = p_name
 		
 		# Connect signals to UI elements
