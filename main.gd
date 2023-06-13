@@ -86,6 +86,7 @@ func start():
 		var p = players[i]
 		add_child(p)
 		p.start_pos = start_positions[i]
+		p.init()
 		
 		p.hand = PlayerHand.new()
 		

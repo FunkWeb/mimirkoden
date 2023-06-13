@@ -14,8 +14,14 @@ func _ready():
 func init(playerP,posP,nameP,textureP,sideP):
 	match sideP:
 		"left":
+			$Name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+			$KeyCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+			$ChargeCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 			pass
 		"right":
+			$Name.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			$KeyCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			$ChargeCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			pass
 	self.player = playerP
 	self.pos = posP

@@ -14,23 +14,28 @@ centered = false
 [node name="KeyCounter" type="Label" parent="."]
 offset_left = 140.0
 offset_top = 185.0
-offset_right = 419.0
+offset_right = 610.0
 offset_bottom = 285.0
 text = "0"
 label_settings = ExtResource("3_tan46")
+vertical_alignment = 1
 
 [node name="ChargeCounter" type="Label" parent="."]
 offset_left = 140.0
 offset_top = 346.0
-offset_right = 513.0
+offset_right = 610.0
 offset_bottom = 446.0
 text = "0"
 label_settings = ExtResource("3_tan46")
+vertical_alignment = 1
 
 [node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(750, 0)
 offset_left = 5.0
 offset_top = 20.0
-offset_right = 335.0
+offset_right = 344.0
 offset_bottom = 120.0
+size_flags_vertical = 0
 text = "H31mdall"
 label_settings = ExtResource("3_tan46")
+vertical_alignment = 1

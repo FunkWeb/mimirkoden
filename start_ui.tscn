@@ -51,7 +51,7 @@ offset_right = 380.0
 offset_bottom = 382.0
 theme_override_fonts/font = ExtResource("1_q00sp")
 theme_override_font_sizes/font_size = 40
-text = "Start!"
+text = "Start"
 
 [node name="NumPlayersButton" type="MenuButton" parent="."]
 offset_left = 227.0

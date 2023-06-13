@@ -30,9 +30,9 @@ var hand
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	battery = 20
+	battery = 0
 	moves = max_moves
-	keys = 10
+	keys = 0
 	used_tiles = []
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
