@@ -12,9 +12,9 @@ extends Node
 @onready var player_ui_positions = [
 	Vector2(20,screen_size[1]/2 - 60), 
 	Vector2(20,20),
-	Vector2(screen_size[0] - 220,20), 
-	Vector2(screen_size[0] - 220,screen_size[1]/2 - 60),
-	Vector2(screen_size[0] - 220,screen_size[1] - 140),
+	Vector2(screen_size[0] - 270,20), 
+	Vector2(screen_size[0] - 270,screen_size[1]/2 - 60),
+	Vector2(screen_size[0] - 270,screen_size[1] - 140),
 	Vector2(20,screen_size[1] - 140), 
 	]
 @onready var EndTurnUI = $EndTurnUI
@@ -91,11 +91,15 @@ func start():
 		p.hand = PlayerHand.new()
 		
 		# Set sprites
-		var p_sprite = p.get_node("Sprite2D")
+		var p_sprite = p.get_node("Texture")
+		var p_shadow = p.get_node("Texture/Shadow")
+		print(p_shadow)
 		
 		# Texture path
 		p_sprite.set_texture(load("res://player_assets/player{num}.png".format({"num":i})))
 		p_sprite.scale *= 0.12
+		
+		p_shadow.set_texture(p_sprite.texture)
 	
 	# Initialize UI's
 	for i in num_selected_players:
