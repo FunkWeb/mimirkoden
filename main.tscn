@@ -13,7 +13,7 @@
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="7_h3uwt"]
 [ext_resource type="Script" path="res://movecounterui.gd" id="8_i11si"]
 [ext_resource type="PackedScene" uid="uid://blobidbs6ysqp" path="res://end_turn_ui.tscn" id="9_scw21"]
-[ext_resource type="AudioStream" uid="uid://bnhxwm251de88" path="res://sound_assets/BGMusicV2.wav" id="14_ea1w7"]
+[ext_resource type="AudioStream" path="res://sound_assets/BGMusicV2.wav" id="14_ea1w7"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_mcyre")
