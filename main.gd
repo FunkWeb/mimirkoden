@@ -146,6 +146,10 @@ func next_player():
 func get_active_player():
 	return players[current_active_player]
 
+func win_game():
+	game_started = false
+	get_tree().change_scene_to_file("res://win_screen.tscn")
+
 func _on_end_turn_ui_end_turn():
 	players[current_active_player].end_turn()
 	print("player "+str(current_active_player+1)+"'s turn")
