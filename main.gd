@@ -198,9 +198,9 @@ func shuffle_discard_into_deck():
 
 func immediate_card_effect(card):
 	match card.title:
-		"Nøkkel +":
+		"N*kkel +":
 			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
-		"Nøkkel -":
+		"N*kkel -":
 			players[current_active_player].negative_card_effects.append(card)
 		"Batteri +":
 			players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))

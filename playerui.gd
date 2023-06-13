@@ -25,5 +25,5 @@ func _process(_delta):
 
 
 func _on_player_update_ui():
-	$KeyCounter.text = "Keys: "+str(player.keys)
-	$ChargeCounter.text = "Charges: "+str(player.battery)
+	$KeyCounter.text = "N*kler: "+str(player.keys)
+	$ChargeCounter.text = "Batteri: "+str(player.battery)

@@ -48,7 +48,7 @@ func resolve_negative_card_effects():
 			# "Forsikring" (shop card)  mot kort brukt av en spiller
 			# "Brannmur" mot sjansekort
 			# "Premium Brannmur", "Anti-Virus" mot alt
-			"Nøkkel -":
+			"N*kkel -":
 				# TODO option to use defense card if you have them
 				# brannmur, premium brannmur, anti-virus
 				keys = max(0,keys-int(negative_card_effects[i].description[-1]))
@@ -173,10 +173,10 @@ func use_card(card):
 	# use a card from hand
 	main.discard_pile.append(card)
 	match card.title:
-		"Bakdør":
+		"Bakd*r":
 			walk_walls = true
 			main.shuffle_discard_into_deck()
-		"Krypteringnøkkel":
+		"Krypteringn*kkel":
 			key_card = true
 		"Premium Brannmur":
 			pass
