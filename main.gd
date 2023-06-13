@@ -30,6 +30,7 @@ signal card_effect_done
 var player_uis = []
 
 var game_started = false
+var waiting = false
 const CSVparser = preload("CSVParser.gd")
 @onready var csv_parser = CSVparser.new()
 
@@ -52,7 +53,7 @@ func _process(_delta):
 			StartUI.show()
 	
 	# End turn on spacebar
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept") and game_started:
 		EndTurnUI._on_end_turn_button_pressed()
 
 func _on_start_ui_players(num: int):
@@ -228,6 +229,7 @@ func immediate_card_effect(card):
 			shuffle_discard_into_deck()
 
 func wait_player_select():
+	waiting = true
 	print("Click a cell with a player on it")
 	var clicked_player
 	while true:
@@ -240,9 +242,11 @@ func wait_player_select():
 				return p.current_cell == clicked_cell_pos).front()
 			break
 	print("valid player")
+	waiting = false
 	return players.find(clicked_player)
 
 func wait_chance_select():
+	waiting = true
 	print("Select a chance tile")
 	var clicked_cell
 	while true:
@@ -253,4 +257,5 @@ func wait_chance_select():
 		if (clicked_cell_pos not in get_active_player().used_tiles and !clicked_cell.occupied and clicked_cell.type == "card"):
 			break
 	print("valid cell")
+	waiting = false
 	return clicked_cell
