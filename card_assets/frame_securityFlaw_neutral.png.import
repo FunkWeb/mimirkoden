@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y5s25j2mc7m2"
-path="res://.godot/imported/frame_card_pos.png-d932cbac82d4fed122d9da8c430c3820.ctex"
+uid="uid://coagmnd3wgfsj"
+path="res://.godot/imported/frame_securityFlaw_neutral.png-d54c8dcd3edcda2f2bee66860a451a93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://card_assets/frame_card_pos.png"
-dest_files=["res://.godot/imported/frame_card_pos.png-d932cbac82d4fed122d9da8c430c3820.ctex"]
+source_file="res://card_assets/frame_securityFlaw_neutral.png"
+dest_files=["res://.godot/imported/frame_securityFlaw_neutral.png-d54c8dcd3edcda2f2bee66860a451a93.ctex"]
 
 [params]
 
