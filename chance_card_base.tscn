@@ -1,14 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2ekrd75c8i36"]
+[gd_scene load_steps=7 format=3 uid="uid://b2ekrd75c8i36"]
 
 [ext_resource type="Script" path="res://chance_card_base.gd" id="1_7acys"]
 [ext_resource type="LabelSettings" uid="uid://c8mjv43rleuxe" path="res://card_assets/text_settings/chance_card_activation_label_settings.tres" id="2_1muxn"]
+[ext_resource type="Texture2D" uid="uid://y5s25j2mc7m2" path="res://card_assets/frame_card_pos.png" id="2_m1osr"]
 [ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="3_q5ko3"]
 [ext_resource type="FontFile" uid="uid://dau5bfm1esfs3" path="res://card_assets/text_settings/fonts/Roboto-Regular.ttf" id="4_f8dpc"]
 [ext_resource type="Texture2D" uid="uid://dde6gp8icnc5" path="res://card_assets/chance_card.png" id="5_rk2ss"]
 
 [node name="ChanceCardBase" type="MarginContainer"]
-z_index = 10
-z_as_relative = false
 custom_minimum_size = Vector2(250, 350)
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,9 +19,9 @@ grow_vertical = 2
 pivot_offset = Vector2(125, 175)
 script = ExtResource("1_7acys")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 2
-color = Color(0.207843, 0.180392, 0.172549, 1)
+[node name="Texture" type="Sprite2D" parent="."]
+texture = ExtResource("2_m1osr")
+centered = false
 
 [node name="Activation" type="Label" parent="."]
 layout_mode = 2
