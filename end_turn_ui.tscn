@@ -68,36 +68,6 @@ theme_override_fonts/font = ExtResource("3_v1d86")
 theme_override_font_sizes/font_size = 35
 text = "Nei"
 
-[node name="YesLabel" type="Label" parent="ConfirmationDialog"]
-visible = false
-offset_left = 773.0
-offset_top = 975.0
-offset_right = 837.0
-offset_bottom = 1032.0
-text = "Yes"
-label_settings = ExtResource("1_wot8r")
-
-[node name="NoLabel" type="Label" parent="ConfirmationDialog"]
-visible = false
-offset_left = 1019.0
-offset_top = 975.0
-offset_right = 1074.0
-offset_bottom = 1032.0
-text = "No"
-label_settings = ExtResource("1_wot8r")
-
-[node name="ConfirmationWindow" type="ConfirmationDialog" parent="."]
-size = Vector2i(300, 150)
-unresizable = true
-borderless = true
-always_on_top = true
-ok_button_text = "Ja"
-dialog_text = "Du kan fortsatt flytte deg.
-Virkelig avslutt tur?"
-cancel_button_text = "Tilbake"
-
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="ConfirmationDialog/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="ConfirmationDialog/NoButton" to="." method="_on_no_button_pressed"]
-[connection signal="canceled" from="ConfirmationWindow" to="." method="_on_confirmation_window_canceled"]
-[connection signal="confirmed" from="ConfirmationWindow" to="." method="_on_confirmation_window_confirmed"]
