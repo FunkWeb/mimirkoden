@@ -11,7 +11,8 @@ signal end_turn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$ConfirmationWindow.position = Vector2(screen_size[0]/2 - 150,screen_size[1]/2)
+	pass
+	#$ConfirmationWindow.position = Vector2(screen_size[0]/2 - 150,screen_size[1]/2)
 
 
 func _on_end_turn_button_pressed():
