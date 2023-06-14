@@ -8,8 +8,8 @@ signal end_turn
 @onready var screen_size = get_viewport().get_visible_rect().size
 
 # Uncomment ConfirmationDialog or ConfirmationWindow
-#@onready var confirmation_option = $ConfirmationDialog
-@onready var confirmation_option = $ConfirmationWindow
+@onready var confirmation_option = $ConfirmationDialog
+#@onready var confirmation_option = $ConfirmationWindow
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

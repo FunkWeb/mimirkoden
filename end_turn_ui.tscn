@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://blobidbs6ysqp"]
+[gd_scene load_steps=4 format=3 uid="uid://blobidbs6ysqp"]
 
 [ext_resource type="Script" path="res://end_turn_ui.gd" id="1_51th7"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="1_wot8r"]
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="3_v1d86"]
 
 [node name="EndTurnUI" type="CanvasLayer"]
 script = ExtResource("1_51th7")
@@ -33,28 +34,42 @@ vertical_alignment = 1
 [node name="ConfirmationDialog" type="CanvasLayer" parent="."]
 visible = false
 
+[node name="ColorRect" type="ColorRect" parent="ConfirmationDialog"]
+offset_left = 669.0
+offset_top = 348.0
+offset_right = 1248.0
+offset_bottom = 590.0
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
 [node name="Message" type="Label" parent="ConfirmationDialog"]
-offset_left = 698.0
-offset_top = 830.0
-offset_right = 1218.0
-offset_bottom = 944.0
-text = "You have moves remaining.
-Really end turn?"
+offset_left = 693.0
+offset_top = 370.0
+offset_right = 1225.0
+offset_bottom = 484.0
+text = "Du kan fortsatt flytte deg.
+Virkelig avslutt tur?"
 label_settings = ExtResource("1_wot8r")
 
 [node name="YesButton" type="Button" parent="ConfirmationDialog"]
-offset_left = 750.0
-offset_top = 962.0
-offset_right = 862.0
-offset_bottom = 1047.0
+offset_left = 777.0
+offset_top = 486.0
+offset_right = 889.0
+offset_bottom = 571.0
+theme_override_fonts/font = ExtResource("3_v1d86")
+theme_override_font_sizes/font_size = 35
+text = "Ja"
 
 [node name="NoButton" type="Button" parent="ConfirmationDialog"]
-offset_left = 984.0
-offset_top = 962.0
-offset_right = 1110.0
-offset_bottom = 1052.0
+offset_left = 993.0
+offset_top = 484.0
+offset_right = 1119.0
+offset_bottom = 574.0
+theme_override_fonts/font = ExtResource("3_v1d86")
+theme_override_font_sizes/font_size = 35
+text = "Nei"
 
 [node name="YesLabel" type="Label" parent="ConfirmationDialog"]
+visible = false
 offset_left = 773.0
 offset_top = 975.0
 offset_right = 837.0
@@ -63,6 +78,7 @@ text = "Yes"
 label_settings = ExtResource("1_wot8r")
 
 [node name="NoLabel" type="Label" parent="ConfirmationDialog"]
+visible = false
 offset_left = 1019.0
 offset_top = 975.0
 offset_right = 1074.0
