@@ -52,8 +52,10 @@ func resolve_negative_card_effects():
 				moves_modifier -= 1
 			"Hack":
 				move_to_tile(negative_card_effects[i].tile)
+				used_tiles = [current_cell]
 			"Virus":
 				move_to_tile(negative_card_effects[i].tile)
+				used_tiles = [current_cell]
 	negative_card_effects = []
 
 func start_turn():
@@ -130,7 +132,7 @@ func draw_card():
 		main.immediate_card_effect(card)
 	else:
 		draw_card_to_hand(card)
-
+ 
 func draw_card_to_hand(card):
 	card.in_hand = true
 	print("Trakk", card, "til hånda")
