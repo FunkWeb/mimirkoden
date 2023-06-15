@@ -1,16 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b30w61xab8683"]
+[gd_scene load_steps=5 format=3 uid="uid://b30w61xab8683"]
 
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="1_02saq"]
 [ext_resource type="Script" path="res://win_screen.gd" id="1_ihmwe"]
 [ext_resource type="AudioStream" uid="uid://csobupsh1ojkd" path="res://sound_assets/Neon Laser Horizon.mp3" id="2_sq10a"]
-[ext_resource type="Texture2D" uid="uid://8chuhlccd8me" path="res://star.png" id="4_gtii3"]
 [ext_resource type="FontFile" uid="uid://bq7qopwm52n6m" path="res://card_assets/text_settings/fonts/DS-DIGIT.TTF" id="4_l30w2"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kbe0g"]
-
-[sub_resource type="Gradient" id="Gradient_m7yeo"]
-offsets = PackedFloat32Array(0, 0.226994, 0.466258, 0.736196, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0.00392157, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1)
 
 [node name="Node" type="Node"]
 script = ExtResource("1_ihmwe")
@@ -60,47 +53,5 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_l30w2")
 theme_override_font_sizes/font_size = 64
 text = "Du Vant!"
-
-[node name="Testing particles2" type="CPUParticles2D" parent="."]
-visible = false
-material = SubResource("CanvasItemMaterial_kbe0g")
-use_parent_material = true
-position = Vector2(1377, 375)
-emitting = false
-amount = 256
-explosiveness = 1.0
-randomness = 1.0
-lifetime_randomness = 0.3
-texture = ExtResource("4_gtii3")
-direction = Vector2(0, -1)
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 75.0
-initial_velocity_max = 300.0
-scale_amount_min = 0.5
-scale_amount_max = 0.5
-color_initial_ramp = SubResource("Gradient_m7yeo")
-
-[node name="Testing particles" type="CPUParticles2D" parent="."]
-visible = false
-material = SubResource("CanvasItemMaterial_kbe0g")
-use_parent_material = true
-position = Vector2(460, 354)
-emitting = false
-amount = 100
-speed_scale = 0.85
-explosiveness = 1.0
-randomness = 1.0
-lifetime_randomness = 0.2
-texture = ExtResource("4_gtii3")
-direction = Vector2(0, -1)
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 75.0
-initial_velocity_max = 300.0
-angular_velocity_max = 100.0
-scale_amount_min = 0.5
-scale_amount_max = 0.5
-color_initial_ramp = SubResource("Gradient_m7yeo")
 
 [connection signal="button_down" from="ButtonQuit" to="." method="_on_button_quit_button_down"]

@@ -9,7 +9,6 @@
 script = ExtResource("1_1yowr")
 
 [node name="Texture" type="Sprite2D" parent="."]
-texture = ExtResource("2_4yt70")
 centered = false
 
 [node name="KeyCounter" type="Label" parent="."]
