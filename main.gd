@@ -108,6 +108,7 @@ func start():
 		add_child(p_ui) 
 		var p_name
 		var p_texture = load("res://player_card_assets/player{num}_card.png".format({"num":i}))
+		var p_player_portrait = load("res://player_assets/player{num}.png".format({"num":i}))
 		var p_side
 		match(i):
 			0:
@@ -129,8 +130,9 @@ func start():
 				p_name = "T0r"
 				p_side = "left"
 
-		p_ui.init(p,player_ui_positions[i],p_name,p_texture,p_side)
+		p_ui.init(p,player_ui_positions[i],p_name,p_texture,p_player_portrait,p_side)
 		p.player_name = p_name
+		#p_ui.head.texture = p_player_head
 		
 		# Connect signals to UI elements
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
