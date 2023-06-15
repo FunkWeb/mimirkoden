@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var player = $".."/Player
 @onready var texture = $Texture
+@onready var portrait = $Portrait
 
 var pos = Vector2(0,0)
 var element_offset = Vector2(0,40)
@@ -11,7 +12,7 @@ var element_offset = Vector2(0,40)
 func _ready():
 	_on_player_update_ui()
 	
-func init(playerP,posP,nameP,textureP,sideP):
+func init(playerP,posP,nameP,textureP,headP,sideP):
 	match sideP:
 		"left":
 			$Name.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -22,17 +23,16 @@ func init(playerP,posP,nameP,textureP,sideP):
 			$Name.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			$KeyCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			$ChargeCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			portrait.offset.x = -420
 			pass
 	self.player = playerP
 	self.pos = posP
 	$Name.text = nameP
 	position = pos
 	texture.set_texture(textureP)
+	portrait.set_texture(headP)
 	
 	scale *= 0.4
-#	$Name.position = posP
-#	$ChargeCounter.position = posP + element_offset
-#	$KeyCounter.position = posP + (element_offset * 2)
 
 func _on_player_update_ui():
 	$KeyCounter.text = str(player.keys)
