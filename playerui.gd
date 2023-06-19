@@ -3,6 +3,7 @@ extends Node2D
 @onready var player = $".."/Player
 @onready var texture = $Texture
 @onready var portrait = $Portrait
+@onready var glow = $Glow
 
 var pos = Vector2(0,0)
 var element_offset = Vector2(0,40)
@@ -20,10 +21,12 @@ func init(playerP,posP,nameP,textureP,headP,sideP):
 			$ChargeCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 			pass
 		"right":
+			glow.position.x = 216
 			$Name.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			$KeyCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			$ChargeCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			portrait.offset.x = -420
+			$Portrait/Shadow.offset.x = -420
 			pass
 	self.player = playerP
 	self.pos = posP
@@ -31,6 +34,7 @@ func init(playerP,posP,nameP,textureP,headP,sideP):
 	position = pos
 	texture.set_texture(textureP)
 	portrait.set_texture(headP)
+	$Portrait/Shadow.texture = $Portrait.texture
 	
 	scale *= 0.4
 
