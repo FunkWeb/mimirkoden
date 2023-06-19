@@ -41,39 +41,19 @@ func init():
 	current_cell = start_pos
 	set_position(board.get_map_pos(current_cell))
 
-func resolve_negative_card_effects():
-	for i in len(negative_card_effects):
-		match negative_card_effects[i].title:
-			"N*kkel -":
-				keys = max(0,keys-int(negative_card_effects[i].description[-1]))
-			"Batteri -":
-				battery = max(0,battery-int(negative_card_effects[i].description[-1]))
-			"Overbelastet":
-				moves_modifier -= 1
-			"Hack":
-				move_to_tile(negative_card_effects[i].tile)
-				used_tiles = [current_cell]
-			"Virus":
-				move_to_tile(negative_card_effects[i].tile)
-				used_tiles = [current_cell]
-	negative_card_effects = []
-
 func start_turn():
 	# Load hand
-	for card in hand.CardList:
+	for i in hand.CardList.size():
+		var card = hand.CardList[i]
 		var c = ChanceCardBase.instantiate()
 		hand_container.add_child(c)
-		c.init(card)
-	
+		c.init(card,i)
 	
 	update_ui.emit()
 	if virus: # last player got a virus, you pick a chance tile for them
 		var chance_tile = await main.wait_chance_select()
-		virus.tile = chance_tile
-		main.players[virus.target].negative_card_effects.append(virus)
-		virus = null
-	if len(negative_card_effects) > 0:
-		resolve_negative_card_effects()
+		main.players[virus.target].move_to_tile(chance_tile)
+		virus=null
 		
 	moves = max_moves + moves_modifier
 	moves_modifier = 0
@@ -136,9 +116,7 @@ func draw_card():
 func draw_card_to_hand(card):
 	card.in_hand = true
 	print("Trakk", card, "til hånda")
-	print(hand.CardList)
 	hand.CardList.push_back(card)
-	print(hand.CardList)
 
 func draw_special_card():
 	# Draw random error card
@@ -164,12 +142,8 @@ func use_card(card):
 			main.shuffle_discard_into_deck()
 		"Krypteringn*kkel":
 			key_card = true
-		"Premium Brannmur":
-			pass
-		"Forsikring":
-			pass
-		"Anti-Virus":
-			pass
+	hand.CardList.remove_at(card.num_in_hand)
+	
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
