@@ -53,6 +53,7 @@ func start_turn():
 	if virus: # last player got a virus, you pick a chance tile for them
 		var chance_tile = await main.wait_chance_select()
 		main.players[virus.target].move_to_tile(chance_tile)
+		main.players[virus.target].used_tiles = [chance_tile]
 		virus=null
 		
 	moves = max_moves + moves_modifier
@@ -102,7 +103,7 @@ func item_shop():
 		keys += 1
 
 func draw_card():
-	var card_index = randi_range(0,len(main.chance_cards)-1)
+	var card_index = randi_range(0,main.chance_cards.size()-1)
 	var card = main.chance_cards.pop_at(card_index)
 	print(card.title,card.description,card.activation,card.polarity)
 	playspace.draw_card(card)
@@ -143,7 +144,6 @@ func use_card(card):
 		"Krypteringn*kkel":
 			key_card = true
 	hand.CardList.remove_at(card.num_in_hand)
-	
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
