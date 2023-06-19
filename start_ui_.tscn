@@ -41,8 +41,12 @@ offset_left = -70.0
 offset_top = 51.0
 offset_right = -47.0
 offset_bottom = 90.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
+toggle_mode = true
+button_pressed = true
+action_mode = 0
 text = "2"
 
 [node name="Button3" type="Button" parent="."]
@@ -51,8 +55,11 @@ offset_left = -35.0
 offset_top = 51.0
 offset_right = -12.0
 offset_bottom = 90.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
+toggle_mode = true
+action_mode = 0
 text = "3
 "
 
@@ -61,8 +68,11 @@ layout_mode = 0
 offset_top = 51.0
 offset_right = 23.0
 offset_bottom = 90.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
+toggle_mode = true
+action_mode = 0
 text = "4
 "
 
@@ -72,8 +82,11 @@ offset_left = 35.0
 offset_top = 51.0
 offset_right = 58.0
 offset_bottom = 90.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
+toggle_mode = true
+action_mode = 0
 text = "5"
 
 [node name="Button6" type="Button" parent="."]
@@ -82,8 +95,11 @@ offset_left = 70.0
 offset_top = 51.0
 offset_right = 93.0
 offset_bottom = 90.0
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
+toggle_mode = true
+action_mode = 0
 text = "6"
 
 [node name="Start" type="Button" parent="."]
