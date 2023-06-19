@@ -62,3 +62,11 @@ texture = SubResource("GradientTexture2D_edugk")
 position = Vector2(530, 258)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("4_litkx")
+
+[node name="Shadow" type="Sprite2D" parent="Portrait"]
+modulate = Color(0, 0, 0, 0.392157)
+show_behind_parent = true
+position = Vector2(10, 4)
+scale = Vector2(1.07, 1.07)
+texture = ExtResource("4_litkx")
+offset = Vector2(5, 5)

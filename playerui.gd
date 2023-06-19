@@ -26,6 +26,7 @@ func init(playerP,posP,nameP,textureP,headP,sideP):
 			$KeyCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			$ChargeCounter.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			portrait.offset.x = -420
+			$Portrait/Shadow.offset.x = -420
 			pass
 	self.player = playerP
 	self.pos = posP
@@ -33,6 +34,7 @@ func init(playerP,posP,nameP,textureP,headP,sideP):
 	position = pos
 	texture.set_texture(textureP)
 	portrait.set_texture(headP)
+	$Portrait/Shadow.texture = $Portrait.texture
 	
 	scale *= 0.4
 
