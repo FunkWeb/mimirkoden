@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy0m5m5woipq2"]
+
+[ext_resource type="Script" path="res://game_manager.gd" id="1_ejesk"]
+[ext_resource type="AudioStream" uid="uid://biostpyt4j27p" path="res://sound_assets/Select.wav" id="3_prwtb"]
+[ext_resource type="AudioStream" uid="uid://bnhxwm251de88" path="res://sound_assets/BGMusicV2.wav" id="4_j10ru"]
+[ext_resource type="AudioStream" uid="uid://csobupsh1ojkd" path="res://sound_assets/Neon Laser Horizon.mp3" id="5_cb0nd"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_ejesk")
+
+[node name="SelectSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_prwtb")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_j10ru")
+
+[node name="WinBackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_cb0nd")

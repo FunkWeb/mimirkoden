@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Mimirkoden"
-run/main_scene="res://main.tscn"
+run/main_scene="res://Menu.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://GameManager.tscn"
 
 [display]
 

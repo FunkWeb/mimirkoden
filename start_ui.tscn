@@ -6,39 +6,22 @@
 [sub_resource type="GDScript" id="GDScript_ekj0h"]
 script/source = "extends CanvasLayer
 
-signal start_game
-signal players
-
-@onready var select_sound = $\"../SelectSound\"
-
 var msg = \"Spillere: \"
-
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
 
 func update_player_count(num):
 	$NumPlayersButton.text = msg + str(num)
 	
 func _on_num_players_button_pressed(id: int):
+	GameManager.play_select_sound()
 	update_player_count(id)
-	players.emit(id)
-	select_sound.play()
-
+	GameManager.num_selected_players = id
 
 func _on_start_button_pressed():
-	$\"..\".game_started = true
-	start_game.emit()
-	select_sound.play()
-
-
-
+	GameManager.play_select_sound()
+	GameManager.change_scene_to_game()
 
 func _on_num_players_button_about_to_popup():
-	select_sound.play()
+	GameManager.play_select_sound()
 "
 
 [node name="StartUI" type="CanvasLayer"]

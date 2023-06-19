@@ -3,17 +3,9 @@ extends CanvasLayer
 signal end_turn
 
 @onready var main = $".."
-@onready var select_sound = $".."/SelectSound
 @onready var board = $"../Board"
 @onready var screen_size = get_viewport().get_visible_rect().size
-
 @onready var confirmation_option = $ConfirmationDialog
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-	#$ConfirmationWindow.position = Vector2(screen_size[0]/2 - 150,screen_size[1]/2)
-
 
 func _on_end_turn_button_pressed():
 	if main.waiting:
@@ -26,7 +18,7 @@ func _on_end_turn_button_pressed():
 	if tile.type == "wall":
 		print("can't end turn in a wall")
 		return
-	select_sound.play()
+	GameManager.play_select_sound()
 	
 	if main.get_active_player().moves > 0:
 		confirmation_option.show()
@@ -37,29 +29,29 @@ func _on_end_turn_button_pressed():
 
 
 func _on_yes_button_pressed():
-	select_sound.play()
+	GameManager.play_select_sound()
 	confirmation_option.hide()
 	$EndTurnButton.show()
 	$EndTurnLabel.show()
-	end_turn.emit()	
+	end_turn.emit()
 
 
 func _on_no_button_pressed():
-	select_sound.play()
+	GameManager.play_select_sound()
 	confirmation_option.hide()
 	$EndTurnButton.show()
 	$EndTurnLabel.show()
 
 
 func _on_confirmation_window_canceled():
-	select_sound.play()
+	GameManager.play_select_sound()
 	confirmation_option.hide()
 	$EndTurnButton.show()
 	$EndTurnLabel.show()
 
 
 func _on_confirmation_window_confirmed():
-	select_sound.play()
+	GameManager.play_select_sound()
 	confirmation_option.hide()
 	$EndTurnButton.show()
 	$EndTurnLabel.show()

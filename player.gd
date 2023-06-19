@@ -91,7 +91,8 @@ func new_tile_effect(tile):
 			moves += 1 # don't use a move
 			walk_walls = false
 		"win":
-			main.win_game()
+			GameManager.winning_player = player_name
+			GameManager.change_scene_to_win()
 
 func item_shop():
 	# show shop menu
@@ -172,7 +173,7 @@ func move_player(clicked_cell):
 func _on_board_clicked():
 	if virus:
 		return
-	if !main.game_started or !active_player:
+	if !GameManager.game_started or !active_player:
 		return
 	if moves == 0 and !main.waiting:
 		error_sound.play()
@@ -221,6 +222,3 @@ func end_turn():
 	unset_occupied(used_tiles)
 	used_tiles = [current_cell]
 	update_ui.emit()
-	# switch player here
-	main.next_player()
-
