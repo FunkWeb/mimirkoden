@@ -1,8 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://du3cwj0q6lnql"]
+[gd_scene load_steps=5 format=3 uid="uid://du3cwj0q6lnql"]
 
 [ext_resource type="Script" path="res://playerui.gd" id="1_1yowr"]
 [ext_resource type="Texture2D" uid="uid://cht58jr2gy5gf" path="res://player_card_assets/player0_card.png" id="2_rohos"]
 [ext_resource type="LabelSettings" uid="uid://dihc057ql63eu" path="res://UI settings/UI Player card Settings.tres" id="3_tan46"]
+[ext_resource type="Texture2D" uid="uid://c65q4e3xcuda0" path="res://player_assets/player0.png" id="4_litkx"]
 
 [node name="PlayerUI" type="Node2D"]
 script = ExtResource("1_1yowr")
@@ -39,3 +40,8 @@ size_flags_vertical = 0
 text = "H31mdall"
 label_settings = ExtResource("3_tan46")
 vertical_alignment = 1
+
+[node name="Portrait" type="Sprite2D" parent="."]
+position = Vector2(530, 258)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_litkx")
