@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://m81hi0c8bxxj"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_giknc"]
+[ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_brqdq"]
+[ext_resource type="LabelSettings" uid="uid://dihc057ql63eu" path="res://UI settings/UI Player card Settings.tres" id="2_fke8g"]
+[ext_resource type="FontFile" uid="uid://doegoqk43c8tc" path="res://card_assets/text_settings/fonts/DS-DIGII.TTF" id="3_1eyj4"]
+[ext_resource type="FontFile" uid="uid://bq7qopwm52n6m" path="res://card_assets/text_settings/fonts/DS-DIGIT.TTF" id="4_5a01a"]
+[ext_resource type="PackedScene" uid="uid://dtox1ugs1ywyk" path="res://start_ui.tscn" id="4_p1835"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_giknc")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0, 0.360784, 0.0313726, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_brqdq")
+expand_mode = 2
+
+[node name="GameName" type="Label" parent="."]
+offset_left = 782.0
+offset_top = 170.0
+offset_right = 1190.0
+offset_bottom = 266.0
+text = "Mimirkoden"
+label_settings = ExtResource("2_fke8g")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartUI" parent="." instance=ExtResource("4_p1835")]
+offset = Vector2(645, 70)
+transform = Transform2D(1, 0, 0, 1, 645, 70)
+
+[node name="ButtonRules" type="Button" parent="."]
+offset_left = 894.0
+offset_top = 468.0
+offset_right = 1022.0
+offset_bottom = 517.0
+theme_override_fonts/font = ExtResource("3_1eyj4")
+theme_override_font_sizes/font_size = 40
+text = "Regler"
+
+[node name="ButtonCredits" type="Button" parent="."]
+offset_left = 845.0
+offset_top = 534.0
+offset_right = 1073.0
+offset_bottom = 583.0
+theme_override_fonts/font = ExtResource("3_1eyj4")
+theme_override_font_sizes/font_size = 40
+text = "kreditering"
+
+[node name="ButtonQuit" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = 60.0
+offset_right = 113.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_5a01a")
+theme_override_font_sizes/font_size = 40
+text = "Lukk Spillet"
+
+[connection signal="pressed" from="ButtonRules" to="." method="_on_button_rules_pressed"]
+[connection signal="pressed" from="ButtonCredits" to="." method="_on_button_credits_pressed"]
+[connection signal="pressed" from="ButtonQuit" to="." method="_on_button_quit_pressed"]
