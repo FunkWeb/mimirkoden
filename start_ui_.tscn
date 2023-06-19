@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://brh73wxl6ta8s"]
+
+[ext_resource type="Script" path="res://start_ui_.gd" id="1_askn8"]
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="2_562a2"]
+
+[node name="StartUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_askn8")
+
+[node name="Players" type="Label" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 230.0
+offset_right = 406.0
+offset_bottom = 274.0
+theme_override_fonts/font = ExtResource("2_562a2")
+theme_override_font_sizes/font_size = 40
+text = "Spillere"
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 199.0
+offset_top = 280.0
+offset_right = 222.0
+offset_bottom = 319.0
+theme_override_fonts/font = ExtResource("2_562a2")
+theme_override_font_sizes/font_size = 30
+text = "2"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 281.0
+offset_right = 262.0
+offset_bottom = 320.0
+theme_override_fonts/font = ExtResource("2_562a2")
+theme_override_font_sizes/font_size = 30
+text = "3
+"
+
+[node name="Button4" type="Button" parent="."]
+offset_left = 278.0
+offset_top = 280.0
+offset_right = 301.0
+offset_bottom = 319.0
+theme_override_fonts/font = ExtResource("2_562a2")
+theme_override_font_sizes/font_size = 30
+text = "4
+"
+
+[node name="Button5" type="Button" parent="."]
+offset_left = 322.0
+offset_top = 280.0
+offset_right = 345.0
+offset_bottom = 319.0
+theme_override_fonts/font = ExtResource("2_562a2")
+theme_override_font_sizes/font_size = 30
+text = "5"
+
+[node name="Button6" type="Button" parent="."]
+offset_left = 366.0
+offset_top = 278.0
+offset_right = 389.0
+offset_bottom = 317.0
+theme_override_fonts/font = ExtResource("2_562a2")
+theme_override_font_sizes/font_size = 30
+text = "6"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 350.0
+offset_right = 374.0
+offset_bottom = 399.0
+theme_override_fonts/font = ExtResource("2_562a2")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Button5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="Button6" to="." method="_on_button_6_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
