@@ -5,7 +5,7 @@ extends Node
 @onready var PlayerUI = preload("res://player_ui.tscn")
 @onready var ChanceCardBase = preload("res://chance_card_base.tscn")
 @onready var PlayerHand = preload("res://cards/player_hand.gd")
-@onready var StartUI = $StartUI2
+@onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
 @onready var moveCounter = MoveCounterUI.get_node("Counter")
@@ -289,11 +289,3 @@ func wait_chance_select():
 	return clicked_cell_pos
 
 
-func _on_start_ui_2_players(num:int):
-	_on_start_ui_players(num)
-	pass # Replace with function body.
-
-
-func _on_start_ui_2_start_game():
-	_on_start_ui_start_game()
-	pass # Replace with function body.
