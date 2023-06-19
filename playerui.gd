@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var player = $".."/Player
 @onready var texture = $Texture
-@onready var portrait = $Portrait
+#@onready var portrait = $Portrait
 
 var pos = Vector2(0,0)
 var element_offset = Vector2(0,40)
