@@ -17,7 +17,7 @@ func _process(delta):
 	pass
 
 func update_player_count():
-	$Players.text = "Spillere: {num}".format({"num":main.num_players})
+	$Players.text = "Spillere: {num}".format({"num":main.num_selected_players})
 	
 
 func player_count_button_pressed(id):
