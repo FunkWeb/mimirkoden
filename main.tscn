@@ -11,6 +11,8 @@
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="7_h3uwt"]
 [ext_resource type="Script" path="res://movecounterui.gd" id="8_i11si"]
 [ext_resource type="PackedScene" uid="uid://blobidbs6ysqp" path="res://end_turn_ui.tscn" id="9_scw21"]
+[ext_resource type="AudioStream" uid="uid://bnhxwm251de88" path="res://sound_assets/BGMusicV2.wav" id="14_ea1w7"]
+[ext_resource type="PackedScene" uid="uid://brh73wxl6ta8s" path="res://start_ui_.tscn" id="15_x1d2p"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_mcyre")
@@ -61,4 +63,12 @@ horizontal_alignment = 1
 z_index = 10
 position = Vector2(960, 1130)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_ea1w7")
+autoplay = true
+
+[node name="StartUI" parent="." instance=ExtResource("15_x1d2p")]
+
 [connection signal="end_turn" from="EndTurnUI" to="." method="_on_end_turn_ui_end_turn"]
+[connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
+[connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]

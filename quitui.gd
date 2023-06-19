@@ -7,3 +7,6 @@ func _on_quit_pressed():
 func _on_cancel_pressed():
 	hide()
 	GameManager.play_select_sound()
+	if not main.game_started:
+		main.StartUI.show()
+

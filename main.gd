@@ -257,3 +257,5 @@ func wait_chance_select():
 	MoveCounterUI._on_player_update_ui()
 	clicked_cell.occupied = true
 	return clicked_cell_pos
+
+
