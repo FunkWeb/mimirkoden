@@ -7,6 +7,7 @@ extends Node
 @onready var win_music = $WinBackgroundMusic
 var game_started = false
 var winning_player = "Du" # temp value
+var num_selected_players = 2 # default value
 
 func _ready():
 	play_background_music()

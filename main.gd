@@ -5,9 +5,9 @@ extends Node
 @onready var PlayerUI = preload("res://player_ui.tscn")
 @onready var ChanceCardBase = preload("res://chance_card_base.tscn")
 @onready var PlayerHand = preload("res://cards/player_hand.gd")
-@onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
+@onready var EndTurnUI = $EndTurnUI
 @onready var screen_size = get_viewport().get_visible_rect().size
 @onready var player_ui_positions = [
 	Vector2(20,screen_size.y/2 - (500*0.4)/2 - 10), 
@@ -17,10 +17,9 @@ extends Node
 	Vector2(screen_size.x - 750*0.4 -20,screen_size.y - (500*0.4) - 20),
 	Vector2(20,screen_size.y - (500*0.4) - 20), 
 	]
-@onready var EndTurnUI = $EndTurnUI
 
 var players = []
-var num_selected_players = 2  # Default value
+@onready var num_selected_players = GameManager.num_selected_players
 var current_active_player = 0
 var special_cards = []
 var chance_cards = []
@@ -28,42 +27,11 @@ var discard_pile = []
 var card_effect
 signal card_effect_done
 var player_uis = []
-
-var game_started = false
 var waiting = false
 const CSVparser = preload("CSVParser.gd")
 @onready var csv_parser = CSVparser.new()
 
 func _ready():
-	QuitUI.hide()
-
-
-	#StartUI.update_player_count(num_selected_players)
-
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_cancel") and not QuitUI.visible:
-		StartUI.hide()
-		QuitUI.show()
-		$SelectSound.play()
-		
-	elif Input.is_action_just_pressed("ui_cancel") and QuitUI.visible:
-		$SelectSound.play()
-		QuitUI.hide()
-		if not game_started:
-			StartUI.show()
-	
-	# End turn on spacebar
-	if Input.is_action_just_pressed("ui_accept") and game_started:
-		EndTurnUI._on_end_turn_button_pressed()
-
-func _on_start_ui_players(num: int):
-	num_selected_players = num
-
-func _on_start_ui_start_game():
-	StartUI.hide()
-	start()
-
-func start():
 	# create cards
 	var chance_csv = get_chance_card_csv_data()
 	add_chance_card_data(chance_csv)
@@ -137,36 +105,39 @@ func start():
 		# Connect signals to UI elements
 		p.update_ui.connect(MoveCounterUI._on_player_update_ui)
 		p.update_ui.connect(p_ui._on_player_update_ui)
-		
-	
-	game_started = true
-	$EndTurnUI.show()
-	MoveCounterUI.show()
 	
 	# Set first player active
 	players[0].active_player = true
 	players[0].update_ui.emit()
 
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_cancel") and not QuitUI.visible:
+		QuitUI.show()
+		GameManager.play_select_sound()
+	
+	elif Input.is_action_just_pressed("ui_cancel") and QuitUI.visible:
+		QuitUI.hide()
+		GameManager.play_select_sound()
+	
+	# End turn on spacebar
+	if Input.is_action_just_pressed("ui_accept") and GameManager.game_started:
+		EndTurnUI._on_end_turn_button_pressed()
+
 func next_player():
-	if !game_started:
+	if !GameManager.game_started:
 		return
 	players[current_active_player].active_player = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
 	players[current_active_player].start_turn()
 
-
 func get_active_player():
 	return players[current_active_player]
 
-func win_game():
-	game_started = false
-	get_tree().change_scene_to_file("res://win_screen.tscn")
-
 func _on_end_turn_ui_end_turn():
 	players[current_active_player].end_turn()
-	print("player "+str(current_active_player+1)+"'s turn")
-	pass # Replace with function body.
+	next_player()
+	print("player "+str(current_active_player)+"'s turn")
 
 func get_chance_card_csv_data():
 	var chance_card_csv = "res://sjansekort.csv.txt"
