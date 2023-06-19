@@ -53,6 +53,7 @@ func start_turn():
 	if virus: # last player got a virus, you pick a chance tile for them
 		var chance_tile = await main.wait_chance_select()
 		main.players[virus.target].move_to_tile(chance_tile)
+		main.players[virus.target].used_tiles = [chance_tile]
 		virus=null
 		
 	moves = max_moves + moves_modifier
