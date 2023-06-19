@@ -13,5 +13,6 @@ func _process(_delta):
 
 
 func _on_player_update_ui():
+	if(main.waiting): return;
 	current_player = main.players[main.current_active_player]
 	$Counter.text = current_player.player_name+"\nFlytt:\n"+str(current_player.moves)

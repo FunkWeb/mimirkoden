@@ -8,6 +8,8 @@ extends Node
 @onready var StartUI = $StartUI
 @onready var QuitUI = $QuitUI
 @onready var MoveCounterUI = $MoveCounterUI
+@onready var moveCounter = MoveCounterUI.get_node("Counter")
+
 @onready var screen_size = get_viewport().get_visible_rect().size
 @onready var player_ui_positions = [
 	Vector2(20,screen_size.y/2 - (500*0.4)/2 - 10), 
@@ -220,35 +222,37 @@ func immediate_card_effect(card):
 		"N*kkel +":
 			players[current_active_player].keys = min(10,players[current_active_player].keys+int(card.description[-1]))
 		"N*kkel -":
-			players[current_active_player].negative_card_effects.append(card)
+			players[current_active_player].keys = max(0,players[current_active_player].keys-int(card.description[-1]))
 		"Batteri +":
 			players[current_active_player].battery = min(20,players[current_active_player].battery+int(card.description[-1]))
 		"Batteri -":
-			players[current_active_player].negative_card_effects.append(card)
+			players[current_active_player].battery = max(0,players[current_active_player].battery-int(card.description[-1]))
 		"Resirkulering":
 			shuffle_discard_into_deck()
 		"Overklokket":
 			players[current_active_player].moves_modifier += 1
 		"Overbelastet":
-			players[current_active_player].negative_card_effects.append(card)
+			players[current_active_player].moves_modifier -= 1
 		"Virus":
 			@warning_ignore("shadowed_variable") var next_player = (current_active_player+1)%num_selected_players
 			card.target = current_active_player
 			players[next_player].virus = card
-			
 			shuffle_discard_into_deck()
 		"Hack":
+			var curP = get_active_player() 
+			curP.used_tiles.pop_back()
+			curP.unset_occupied(curP.used_tiles)
+			curP.used_tiles = [curP.current_cell]
+			
 			var target = await wait_player_select()
 			var chance_tile = await wait_chance_select()
-			card.target = target
-			card.user = current_active_player
-			card.tile = chance_tile
-			players[target].negative_card_effects.append(card)
+			target.move_to_tile(chance_tile)
+			target.used_tiles = [target.current_cell]
 			shuffle_discard_into_deck()
 
 func wait_player_select():
 	waiting = true
-	print("Click a cell with a player on it")
+	moveCounter.text = "Velg en\nspiller!"
 	var clicked_player
 	var clicked_cell
 	while true:
@@ -261,12 +265,14 @@ func wait_player_select():
 				return p.current_cell == clicked_cell_pos).front()
 			break
 	print("valid player")
+	# TODO change move counter text
+	# Add glow to player
 	waiting = false
-	return players.find(clicked_player)
+	return clicked_player
 
 func wait_chance_select():
 	waiting = true
-	print("Select a chance tile")
+	moveCounter.text = "Velg et\nsjansefelt!"
 	var clicked_cell
 	var clicked_cell_pos
 	while true:
@@ -278,5 +284,6 @@ func wait_chance_select():
 			break
 	print("valid cell")
 	waiting = false
+	MoveCounterUI._on_player_update_ui()
 	clicked_cell.occupied = true
 	return clicked_cell_pos
