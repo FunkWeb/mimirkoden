@@ -152,15 +152,18 @@ func start():
 	players[0].active_player = true
 	players[0].update_ui.emit()
 	players[0].glow.visible = true
+	player_uis[0].glow.visible = true
 
 func next_player():
 	if !game_started:
 		return
 	players[current_active_player].active_player = false
 	players[current_active_player].glow.visible = false
+	player_uis[current_active_player].glow.visible = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
 	players[current_active_player].glow.visible = true
+	player_uis[current_active_player].glow.visible = true
 	players[current_active_player].start_turn()
 
 
