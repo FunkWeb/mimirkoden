@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var select_sound = $"../SelectSound"
+@onready var main = $".."
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -20,6 +21,6 @@ func _on_cancel_pressed():
 	hide()
 	select_sound.play()
 	
-	if not $"..".game_started:
-		$".."/StartUI.show()
+	if not main.game_started:
+		main.StartUI.show()
 
