@@ -90,15 +90,18 @@ func start():
 		p.start_pos = start_positions[i]
 		p.init()
 		
+		
 		p.hand = PlayerHand.new()
 		
 		# Set sprites
 		var p_sprite = p.get_node("Texture")
 		var p_shadow = p.get_node("Texture/Shadow")
+		var p_glow = p.get_node("Glow")
 		
 		# Texture path
 		p_sprite.set_texture(load("res://player_assets/player{num}.png".format({"num":i})))
 		p_sprite.scale *= 0.12
+		p_glow.scale *= 0.12
 		
 		p_shadow.set_texture(p_sprite.texture)
 	
@@ -148,13 +151,16 @@ func start():
 	# Set first player active
 	players[0].active_player = true
 	players[0].update_ui.emit()
+	players[0].glow.visible = true
 
 func next_player():
 	if !game_started:
 		return
 	players[current_active_player].active_player = false
+	players[current_active_player].glow.visible = false
 	current_active_player = (current_active_player+1)%num_selected_players
 	players[current_active_player].active_player = true
+	players[current_active_player].glow.visible = true
 	players[current_active_player].start_turn()
 
 

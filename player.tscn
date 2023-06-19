@@ -1,7 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlwcqfkotaj4m"]
+[gd_scene load_steps=7 format=3 uid="uid://dlwcqfkotaj4m"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_bf3rj"]
 [ext_resource type="Texture2D" uid="uid://c65q4e3xcuda0" path="res://player_assets/player0.png" id="2_50geh"]
+
+[sub_resource type="Gradient" id="Gradient_yopa5"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.344398, 0.684647)
+colors = PackedColorArray(1, 1, 1, 0.407843, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_v024l"]
+gradient = SubResource("Gradient_yopa5")
+fill = 1
+fill_from = Vector2(0.509402, 0.470085)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fcv5b"]
 
@@ -14,6 +24,11 @@ shadow_size = 0
 z_index = 100
 z_as_relative = false
 script = ExtResource("1_bf3rj")
+
+[node name="Glow" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(14, 14)
+texture = SubResource("GradientTexture2D_v024l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fcv5b")
