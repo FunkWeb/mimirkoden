@@ -10,6 +10,8 @@ colors = PackedColorArray(1, 1, 1, 0.407843, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_v024l"]
 gradient = SubResource("Gradient_yopa5")
+width = 896
+height = 896
 fill = 1
 fill_from = Vector2(0.509402, 0.470085)
 
@@ -26,8 +28,6 @@ z_as_relative = false
 script = ExtResource("1_bf3rj")
 
 [node name="Glow" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(14, 14)
 texture = SubResource("GradientTexture2D_v024l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
