@@ -24,6 +24,7 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 @onready var battery_empty_sound = $"../BatteryEmptySound"
 @onready var playspace = $"../Playspace"
 @onready var hand_container = $"../Playspace/Hand/GridContainer"
+@onready var glow = $Glow
 var ChanceCardBase = preload("res://chance_card_base.tscn")
 
 var hand
@@ -36,6 +37,7 @@ func _ready():
 	used_tiles = []
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
+	
 
 func init():
 	current_cell = start_pos
