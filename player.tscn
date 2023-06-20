@@ -28,6 +28,7 @@ z_as_relative = false
 script = ExtResource("1_bf3rj")
 
 [node name="Glow" type="Sprite2D" parent="."]
+visible = false
 texture = SubResource("GradientTexture2D_v024l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
