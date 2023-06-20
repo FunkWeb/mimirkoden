@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://5pxrlf7ebbl3"]
+[gd_scene load_steps=4 format=3 uid="uid://5pxrlf7ebbl3"]
 
 [ext_resource type="Script" path="res://quitui.gd" id="1_npgfg"]
-[ext_resource type="SystemFont" uid="uid://c1ndkgvxyytj1" path="res://UI settings/Button Font Settings.tres" id="2_43ecb"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="3_fwfta"]
 [ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="4_53lyv"]
 
@@ -27,7 +26,6 @@ offset_left = 853.0
 offset_top = 476.0
 offset_right = 1094.0
 offset_bottom = 523.0
-theme_override_fonts/font = ExtResource("2_43ecb")
 text = "Avslutte?"
 label_settings = ExtResource("3_fwfta")
 

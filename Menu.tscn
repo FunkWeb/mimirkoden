@@ -21,10 +21,14 @@ texture = ExtResource("2_brqdq")
 expand_mode = 2
 
 [node name="GameName" type="Label" parent="."]
-offset_left = 782.0
-offset_top = 170.0
-offset_right = 1190.0
-offset_bottom = 266.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -204.0
+offset_top = 152.0
+offset_right = 204.0
+offset_bottom = 248.0
+grow_horizontal = 2
 text = "Mimirkoden"
 label_settings = ExtResource("2_fke8g")
 horizontal_alignment = 1

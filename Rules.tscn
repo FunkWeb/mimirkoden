@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bacr8x2wg3tip"]
+[gd_scene load_steps=12 format=3 uid="uid://bacr8x2wg3tip"]
 
 [ext_resource type="Script" path="res://rules.gd" id="1_d3ljk"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_8j7ri"]
 [ext_resource type="FontFile" uid="uid://bq7qopwm52n6m" path="res://card_assets/text_settings/fonts/DS-DIGIT.TTF" id="3_qx68l"]
 [ext_resource type="Texture2D" uid="uid://lmis75svd84r" path="res://tile_assets/tile_atlas.png" id="4_lor1d"]
 [ext_resource type="Texture2D" uid="uid://croyn8hwfl303" path="res://tile_assets/start_tiles_atlas.png" id="5_7nvmd"]
+[ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="6_ugn8s"]
+[ext_resource type="FontFile" uid="uid://cll3oo2k3n7yn" path="res://card_assets/text_settings/fonts/Roboto-Light.ttf" id="7_kb2db"]
+[ext_resource type="FontFile" uid="uid://dau5bfm1esfs3" path="res://card_assets/text_settings/fonts/Roboto-Regular.ttf" id="8_kalkr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t3n8v"]
 texture = ExtResource("4_lor1d")
@@ -116,115 +119,254 @@ theme_override_fonts/font = ExtResource("3_qx68l")
 theme_override_font_sizes/font_size = 40
 text = "Tilbake til hovedmenyen"
 
-[node name="Board" type="TileMap" parent="."]
-position = Vector2(241, 643)
+[node name="Tiles" type="Label" parent="."]
+offset_left = 421.0
+offset_top = 90.0
+offset_right = 553.0
+offset_bottom = 137.0
+text = "Felter"
+label_settings = ExtResource("6_ugn8s")
+
+[node name="tiles" type="TileMap" parent="Tiles"]
+position = Vector2(-180, 553)
 scale = Vector2(0.25, 0.25)
 tile_set = SubResource("TileSet_360sl")
 format = 2
-layer_0/tile_data = PackedInt32Array(131070, 524399, 1, -2, 327791, 1, -131074, 393327, 1, -262146, 655471, 1, 3, 1835119, 0, -131069, 1638511, 0, -262141, 1704047, 0, -393213, 721007, 1)
+layer_0/tile_data = PackedInt32Array(-131074, 393327, 1, -262146, 655471, 1, -327678, 1704047, 0, -196606, 524399, 1, -65534, 1638511, 0, 65538, 1835119, 0, -2, 721007, 1, 131070, 327791, 1)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 203.0
-offset_top = 179.0
-offset_right = 485.0
-offset_bottom = 276.0
+[node name="ColorRect" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = 66.5
+offset_right = -6.0
+offset_bottom = 165.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
+[node name="Label" type="Label" parent="Tiles/ColorRect"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
 text = "Felt med runer gir det batterier. Felt med 2 runer gir deg 2 batterier!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Label2" type="Label" parent="."]
-offset_left = 205.0
-offset_top = 368.0
-offset_right = 487.0
-offset_bottom = 465.0
+[node name="ColorRect2" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = 260.5
+offset_right = -6.0
+offset_bottom = 359.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
+[node name="Label2" type="Label" parent="Tiles/ColorRect2"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
 text = "Høyspenningsfelt gjør at du mister ett batteri"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Label3" type="Label" parent="."]
-offset_left = 197.0
-offset_top = 562.0
-offset_right = 479.0
-offset_bottom = 659.0
-text = "På svartebørsen kjøper du nøkler. 3 batterier per nøkkel."
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
+[node name="ColorRect3" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = 452.5
+offset_right = -6.0
+offset_bottom = 551.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
 
-[node name="Label4" type="Label" parent="."]
-offset_left = 193.0
-offset_top = 752.0
-offset_right = 475.0
-offset_bottom = 849.0
-text = "På Sjansefelt trekker du et tilfeldig sjansekort."
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="Label5" type="Label" parent="."]
-offset_left = 697.0
-offset_top = 81.0
-offset_right = 979.0
-offset_bottom = 178.0
+[node name="Label3" type="Label" parent="Tiles/ColorRect3"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
 text = "Brannmur felt kan du ikke gå på"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Label6" type="Label" parent="."]
-offset_left = 701.0
-offset_top = 274.0
-offset_right = 983.0
-offset_bottom = 371.0
+[node name="ColorRect4" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = 644.5
+offset_right = -6.0
+offset_bottom = 743.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
+[node name="Label4" type="Label" parent="Tiles/ColorRect4"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
+text = "På svartebørsen kjøper du nøkler. 3 batterier per nøkkel."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ColorRect5" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 146.0
+offset_top = 68.5
+offset_right = 439.0
+offset_bottom = 167.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
+[node name="Label5" type="Label" parent="Tiles/ColorRect5"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
 text = "Der er Mimirkoden! målet er å få tak i den, men du må ha 5 nøkler for å komme inn"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Label7" type="Label" parent="."]
-offset_left = 692.0
-offset_top = 463.0
-offset_right = 974.0
-offset_bottom = 560.0
+[node name="ColorRect6" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 146.0
+offset_top = 258.5
+offset_right = 439.0
+offset_bottom = 357.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
+[node name="Label6" type="Label" parent="Tiles/ColorRect6"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
+text = "På Sjansefelt trekker du et tilfeldig sjansekort."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ColorRect7" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 146.0
+offset_top = 450.5
+offset_right = 439.0
+offset_bottom = 549.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
+[node name="Label7" type="Label" parent="Tiles/ColorRect7"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
 text = "Krypteringsfelt er låst og krever 5 nøkler å få låst opp"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Label8" type="Label" parent="."]
-offset_left = 698.0
-offset_top = 658.0
-offset_right = 980.0
-offset_bottom = 755.0
+[node name="ColorRect8" type="ColorRect" parent="Tiles"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 146.0
+offset_top = 642.5
+offset_right = 439.0
+offset_bottom = 741.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
+[node name="Label8" type="Label" parent="Tiles/ColorRect8"]
+offset_right = 282.0
+offset_bottom = 97.0
+theme_override_fonts/font = ExtResource("8_kalkr")
+theme_override_font_sizes/font_size = 18
 text = "Trekk et sikkerhetsfeilkort, dette kan være farlig."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Title" type="Label" parent="."]
-offset_left = 1027.0
-offset_top = 50.0
-offset_right = 1492.0
-offset_bottom = 147.0
+[node name="Rules" type="Label" parent="."]
+offset_left = 1036.0
+offset_top = 64.0
+offset_right = 1501.0
+offset_bottom = 161.0
 text = "Regler"
+label_settings = ExtResource("6_ugn8s")
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Rules" type="Label" parent="."]
-offset_left = 987.0
-offset_top = 158.0
-offset_right = 1669.0
-offset_bottom = 860.0
-autowrap_mode = 3
+[node name="ColorRect" type="ColorRect" parent="Rules"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = 88.0
+offset_right = 173.0
+offset_bottom = 750.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 988.0
-offset_top = 131.0
-offset_right = 1639.0
-offset_bottom = 859.0
+[node name="Rules_text" type="RichTextLabel" parent="Rules/ColorRect"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 661.0
+offset_bottom = 754.0
+theme_override_fonts/normal_font = ExtResource("7_kb2db")
+theme_override_fonts/bold_font = ExtResource("8_kalkr")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
 bbcode_enabled = true
 text = "Mimirkoden er et spill for 2 til 6 spillere.
 
