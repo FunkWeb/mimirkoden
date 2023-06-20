@@ -13,11 +13,13 @@ config_version=5
 config/name="Mimirkoden"
 run/main_scene="res://Menu.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
+
 config/icon="res://icon.png"
 
 [autoload]
 
 GameManager="*res://GameManager.tscn"
+
 
 [display]
 
