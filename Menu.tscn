@@ -31,10 +31,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StartUI2" parent="." instance=ExtResource("4_c45ay")]
-offset_left = 972.0
-offset_top = 287.0
-offset_right = -948.0
-offset_bottom = -793.0
+offset_top = -208.0
+offset_bottom = -208.0
 
 [node name="ButtonRules" type="Button" parent="."]
 offset_left = 894.0

@@ -11,13 +11,8 @@
 z_index = 10
 z_as_relative = false
 custom_minimum_size = Vector2(250, 350)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1670.0
-offset_bottom = -730.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 250.0
+offset_bottom = 350.0
 pivot_offset = Vector2(125, 175)
 script = ExtResource("1_7acys")
 
@@ -26,6 +21,7 @@ texture = ExtResource("2_m1osr")
 centered = false
 
 [node name="Activation" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_vertical = 8
 text = "Umiddelbar Aktivering"
