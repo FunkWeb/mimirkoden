@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://credits.gd" id="1_k73j6"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_r8uo2"]
-[ext_resource type="Theme" path="res://UI settings/button_theme.tres" id="3_2d7vu"]
+[ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="3_2d7vu"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="4_mj08p"]
 [ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="5_1u6ha"]
 
