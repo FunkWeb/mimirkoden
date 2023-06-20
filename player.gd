@@ -24,6 +24,7 @@ signal update_ui # emit whenever the ui needs to update values (moves, charges, 
 @onready var battery_empty_sound = $"../BatteryEmptySound"
 @onready var playspace = $"../Playspace"
 @onready var hand_container = $"../Playspace/Hand/GridContainer"
+@onready var glow = $Glow
 var ChanceCardBase = preload("res://chance_card_base.tscn")
 
 var hand
@@ -36,42 +37,26 @@ func _ready():
 	used_tiles = []
 	# Connect click signal from board to player
 	board.clicked.connect(_on_board_clicked)
+	
 
 func init():
 	current_cell = start_pos
 	set_position(board.get_map_pos(current_cell))
 
-func resolve_negative_card_effects():
-	for i in len(negative_card_effects):
-		match negative_card_effects[i].title:
-			"N*kkel -":
-				keys = max(0,keys-int(negative_card_effects[i].description[-1]))
-			"Batteri -":
-				battery = max(0,battery-int(negative_card_effects[i].description[-1]))
-			"Overbelastet":
-				moves_modifier -= 1
-			"Hack":
-				move_to_tile(negative_card_effects[i].tile)
-			"Virus":
-				move_to_tile(negative_card_effects[i].tile)
-	negative_card_effects = []
-
 func start_turn():
 	# Load hand
-	for card in hand.CardList:
+	for i in hand.CardList.size():
+		var card = hand.CardList[i]
 		var c = ChanceCardBase.instantiate()
 		hand_container.add_child(c)
-		c.init(card)
-	
+		c.init(card,i)
 	
 	update_ui.emit()
 	if virus: # last player got a virus, you pick a chance tile for them
 		var chance_tile = await main.wait_chance_select()
-		virus.tile = chance_tile
-		main.players[virus.target].negative_card_effects.append(virus)
-		virus = null
-	if len(negative_card_effects) > 0:
-		resolve_negative_card_effects()
+		main.players[virus.target].move_to_tile(chance_tile)
+		main.players[virus.target].used_tiles = [chance_tile]
+		virus=null
 		
 	moves = max_moves + moves_modifier
 	moves_modifier = 0
@@ -108,7 +93,8 @@ func new_tile_effect(tile):
 			moves += 1 # don't use a move
 			walk_walls = false
 		"win":
-			main.win_game()
+			GameManager.winning_player = player_name
+			GameManager.change_scene_to_win()
 
 func item_shop():
 	# show shop menu
@@ -120,9 +106,8 @@ func item_shop():
 		keys += 1
 
 func draw_card():
-	var card_index = randi_range(0,len(main.chance_cards)-1)
+	var card_index = randi_range(0,main.chance_cards.size()-1)
 	var card = main.chance_cards.pop_at(card_index)
-	print(card.title,card.description,card.activation,card.polarity)
 	playspace.draw_card(card)
 	
 	if card.activation == "Umiddelbar Aktivering":
@@ -130,13 +115,10 @@ func draw_card():
 		main.immediate_card_effect(card)
 	else:
 		draw_card_to_hand(card)
-
+ 
 func draw_card_to_hand(card):
 	card.in_hand = true
-	print("Trakk", card, "til hånda")
-	print(hand.CardList)
 	hand.CardList.push_back(card)
-	print(hand.CardList)
 
 func draw_special_card():
 	# Draw random error card
@@ -145,7 +127,6 @@ func draw_special_card():
 	
 	# Render error card
 	playspace.draw_error_card(card)
-	print("RENDERING CARD", card)
 	
 	match card.title:
 		"Små Feil":
@@ -162,12 +143,7 @@ func use_card(card):
 			main.shuffle_discard_into_deck()
 		"Krypteringn*kkel":
 			key_card = true
-		"Premium Brannmur":
-			pass
-		"Forsikring":
-			pass
-		"Anti-Virus":
-			pass
+	hand.CardList.remove_at(card.num_in_hand)
 
 func move_to_tile(cell):
 	unset_occupied([current_cell])
@@ -196,7 +172,7 @@ func move_player(clicked_cell):
 func _on_board_clicked():
 	if virus:
 		return
-	if !main.game_started or !active_player:
+	if !GameManager.game_started or !active_player:
 		return
 	if moves == 0 and !main.waiting:
 		error_sound.play()
@@ -207,13 +183,6 @@ func _on_board_clicked():
 	var neighbors = board.get_valid_neighbors(current_cell, true)
 	var clicked_cell = board.clicked_cell
 	
-	# debug info:
-	#var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
-	#print("trykk på felt med koordinater: ", clicked_cell)
-	#print("feltet er et ", cell_info.type, " felt")
-	#print("feltet er i disse sonene: ", cell_info.zone)
-	#print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
-	
 	if clicked_cell not in neighbors:
 		error_sound.play()
 		return
@@ -223,7 +192,6 @@ func unset_occupied(tiles):
 	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
 		if index == null:
-			print("Error, unset_occupied didn't find index for ", tile)
 			continue
 		board.tile_list[index].occupied = false
 
@@ -236,15 +204,9 @@ func end_turn():
 	for c in $"../Playspace/Cards".get_children():
 		c.queue_free()
 	
-	print("Slutt på runden, ny spiller sin tur")
 	used_tiles.pop_back() # last tile stays occupied
-	print(current_cell)
-	print(start_pos)
 	if battery < 1 and current_cell != start_pos:
 		out_of_battery()
 	unset_occupied(used_tiles)
 	used_tiles = [current_cell]
 	update_ui.emit()
-	# switch player here
-	main.next_player()
-
