@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://credits.gd" id="1_k73j6"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_r8uo2"]
-[ext_resource type="FontFile" uid="uid://bq7qopwm52n6m" path="res://card_assets/text_settings/fonts/DS-DIGIT.TTF" id="4_mhu4b"]
+[ext_resource type="Theme" path="res://UI settings/button_theme.tres" id="3_2d7vu"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="4_mj08p"]
 [ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="5_1u6ha"]
 
@@ -35,8 +35,7 @@ offset_right = 214.0
 offset_bottom = 389.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_mhu4b")
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("3_2d7vu")
 text = "Tilbake til hovedmenyen"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -80,9 +79,9 @@ horizontal_alignment = 1
 
 [node name="Brettspill" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Hans Emil B. Eid - Skaper
-Andreas Larsen-Asp - Skaper
-Markus Myklebust Langeland - Skaper"
+text = "Hans Emil B. Eid - Spilldesign
+Andreas Larsen-Asp - Spilldesign
+Markus Myklebust Langeland - Spilldesign"
 horizontal_alignment = 1
 
 [node name="Spacer2" type="MarginContainer" parent="VBoxContainer"]
