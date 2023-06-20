@@ -147,7 +147,6 @@ func get_active_player():
 func _on_end_turn_ui_end_turn():
 	players[current_active_player].end_turn()
 	next_player()
-	print("player "+str(current_active_player)+"'s turn")
 
 func get_chance_card_csv_data():
 	var chance_card_csv = "res://sjansekort.csv.txt"
@@ -243,7 +242,6 @@ func wait_player_select():
 			clicked_player = players.filter(func(p): 
 				return p.current_cell == clicked_cell_pos).front()
 			break
-	print("valid player")
 	# TODO change move counter text
 	# Add glow to player
 	waiting = false
@@ -258,10 +256,8 @@ func wait_chance_select():
 		await board.clicked
 		clicked_cell_pos = board.clicked_cell
 		clicked_cell = board.tile_list[board.get_index_from_coor(clicked_cell_pos)]
-		print(clicked_cell.type)
 		if (clicked_cell_pos not in get_active_player().used_tiles and !clicked_cell.occupied and clicked_cell.type == "card"):
 			break
-	print("valid cell")
 	waiting = false
 	MoveCounterUI._on_player_update_ui()
 	clicked_cell.occupied = true

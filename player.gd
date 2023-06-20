@@ -108,7 +108,6 @@ func item_shop():
 func draw_card():
 	var card_index = randi_range(0,main.chance_cards.size()-1)
 	var card = main.chance_cards.pop_at(card_index)
-	print(card.title,card.description,card.activation,card.polarity)
 	playspace.draw_card(card)
 	
 	if card.activation == "Umiddelbar Aktivering":
@@ -119,7 +118,6 @@ func draw_card():
  
 func draw_card_to_hand(card):
 	card.in_hand = true
-	print("Trakk", card, "til hånda")
 	hand.CardList.push_back(card)
 
 func draw_special_card():
@@ -129,7 +127,6 @@ func draw_special_card():
 	
 	# Render error card
 	playspace.draw_error_card(card)
-	print("RENDERING CARD", card)
 	
 	match card.title:
 		"Små Feil":
@@ -186,13 +183,6 @@ func _on_board_clicked():
 	var neighbors = board.get_valid_neighbors(current_cell, true)
 	var clicked_cell = board.clicked_cell
 	
-	# debug info:
-	#var cell_info = board.tile_list[board.get_index_from_coor(clicked_cell)]
-	#print("trykk på felt med koordinater: ", clicked_cell)
-	#print("feltet er et ", cell_info.type, " felt")
-	#print("feltet er i disse sonene: ", cell_info.zone)
-	#print("feltet er opptatt") if cell_info.occupied == true else print("feltet er ikke optatt")
-	
 	if clicked_cell not in neighbors:
 		error_sound.play()
 		return
@@ -202,7 +192,6 @@ func unset_occupied(tiles):
 	for tile in tiles:
 		var index = board.get_index_from_coor(tile)
 		if index == null:
-			print("Error, unset_occupied didn't find index for ", tile)
 			continue
 		board.tile_list[index].occupied = false
 
@@ -215,10 +204,7 @@ func end_turn():
 	for c in $"../Playspace/Cards".get_children():
 		c.queue_free()
 	
-	print("Slutt på runden, ny spiller sin tur")
 	used_tiles.pop_back() # last tile stays occupied
-	print(current_cell)
-	print(start_pos)
 	if battery < 1 and current_cell != start_pos:
 		out_of_battery()
 	unset_occupied(used_tiles)

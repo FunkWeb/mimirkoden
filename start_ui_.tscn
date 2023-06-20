@@ -8,10 +8,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 373.0
-offset_top = 190.0
-offset_right = 373.0
-offset_bottom = 190.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_askn8")
@@ -26,21 +22,40 @@ offset_bottom = 181.0
 color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
 
 [node name="Players" type="Label" parent="."]
-layout_mode = 0
-offset_left = -93.0
-offset_top = 1.0
-offset_right = 57.0
-offset_bottom = 45.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -22.0
+offset_right = 75.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 40
 text = "Spillere"
+horizontal_alignment = 1
 
-[node name="Button2" type="Button" parent="."]
-layout_mode = 0
-offset_left = -89.0
-offset_top = 51.0
-offset_right = -66.0
-offset_bottom = 90.0
+[node name="Buttons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.5
+offset_top = 27.0
+offset_right = 81.5
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Button2" type="Button" parent="Buttons"]
+layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
@@ -49,12 +64,8 @@ button_pressed = true
 action_mode = 0
 text = "2"
 
-[node name="Button3" type="Button" parent="."]
-layout_mode = 0
-offset_left = -54.0
-offset_top = 51.0
-offset_right = -31.0
-offset_bottom = 90.0
+[node name="Button3" type="Button" parent="Buttons"]
+layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
@@ -63,12 +74,8 @@ action_mode = 0
 text = "3
 "
 
-[node name="Button4" type="Button" parent="."]
-layout_mode = 0
-offset_left = -19.0
-offset_top = 51.0
-offset_right = 4.0
-offset_bottom = 90.0
+[node name="Button4" type="Button" parent="Buttons"]
+layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
@@ -77,12 +84,8 @@ action_mode = 0
 text = "4
 "
 
-[node name="Button5" type="Button" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 51.0
-offset_right = 39.0
-offset_bottom = 90.0
+[node name="Button5" type="Button" parent="Buttons"]
+layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
@@ -90,12 +93,8 @@ toggle_mode = true
 action_mode = 0
 text = "5"
 
-[node name="Button6" type="Button" parent="."]
-layout_mode = 0
-offset_left = 51.0
-offset_top = 51.0
-offset_right = 74.0
-offset_bottom = 90.0
+[node name="Button6" type="Button" parent="Buttons"]
+layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 30
@@ -104,18 +103,25 @@ action_mode = 0
 text = "6"
 
 [node name="Start" type="Button" parent="."]
-layout_mode = 0
-offset_left = -64.0
-offset_top = 121.0
-offset_right = 44.0
-offset_bottom = 170.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = 75.0
+offset_right = 54.0
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_562a2")
 theme_override_font_sizes/font_size = 40
 text = "Start"
 
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Button4" to="." method="_on_button_4_pressed"]
-[connection signal="pressed" from="Button5" to="." method="_on_button_5_pressed"]
-[connection signal="pressed" from="Button6" to="." method="_on_button_6_pressed"]
+[connection signal="pressed" from="Buttons/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Buttons/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Buttons/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Buttons/Button5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="Buttons/Button6" to="." method="_on_button_6_pressed"]
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
