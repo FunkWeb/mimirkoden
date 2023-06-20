@@ -158,11 +158,11 @@ texture = ExtResource("2_mdy43")
 expand_mode = 2
 
 [node name="Board" parent="." instance=ExtResource("1_2ebvj")]
-position = Vector2(960, 502)
+position = Vector2(960, 540)
 scale = Vector2(0.148718, 0.148718)
 
 [node name="BoardBorder" parent="." instance=ExtResource("4_2qote")]
-position = Vector2(960, 502)
+position = Vector2(960, 540)
 scale = Vector2(0.148718, 0.148718)
 tile_set = SubResource("TileSet_360sl")
 script = null

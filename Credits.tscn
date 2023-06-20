@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhdyawqcdtivw"]
+[gd_scene load_steps=7 format=3 uid="uid://bhdyawqcdtivw"]
 
 [ext_resource type="Script" path="res://credits.gd" id="1_k73j6"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_r8uo2"]
 [ext_resource type="FontFile" uid="uid://bq7qopwm52n6m" path="res://card_assets/text_settings/fonts/DS-DIGIT.TTF" id="4_mhu4b"]
+[ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="4_mj08p"]
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="5_1u6ha"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ajjxq"]
+font = ExtResource("5_1u6ha")
+font_size = 37
 
 [node name="Node" type="Node"]
 script = ExtResource("1_k73j6")
@@ -23,14 +29,76 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -114.0
-offset_top = 115.0
-offset_right = 114.0
-offset_bottom = 164.0
+offset_left = -214.0
+offset_top = 340.0
+offset_right = 214.0
+offset_bottom = 389.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_mhu4b")
 theme_override_font_sizes/font_size = 40
 text = "Tilbake til hovedmenyen"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.5
+offset_top = -351.0
+offset_right = 185.5
+offset_bottom = 197.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UtviklereHeader" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Utviklere"
+label_settings = ExtResource("4_mj08p")
+horizontal_alignment = 1
+
+[node name="Utviklere" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Bo Magnus Bratsberg - Koding
+Hans Emil B. Eid - Grafisk design
+Anders F. Jørgensen - Producer/Lyd-design
+Tormod Rasmussen - Koding
+Thomas Gees Solheim - Koding"
+horizontal_alignment = 1
+
+[node name="Spacer" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="BrettspillHeader" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Basert på brettspillet
+ \"jakten på mimirkoden\""
+label_settings = SubResource("LabelSettings_ajjxq")
+horizontal_alignment = 1
+
+[node name="Brettspill" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Hans Emil B. Eid - Skaper
+Andreas Larsen-Asp - Skaper
+Markus Myklebust Langeland - Skaper"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="TakkerHeader" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Ekstra takk til"
+label_settings = ExtResource("4_mj08p")
+horizontal_alignment = 1
+
+[node name="Takker" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Anders Pettersen - Prosjekteier
+Ingeborg Eikrem - Prosjektleder"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="ButtonReturn" to="." method="_on_button_return_pressed"]
