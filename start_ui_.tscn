@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://brh73wxl6ta8s"]
+[gd_scene load_steps=4 format=3 uid="uid://brh73wxl6ta8s"]
 
 [ext_resource type="Script" path="res://start_ui_.gd" id="1_askn8"]
 [ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="2_562a2"]
+[ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="3_c7cee"]
 
 [node name="StartUI" type="Control"]
 layout_mode = 3
@@ -57,7 +58,7 @@ theme_override_constants/separation = 12
 [node name="Button2" type="Button" parent="Buttons"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("2_562a2")
+theme = ExtResource("3_c7cee")
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
 button_pressed = true
@@ -67,7 +68,7 @@ text = "2"
 [node name="Button3" type="Button" parent="Buttons"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("2_562a2")
+theme = ExtResource("3_c7cee")
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
 action_mode = 0
@@ -77,7 +78,7 @@ text = "3
 [node name="Button4" type="Button" parent="Buttons"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("2_562a2")
+theme = ExtResource("3_c7cee")
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
 action_mode = 0
@@ -87,7 +88,7 @@ text = "4
 [node name="Button5" type="Button" parent="Buttons"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("2_562a2")
+theme = ExtResource("3_c7cee")
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
 action_mode = 0
@@ -96,7 +97,7 @@ text = "5"
 [node name="Button6" type="Button" parent="Buttons"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("2_562a2")
+theme = ExtResource("3_c7cee")
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
 action_mode = 0

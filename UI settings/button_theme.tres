@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://7miaudw2s7n0"]
+
+[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="1_34qmk"]
+
+[resource]
+default_font = ExtResource("1_34qmk")
+default_font_size = 40

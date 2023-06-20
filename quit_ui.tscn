@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://quitui.gd" id="1_npgfg"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="3_fwfta"]
-[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="4_53lyv"]
+[ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="3_s6jcn"]
 
 [node name="QuitUI" type="CanvasLayer"]
 script = ExtResource("1_npgfg")
@@ -34,17 +34,15 @@ offset_left = 813.0
 offset_top = 545.0
 offset_right = 951.0
 offset_bottom = 594.0
-theme_override_fonts/font = ExtResource("4_53lyv")
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("3_s6jcn")
 text = "Tilbake"
 
 [node name="Quit" type="Button" parent="."]
 offset_left = 966.0
-offset_top = 543.0
+offset_top = 545.0
 offset_right = 1114.0
-offset_bottom = 592.0
-theme_override_fonts/font = ExtResource("4_53lyv")
-theme_override_font_sizes/font_size = 40
+offset_bottom = 594.0
+theme = ExtResource("3_s6jcn")
 text = "Avslutt"
 
 [connection signal="pressed" from="Cancel" to="." method="_on_cancel_pressed"]
