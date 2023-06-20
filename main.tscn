@@ -1,19 +1,148 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvp45gs8abvkb"]
+[gd_scene load_steps=22 format=3 uid="uid://byv1mvtyk5f6"]
 
 [ext_resource type="PackedScene" uid="uid://bv3gd5i8irs4v" path="res://board.tscn" id="1_2ebvj"]
 [ext_resource type="Script" path="res://main.gd" id="1_mcyre"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_mdy43"]
 [ext_resource type="PackedScene" uid="uid://one46iqn2tei" path="res://playspace.tscn" id="2_uillq"]
+[ext_resource type="PackedScene" uid="uid://b4qjcjgpwl3yc" path="res://board_border.tscn" id="4_2qote"]
 [ext_resource type="AudioStream" uid="uid://3r4mekjsdjej" path="res://sound_assets/Move.wav" id="4_4vru6"]
-[ext_resource type="AudioStream" uid="uid://biostpyt4j27p" path="res://sound_assets/Select.wav" id="4_c5q6y"]
+[ext_resource type="Texture2D" uid="uid://db3rs7heg6y3r" path="res://tile_assets/frame_atlas 2.png" id="5_ava08"]
 [ext_resource type="PackedScene" uid="uid://5pxrlf7ebbl3" path="res://quit_ui.tscn" id="5_v4wlc"]
-[ext_resource type="PackedScene" uid="uid://dtox1ugs1ywyk" path="res://start_ui.tscn" id="6_pbho7"]
+[ext_resource type="Texture2D" uid="uid://b8a4h88gwarrd" path="res://tile_assets/start_border_atlas.png" id="6_lx8nd"]
 [ext_resource type="AudioStream" uid="uid://cwm354jo6btui" path="res://sound_assets/Error.wav" id="6_sk3qj"]
 [ext_resource type="AudioStream" uid="uid://d2stn62m1ckx8" path="res://sound_assets/BatteryEmpty.wav" id="7_55w1a"]
+[ext_resource type="Texture2D" uid="uid://lmis75svd84r" path="res://tile_assets/tile_atlas.png" id="7_cwlbs"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="7_h3uwt"]
 [ext_resource type="Script" path="res://movecounterui.gd" id="8_i11si"]
+[ext_resource type="Texture2D" uid="uid://croyn8hwfl303" path="res://tile_assets/start_tiles_atlas.png" id="8_ifmh5"]
 [ext_resource type="PackedScene" uid="uid://blobidbs6ysqp" path="res://end_turn_ui.tscn" id="9_scw21"]
-[ext_resource type="AudioStream" uid="uid://bnhxwm251de88" path="res://sound_assets/BGMusicV2.wav" id="14_ea1w7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7euwf"]
+texture = ExtResource("5_ava08")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+0:5/0 = 0
+0:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejulg"]
+texture = ExtResource("6_lx8nd")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t3n8v"]
+texture = ExtResource("7_cwlbs")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+20:0/0 = 0
+21:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+24:0/0 = 0
+25:0/0 = 0
+26:0/0 = 0
+27:0/0 = 0
+28:0/0 = 0
+29:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+20:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_muurj"]
+texture = ExtResource("8_ifmh5")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_360sl"]
+tile_shape = 3
+tile_size = Vector2i(444, 512)
+custom_data_layer_0/name = "name"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "available"
+custom_data_layer_1/type = 1
+custom_data_layer_2/name = "selectable"
+custom_data_layer_2/type = 1
+sources/111 = SubResource("TileSetAtlasSource_t3n8v")
+sources/8 = SubResource("TileSetAtlasSource_muurj")
+sources/0 = SubResource("TileSetAtlasSource_7euwf")
+sources/1 = SubResource("TileSetAtlasSource_ejulg")
+tile_proxies/coords_level = [[0, Vector2i(0, 0)], [8, Vector2i(0, 0)], [1, Vector2i(0, 0)], [5, Vector2i(1, 0)], [2, Vector2i(0, 0)], [8, Vector2i(1, 0)], [3, Vector2i(0, 0)], [8, Vector2i(2, 0)], [4, Vector2i(0, 0)], [8, Vector2i(3, 0)], [5, Vector2i(0, 0)], [8, Vector2i(4, 0)], [6, Vector2i(0, 0)], [8, Vector2i(5, 0)], [57, Vector2i(0, 0)], [111, Vector2i(0, 0)], [58, Vector2i(0, 0)], [111, Vector2i(1, 0)], [59, Vector2i(0, 0)], [111, Vector2i(2, 0)], [60, Vector2i(0, 0)], [111, Vector2i(3, 0)], [61, Vector2i(0, 0)], [111, Vector2i(4, 0)], [62, Vector2i(0, 0)], [111, Vector2i(5, 0)], [63, Vector2i(0, 0)], [111, Vector2i(6, 0)], [64, Vector2i(0, 0)], [111, Vector2i(7, 0)], [65, Vector2i(0, 0)], [111, Vector2i(8, 0)], [66, Vector2i(0, 0)], [111, Vector2i(9, 0)], [67, Vector2i(0, 0)], [111, Vector2i(10, 0)], [68, Vector2i(0, 0)], [111, Vector2i(11, 0)], [69, Vector2i(0, 0)], [111, Vector2i(12, 0)], [70, Vector2i(0, 0)], [111, Vector2i(13, 0)], [71, Vector2i(0, 0)], [111, Vector2i(14, 0)], [72, Vector2i(0, 0)], [111, Vector2i(15, 0)], [73, Vector2i(0, 0)], [111, Vector2i(16, 0)], [74, Vector2i(0, 0)], [111, Vector2i(17, 0)], [75, Vector2i(0, 0)], [111, Vector2i(18, 0)], [76, Vector2i(0, 0)], [111, Vector2i(19, 0)], [77, Vector2i(0, 0)], [111, Vector2i(20, 0)], [78, Vector2i(0, 0)], [111, Vector2i(21, 0)], [79, Vector2i(0, 0)], [111, Vector2i(22, 0)], [80, Vector2i(0, 0)], [111, Vector2i(23, 0)], [81, Vector2i(0, 0)], [111, Vector2i(24, 0)], [82, Vector2i(0, 0)], [111, Vector2i(25, 0)], [83, Vector2i(0, 0)], [111, Vector2i(26, 0)], [84, Vector2i(0, 0)], [111, Vector2i(27, 0)], [85, Vector2i(0, 0)], [111, Vector2i(28, 0)], [86, Vector2i(0, 0)], [111, Vector2i(29, 0)], [87, Vector2i(0, 0)], [111, Vector2i(0, 1)], [88, Vector2i(0, 0)], [111, Vector2i(1, 1)], [89, Vector2i(0, 0)], [111, Vector2i(2, 1)], [90, Vector2i(0, 0)], [111, Vector2i(3, 1)], [91, Vector2i(0, 0)], [111, Vector2i(4, 1)], [92, Vector2i(0, 0)], [111, Vector2i(5, 1)], [93, Vector2i(0, 0)], [111, Vector2i(6, 1)], [94, Vector2i(0, 0)], [111, Vector2i(7, 1)], [95, Vector2i(0, 0)], [111, Vector2i(8, 1)], [96, Vector2i(0, 0)], [111, Vector2i(9, 1)], [97, Vector2i(0, 0)], [111, Vector2i(10, 1)], [98, Vector2i(0, 0)], [111, Vector2i(11, 1)], [99, Vector2i(0, 0)], [111, Vector2i(12, 1)], [100, Vector2i(0, 0)], [111, Vector2i(13, 1)], [101, Vector2i(0, 0)], [111, Vector2i(14, 1)], [102, Vector2i(0, 0)], [111, Vector2i(15, 1)], [103, Vector2i(0, 0)], [111, Vector2i(16, 1)], [104, Vector2i(0, 0)], [111, Vector2i(17, 1)], [105, Vector2i(0, 0)], [111, Vector2i(18, 1)], [106, Vector2i(0, 0)], [111, Vector2i(19, 1)], [107, Vector2i(0, 0)], [111, Vector2i(20, 1)], [108, Vector2i(0, 0)], [111, Vector2i(21, 1)], [109, Vector2i(0, 0)], [111, Vector2i(22, 1)], [110, Vector2i(0, 0)], [111, Vector2i(23, 1)]]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_mcyre")
@@ -29,14 +158,17 @@ texture = ExtResource("2_mdy43")
 expand_mode = 2
 
 [node name="Board" parent="." instance=ExtResource("1_2ebvj")]
-position = Vector2(960, 502)
+position = Vector2(960, 540)
 scale = Vector2(0.148718, 0.148718)
+
+[node name="BoardBorder" parent="." instance=ExtResource("4_2qote")]
+position = Vector2(960, 540)
+scale = Vector2(0.148718, 0.148718)
+tile_set = SubResource("TileSet_360sl")
+script = null
 
 [node name="MoveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4vru6")
-
-[node name="SelectSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_c5q6y")
 
 [node name="ErrorSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_sk3qj")
@@ -47,10 +179,7 @@ stream = ExtResource("7_55w1a")
 [node name="QuitUI" parent="." instance=ExtResource("5_v4wlc")]
 visible = false
 
-[node name="StartUI" parent="." instance=ExtResource("6_pbho7")]
-
 [node name="MoveCounterUI" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("8_i11si")
 
 [node name="Counter" type="Label" parent="MoveCounterUI"]
@@ -65,16 +194,9 @@ label_settings = ExtResource("7_h3uwt")
 horizontal_alignment = 1
 
 [node name="EndTurnUI" parent="." instance=ExtResource("9_scw21")]
-visible = false
 
 [node name="Playspace" parent="." instance=ExtResource("2_uillq")]
 z_index = 10
 position = Vector2(960, 1130)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_ea1w7")
-autoplay = true
-
-[connection signal="players" from="StartUI" to="." method="_on_start_ui_players"]
-[connection signal="start_game" from="StartUI" to="." method="_on_start_ui_start_game"]
 [connection signal="end_turn" from="EndTurnUI" to="." method="_on_end_turn_ui_end_turn"]

@@ -9,18 +9,19 @@ var desc
 var activation
 var polarity
 var in_hand
+var num_in_hand
 @onready var texture = $Texture
 
 
 
-func init(CardData):
+func init(CardData, handNum=-1):
 	in_hand = CardData.in_hand
 	title = CardData.title
 	desc = CardData.description
 	activation = CardData.activation
 	polarity = CardData.polarity
+	num_in_hand = handNum
 	
-	print(polarity)
 	card_title.text = title
 	match(polarity):
 		"Negativt":
@@ -47,7 +48,7 @@ func init(CardData):
 func _on_mouse_entered():
 	if !in_hand: return
 	set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
-	position.y = -200
+	position.y = -220
 
 func _on_mouse_exited():
 	if !in_hand: return
@@ -57,7 +58,6 @@ func _gui_input(event):
 	if !in_hand: return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print(self)
 			play_self()
 
 func play_self():

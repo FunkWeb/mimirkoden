@@ -12,7 +12,6 @@ func init(CardData):
 	desc = CardData.description
 	polarity = CardData.polarity
 	
-	print(polarity)
 	card_title.text = title
 	card_desc.text = desc
 	match(polarity):

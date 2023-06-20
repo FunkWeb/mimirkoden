@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://blobidbs6ysqp"]
+[gd_scene load_steps=4 format=3 uid="uid://blobidbs6ysqp"]
 
 [ext_resource type="Script" path="res://end_turn_ui.gd" id="1_51th7"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="1_wot8r"]
+[ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="2_ma7aj"]
 
 [node name="EndTurnUI" type="CanvasLayer"]
 script = ExtResource("1_51th7")
@@ -14,6 +15,7 @@ offset_left = -124.5
 offset_right = 124.5
 offset_bottom = 101.0
 grow_horizontal = 2
+theme = ExtResource("2_ma7aj")
 
 [node name="EndTurnLabel" type="Label" parent="."]
 anchors_preset = 5
@@ -33,55 +35,38 @@ vertical_alignment = 1
 [node name="ConfirmationDialog" type="CanvasLayer" parent="."]
 visible = false
 
+[node name="ColorRect" type="ColorRect" parent="ConfirmationDialog"]
+offset_left = 669.0
+offset_top = 348.0
+offset_right = 1248.0
+offset_bottom = 590.0
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.784314)
+
 [node name="Message" type="Label" parent="ConfirmationDialog"]
-offset_left = 698.0
-offset_top = 830.0
-offset_right = 1218.0
-offset_bottom = 944.0
-text = "You have moves remaining.
-Really end turn?"
+offset_left = 693.0
+offset_top = 370.0
+offset_right = 1225.0
+offset_bottom = 484.0
+text = "Du kan fortsatt flytte deg.
+Virkelig avslutt tur?"
 label_settings = ExtResource("1_wot8r")
 
 [node name="YesButton" type="Button" parent="ConfirmationDialog"]
-offset_left = 750.0
-offset_top = 962.0
-offset_right = 862.0
-offset_bottom = 1047.0
+offset_left = 777.0
+offset_top = 486.0
+offset_right = 889.0
+offset_bottom = 571.0
+theme = ExtResource("2_ma7aj")
+text = "Ja"
 
 [node name="NoButton" type="Button" parent="ConfirmationDialog"]
-offset_left = 984.0
-offset_top = 962.0
-offset_right = 1110.0
-offset_bottom = 1052.0
-
-[node name="YesLabel" type="Label" parent="ConfirmationDialog"]
-offset_left = 773.0
-offset_top = 975.0
-offset_right = 837.0
-offset_bottom = 1032.0
-text = "Yes"
-label_settings = ExtResource("1_wot8r")
-
-[node name="NoLabel" type="Label" parent="ConfirmationDialog"]
-offset_left = 1019.0
-offset_top = 975.0
-offset_right = 1074.0
-offset_bottom = 1032.0
-text = "No"
-label_settings = ExtResource("1_wot8r")
-
-[node name="ConfirmationWindow" type="ConfirmationDialog" parent="."]
-size = Vector2i(300, 150)
-unresizable = true
-borderless = true
-always_on_top = true
-ok_button_text = "Ja"
-dialog_text = "Du kan fortsatt flytte deg.
-Virkelig avslutt tur?"
-cancel_button_text = "Tilbake"
+offset_left = 993.0
+offset_top = 484.0
+offset_right = 1119.0
+offset_bottom = 574.0
+theme = ExtResource("2_ma7aj")
+text = "Nei"
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="ConfirmationDialog/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="ConfirmationDialog/NoButton" to="." method="_on_no_button_pressed"]
-[connection signal="canceled" from="ConfirmationWindow" to="." method="_on_confirmation_window_canceled"]
-[connection signal="confirmed" from="ConfirmationWindow" to="." method="_on_confirmation_window_confirmed"]

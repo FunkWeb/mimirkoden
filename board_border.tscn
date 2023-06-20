@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://b4qjcjgpwl3yc"]
+
+[ext_resource type="Texture2D" uid="uid://db3rs7heg6y3r" path="res://tile_assets/frame_atlas 2.png" id="1_3x7mh"]
+[ext_resource type="Texture2D" uid="uid://b8a4h88gwarrd" path="res://tile_assets/start_border_atlas.png" id="2_6l2pt"]
+[ext_resource type="Texture2D" uid="uid://lmis75svd84r" path="res://tile_assets/tile_atlas.png" id="3_cqyaq"]
+[ext_resource type="Texture2D" uid="uid://croyn8hwfl303" path="res://tile_assets/start_tiles_atlas.png" id="4_nhfnt"]
+[ext_resource type="Script" path="res://board.gd" id="5_8h6tb"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7euwf"]
+texture = ExtResource("1_3x7mh")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+0:5/0 = 0
+0:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ejulg"]
+texture = ExtResource("2_6l2pt")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t3n8v"]
+texture = ExtResource("3_cqyaq")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+20:0/0 = 0
+21:0/0 = 0
+22:0/0 = 0
+23:0/0 = 0
+24:0/0 = 0
+25:0/0 = 0
+26:0/0 = 0
+27:0/0 = 0
+28:0/0 = 0
+29:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+20:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_muurj"]
+texture = ExtResource("4_nhfnt")
+texture_region_size = Vector2i(444, 512)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_360sl"]
+tile_shape = 3
+tile_size = Vector2i(444, 512)
+custom_data_layer_0/name = "name"
+custom_data_layer_0/type = 4
+custom_data_layer_1/name = "available"
+custom_data_layer_1/type = 1
+custom_data_layer_2/name = "selectable"
+custom_data_layer_2/type = 1
+sources/111 = SubResource("TileSetAtlasSource_t3n8v")
+sources/8 = SubResource("TileSetAtlasSource_muurj")
+sources/0 = SubResource("TileSetAtlasSource_7euwf")
+sources/1 = SubResource("TileSetAtlasSource_ejulg")
+tile_proxies/coords_level = [[0, Vector2i(0, 0)], [8, Vector2i(0, 0)], [1, Vector2i(0, 0)], [5, Vector2i(1, 0)], [2, Vector2i(0, 0)], [8, Vector2i(1, 0)], [3, Vector2i(0, 0)], [8, Vector2i(2, 0)], [4, Vector2i(0, 0)], [8, Vector2i(3, 0)], [5, Vector2i(0, 0)], [8, Vector2i(4, 0)], [6, Vector2i(0, 0)], [8, Vector2i(5, 0)], [57, Vector2i(0, 0)], [111, Vector2i(0, 0)], [58, Vector2i(0, 0)], [111, Vector2i(1, 0)], [59, Vector2i(0, 0)], [111, Vector2i(2, 0)], [60, Vector2i(0, 0)], [111, Vector2i(3, 0)], [61, Vector2i(0, 0)], [111, Vector2i(4, 0)], [62, Vector2i(0, 0)], [111, Vector2i(5, 0)], [63, Vector2i(0, 0)], [111, Vector2i(6, 0)], [64, Vector2i(0, 0)], [111, Vector2i(7, 0)], [65, Vector2i(0, 0)], [111, Vector2i(8, 0)], [66, Vector2i(0, 0)], [111, Vector2i(9, 0)], [67, Vector2i(0, 0)], [111, Vector2i(10, 0)], [68, Vector2i(0, 0)], [111, Vector2i(11, 0)], [69, Vector2i(0, 0)], [111, Vector2i(12, 0)], [70, Vector2i(0, 0)], [111, Vector2i(13, 0)], [71, Vector2i(0, 0)], [111, Vector2i(14, 0)], [72, Vector2i(0, 0)], [111, Vector2i(15, 0)], [73, Vector2i(0, 0)], [111, Vector2i(16, 0)], [74, Vector2i(0, 0)], [111, Vector2i(17, 0)], [75, Vector2i(0, 0)], [111, Vector2i(18, 0)], [76, Vector2i(0, 0)], [111, Vector2i(19, 0)], [77, Vector2i(0, 0)], [111, Vector2i(20, 0)], [78, Vector2i(0, 0)], [111, Vector2i(21, 0)], [79, Vector2i(0, 0)], [111, Vector2i(22, 0)], [80, Vector2i(0, 0)], [111, Vector2i(23, 0)], [81, Vector2i(0, 0)], [111, Vector2i(24, 0)], [82, Vector2i(0, 0)], [111, Vector2i(25, 0)], [83, Vector2i(0, 0)], [111, Vector2i(26, 0)], [84, Vector2i(0, 0)], [111, Vector2i(27, 0)], [85, Vector2i(0, 0)], [111, Vector2i(28, 0)], [86, Vector2i(0, 0)], [111, Vector2i(29, 0)], [87, Vector2i(0, 0)], [111, Vector2i(0, 1)], [88, Vector2i(0, 0)], [111, Vector2i(1, 1)], [89, Vector2i(0, 0)], [111, Vector2i(2, 1)], [90, Vector2i(0, 0)], [111, Vector2i(3, 1)], [91, Vector2i(0, 0)], [111, Vector2i(4, 1)], [92, Vector2i(0, 0)], [111, Vector2i(5, 1)], [93, Vector2i(0, 0)], [111, Vector2i(6, 1)], [94, Vector2i(0, 0)], [111, Vector2i(7, 1)], [95, Vector2i(0, 0)], [111, Vector2i(8, 1)], [96, Vector2i(0, 0)], [111, Vector2i(9, 1)], [97, Vector2i(0, 0)], [111, Vector2i(10, 1)], [98, Vector2i(0, 0)], [111, Vector2i(11, 1)], [99, Vector2i(0, 0)], [111, Vector2i(12, 1)], [100, Vector2i(0, 0)], [111, Vector2i(13, 1)], [101, Vector2i(0, 0)], [111, Vector2i(14, 1)], [102, Vector2i(0, 0)], [111, Vector2i(15, 1)], [103, Vector2i(0, 0)], [111, Vector2i(16, 1)], [104, Vector2i(0, 0)], [111, Vector2i(17, 1)], [105, Vector2i(0, 0)], [111, Vector2i(18, 1)], [106, Vector2i(0, 0)], [111, Vector2i(19, 1)], [107, Vector2i(0, 0)], [111, Vector2i(20, 1)], [108, Vector2i(0, 0)], [111, Vector2i(21, 1)], [109, Vector2i(0, 0)], [111, Vector2i(22, 1)], [110, Vector2i(0, 0)], [111, Vector2i(23, 1)]]
+
+[node name="BoardBorder" type="TileMap"]
+scale = Vector2(0.432993, 0.432993)
+tile_set = SubResource("TileSet_360sl")
+format = 2
+layer_0/tile_data = PackedInt32Array(327683, 327681, 2, 262148, 0, 2, 196612, 0, 2, 131077, 0, 2, 6, 262145, 3, 65541, 0, 2, 393217, 0, 3, 393216, 0, 3, 458751, 0, 3, 458750, 0, 3, 393211, 131073, 1, 327675, 0, 4, 262138, 0, 4, 196602, 0, 4, 131065, 0, 4, 65529, 65537, 2, -65543, 65537, 1, -131079, 0, 5, -196614, 0, 5, -262150, 0, 5, -327685, 0, 5, -458755, 1, 1, -458754, 0, 0, -458753, 0, 0, -524288, 0, 0, -524287, 0, 0, -524286, 196609, 2, -458749, 196609, 3, -393212, 0, 1, -327676, 0, 1, -262139, 0, 1, -196603, 0, 1, -131066, 262145, 2, 458749, 131073, 2, 393218, 327681, 3, -458757, 1, 0, -524292, 1, 3, -9, 65537, 4, -65544, 65537, 3, 65528, 65537, 0, 524283, 131073, 4, 458747, 131073, 3, 524284, 131073, 0, -589821, 196609, 0, -524284, 196609, 1, -589822, 196609, 4, -65529, 262145, 0, 7, 262145, 1, -131065, 262145, 4, 458754, 327681, 1, 458755, 327681, 0, -393221, 1, 2, -524293, 1, 4, 393220, 327681, 4)
+script = ExtResource("5_8h6tb")
