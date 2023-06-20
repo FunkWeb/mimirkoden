@@ -1,10 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://cvp45gs8abvkb"]
+[gd_scene load_steps=22 format=3 uid="uid://byv1mvtyk5f6"]
 
 [ext_resource type="PackedScene" uid="uid://bv3gd5i8irs4v" path="res://board.tscn" id="1_2ebvj"]
 [ext_resource type="Script" path="res://main.gd" id="1_mcyre"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_mdy43"]
 [ext_resource type="PackedScene" uid="uid://one46iqn2tei" path="res://playspace.tscn" id="2_uillq"]
-[ext_resource type="PackedScene" uid="uid://b4qjcjgpwl3yc" path="res://board_border.tscn" id="4_2qote"]
+[ext_resource type="PackedScene" path="res://board_border.tscn" id="4_2qote"]
 [ext_resource type="AudioStream" uid="uid://3r4mekjsdjej" path="res://sound_assets/Move.wav" id="4_4vru6"]
 [ext_resource type="Texture2D" uid="uid://db3rs7heg6y3r" path="res://tile_assets/frame_atlas 2.png" id="5_ava08"]
 [ext_resource type="PackedScene" uid="uid://5pxrlf7ebbl3" path="res://quit_ui.tscn" id="5_v4wlc"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" path="res://movecounterui.gd" id="8_i11si"]
 [ext_resource type="Texture2D" uid="uid://croyn8hwfl303" path="res://tile_assets/start_tiles_atlas.png" id="8_ifmh5"]
 [ext_resource type="PackedScene" uid="uid://blobidbs6ysqp" path="res://end_turn_ui.tscn" id="9_scw21"]
-[ext_resource type="AudioStream" uid="uid://bnhxwm251de88" path="res://sound_assets/BGMusicV2.wav" id="14_ea1w7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7euwf"]
 texture = ExtResource("5_ava08")
@@ -199,9 +198,5 @@ horizontal_alignment = 1
 [node name="Playspace" parent="." instance=ExtResource("2_uillq")]
 z_index = 10
 position = Vector2(960, 1130)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("14_ea1w7")
-autoplay = true
 
 [connection signal="end_turn" from="EndTurnUI" to="." method="_on_end_turn_ui_end_turn"]
