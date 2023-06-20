@@ -24,9 +24,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -204.0
-offset_top = 152.0
+offset_top = 188.0
 offset_right = 204.0
-offset_bottom = 248.0
+offset_bottom = 284.0
 grow_horizontal = 2
 text = "Mimirkoden"
 label_settings = ExtResource("2_fke8g")
@@ -34,22 +34,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StartUI2" parent="." instance=ExtResource("4_c45ay")]
-offset_top = -208.0
-offset_bottom = -208.0
+offset_top = -115.0
+offset_bottom = -115.0
 
 [node name="ButtonRules" type="Button" parent="."]
 offset_left = 894.0
-offset_top = 468.0
+offset_top = 561.0
 offset_right = 1022.0
-offset_bottom = 517.0
+offset_bottom = 610.0
 theme = ExtResource("5_7gvj8")
 text = "Regler"
 
 [node name="ButtonCredits" type="Button" parent="."]
 offset_left = 845.0
-offset_top = 534.0
+offset_top = 627.0
 offset_right = 1073.0
-offset_bottom = 583.0
+offset_bottom = 676.0
 theme = ExtResource("5_7gvj8")
 text = "kreditering"
 
@@ -60,9 +60,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -115.0
-offset_top = 60.0
+offset_top = 153.0
 offset_right = 113.0
-offset_bottom = 109.0
+offset_bottom = 202.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("5_7gvj8")
