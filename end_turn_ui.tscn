@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://end_turn_ui.gd" id="1_51th7"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="1_wot8r"]
-[ext_resource type="FontFile" uid="uid://c4m1ip0vv2mvm" path="res://card_assets/text_settings/fonts/DS-DIGI.TTF" id="3_v1d86"]
+[ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="2_ma7aj"]
 
 [node name="EndTurnUI" type="CanvasLayer"]
 script = ExtResource("1_51th7")
@@ -15,6 +15,7 @@ offset_left = -124.5
 offset_right = 124.5
 offset_bottom = 101.0
 grow_horizontal = 2
+theme = ExtResource("2_ma7aj")
 
 [node name="EndTurnLabel" type="Label" parent="."]
 anchors_preset = 5
@@ -55,8 +56,7 @@ offset_left = 777.0
 offset_top = 486.0
 offset_right = 889.0
 offset_bottom = 571.0
-theme_override_fonts/font = ExtResource("3_v1d86")
-theme_override_font_sizes/font_size = 35
+theme = ExtResource("2_ma7aj")
 text = "Ja"
 
 [node name="NoButton" type="Button" parent="ConfirmationDialog"]
@@ -64,8 +64,7 @@ offset_left = 993.0
 offset_top = 484.0
 offset_right = 1119.0
 offset_bottom = 574.0
-theme_override_fonts/font = ExtResource("3_v1d86")
-theme_override_font_sizes/font_size = 35
+theme = ExtResource("2_ma7aj")
 text = "Nei"
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://rules.gd" id="1_d3ljk"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_8j7ri"]
-[ext_resource type="FontFile" uid="uid://bq7qopwm52n6m" path="res://card_assets/text_settings/fonts/DS-DIGIT.TTF" id="3_qx68l"]
+[ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="3_4kndx"]
 [ext_resource type="Texture2D" uid="uid://lmis75svd84r" path="res://tile_assets/tile_atlas.png" id="4_lor1d"]
 [ext_resource type="Texture2D" uid="uid://croyn8hwfl303" path="res://tile_assets/start_tiles_atlas.png" id="5_7nvmd"]
 [ext_resource type="LabelSettings" uid="uid://c5r2il4oxf0xe" path="res://UI settings/UI Label Settings.tres" id="6_ugn8s"]
@@ -115,8 +115,7 @@ offset_right = 214.0
 offset_bottom = 448.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_qx68l")
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("3_4kndx")
 text = "Tilbake til hovedmenyen"
 
 [node name="Tiles" type="Label" parent="."]

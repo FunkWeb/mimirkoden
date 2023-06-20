@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://credits.gd" id="1_k73j6"]
 [ext_resource type="Texture2D" uid="uid://bi7uuyn43wvd5" path="res://background.jpg" id="2_r8uo2"]
-[ext_resource type="FontFile" uid="uid://bq7qopwm52n6m" path="res://card_assets/text_settings/fonts/DS-DIGIT.TTF" id="4_mhu4b"]
+[ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="3_uhl13"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_k73j6")
@@ -29,8 +29,7 @@ offset_right = 114.0
 offset_bottom = 164.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_mhu4b")
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("3_uhl13")
 text = "Tilbake til hovedmenyen"
 
 [connection signal="pressed" from="ButtonReturn" to="." method="_on_button_return_pressed"]
