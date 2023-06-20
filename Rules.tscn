@@ -218,30 +218,39 @@ offset_left = 987.0
 offset_top = 158.0
 offset_right = 1669.0
 offset_bottom = 860.0
+autowrap_mode = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 988.0
+offset_top = 131.0
+offset_right = 1639.0
+offset_bottom = 859.0
+bbcode_enabled = true
 text = "Mimirkoden er et spill for 2 til 6 spillere.
 
+[b]Hver runde[/b]
 ●Hver runde kan man bevege seg opp til 3 skritt.
 	○ Man kan ikke bevege seg inn i et felt mer enn én gang per runde, og man kan heller ikke bevege seg i
 			samme felt som en motspiller
 	○ Hvis man lander på et spesialfelt - \"sjanse\", \"svartebørs\", \"kryptering\", \"sikkerhetsfeil\" - kan man ikke flytte seg flere felt den runden.
 
+[b]Valuta[/b]
 ● Batteri brukes som valuta for å kjøpe nøkler
 	○ Man kan ikke ha mer enn 20 batterier.
 	○ Dersom man går i minus på batterier, eller ender turen sin med 0 batteri, mister man én nøkkel og må
 			flytte tilbake til startfeltet.
 
-Spesialfelt:
-● Sjanse: Trekk ett sjansekort og utfør det som står på kortet.
-● Kryptering: Betal 5 nøkler for å stoppe på dette feltet.
-● Sikkerhetsfeil: Trekk ett sikkerhetsfeilkort og utfør det som står på kortet.
-● Svartebørs: I svartebørsen kan man kjøpe nøkler - så mange man har råd til.
+[b]Spesialfelt[/b]:
+● [b]Sjanse[/b]: Trekk ett sjansekort og utfør det som står på kortet.
+● [b]Kryptering[/b]: Betal 5 nøkler for å stoppe på dette feltet.
+● [b]Sikkerhetsfeil[/b]: Trekk ett sikkerhetsfeilkort og utfør det som står på kortet.
+● [b]Svartebørs[/b]: I svartebørsen kan man kjøpe nøkler - så mange man har råd til.
 	○ Det koster 3 batterier per nøkkel.
 
-Mål:
-● Målet er å skaffe nok nøkler til å få tak i Mimirkoden
+[b]Mål[/b]:
+● Målet er å skaffe nok nøkler til å få tak i [b]Mimirkoden[/b]
 	○ Man kan maks ha 10 nøkler.
 	○ Nøkler kan finnes på sjanse-kort eller kjøpes på svartebørsen
 	○ Man trenger 5 nøkler for å flytte seg inn på Mimirkode-feltet"
-autowrap_mode = 3
 
 [connection signal="pressed" from="ButtonReturn" to="." method="_on_button_return_pressed"]
