@@ -96,8 +96,7 @@ horizontal_alignment = 1
 
 [node name="Takker" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Anders Pettersen - Prosjekteier
-Ingeborg Eikrem - Prosjektleder"
+text = "Funkweb AS - Lokalet/Utstyr"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="ButtonReturn" to="." method="_on_button_return_pressed"]
