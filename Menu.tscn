@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://brh73wxl6ta8s" path="res://start_ui_.tscn" id="4_c45ay"]
 [ext_resource type="Theme" uid="uid://7miaudw2s7n0" path="res://UI settings/button_theme.tres" id="5_7gvj8"]
 
-[node name="Node" type="Node"]
+[node name="Menu" type="Node"]
 script = ExtResource("1_giknc")
 
 [node name="Background" type="TextureRect" parent="."]
