@@ -1,5 +1,5 @@
 # Mimirkoden
-## Utviklet av medlemmer av Funksoft, under Funkweb Kompetanse
+## Utviklet av Funksoft, under Funkweb Kompetanse
 ### Basert på brettspillet "Jakten på Mimirkoden", også utviklet av Funksoft
 
 --- 
@@ -34,9 +34,6 @@ thomas.solheim01@gmail.com
 - Hans Emil Beritsveen Eid
 - Andreas Larsen-Asp
 - Markus Myklebust Langeland
-
-### Ekstra takk:
-Funkweb AS - Lokalet/Utstyr
 
 ---
 
